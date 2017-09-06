@@ -15,7 +15,7 @@ namespace KYHBPA.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message="Your application description page.";
+            ViewBag.Message="Your application is now broken."; //Evan Walsh change
 
             return View();
         }
