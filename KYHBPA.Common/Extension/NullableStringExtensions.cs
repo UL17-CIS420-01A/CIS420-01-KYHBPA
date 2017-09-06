@@ -1,4 +1,4 @@
-﻿namespace KYHBPA.Common
+﻿namespace KYHBPA
 {
     /// <summary>
     /// This is an extension class that adds additional 

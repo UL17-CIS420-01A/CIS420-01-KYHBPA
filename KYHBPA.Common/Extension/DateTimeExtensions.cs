@@ -1,4 +1,4 @@
-﻿namespace KYHBPA.Common
+﻿namespace KYHBPA
 {
     using System;
 
@@ -16,7 +16,6 @@
             var ticks = date.Ticks;
             return ticks>=startDate.Ticks&&ticks<=endDate.Ticks;
         }
-
 
         /// <summary>
         /// Returns 12:59:59pm time for the date passed.

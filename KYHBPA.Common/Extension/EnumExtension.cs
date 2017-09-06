@@ -1,4 +1,4 @@
-﻿namespace KYHBPA.Common
+﻿namespace KYHBPA
 {
     using System.ComponentModel;
 
@@ -10,7 +10,6 @@
         /// </summary>
         /// <param name="value">The enum value</param>
         /// <returns>The description</returns>
-
         public static string GetDescription(this System.Enum value)
         {
             var fieldInfo = value.GetType().GetField(value.ToString());

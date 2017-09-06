@@ -1,4 +1,4 @@
-﻿namespace KYHBPA.Common
+﻿namespace KYHBPA
 {
     using System;
     using System.Collections.Generic;
@@ -16,8 +16,7 @@
         /// <example>
         /// var topics = topicTree.FlattenTree(t=> t.Topics);
         /// </example>
-        public static IEnumerable<T> FlattenTree<T>(
-          this IEnumerable<T> e,
-          Func<T, IEnumerable<T>> f) => e.SelectMany(c => f(c).FlattenTree(f)).Concat(e);
+        public static IEnumerable<T> FlattenTree<T>(this IEnumerable<T> e, Func<T, IEnumerable<T>> f) =>
+            e.SelectMany(c => f(c).FlattenTree(f)).Concat(e);
     }
 }

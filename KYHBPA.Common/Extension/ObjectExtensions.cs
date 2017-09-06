@@ -1,4 +1,4 @@
-﻿namespace KYHBPA.Common
+﻿namespace KYHBPA
 {
     /// <summary>
     /// Object Extension Class
