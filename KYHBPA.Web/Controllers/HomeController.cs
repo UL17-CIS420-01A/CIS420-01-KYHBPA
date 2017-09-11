@@ -15,14 +15,14 @@ namespace KYHBPA.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message="Your done goofed Louis!";
+            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message="This might be your contact page. What do you think?";
+            ViewBag.Message = "Your contact page.";
 
             return View();
         }
