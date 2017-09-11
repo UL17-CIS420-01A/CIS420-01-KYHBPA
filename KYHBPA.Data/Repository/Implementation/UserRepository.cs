@@ -2,44 +2,52 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using KYHBPA.Data.Entity;
     using KYHBPA.Data.Infrastructure;
 
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        public AspNetUser FindUser(Guid userId)
+        public UserRepository(Entities context) : base(context)
         {
-            using (var context = new Entities())
-            {
-                var user = context.AspNetUsers.AsNoTracking().FirstOrDefault(o => o.Id == userId.ToString());
-                return user;
-            }
         }
 
-        public AspNetUser FindUser(string userName)
+        public async Task<AspNetUser> FindByIdAsync(Guid userId)
         {
-            using (var context = new Entities())
-            {
-                var user = context.AspNetUsers.AsNoTracking().FirstOrDefault(o => o.UserName == userName.ToString());
-                return user;
-            }
+            return await new Task<AspNetUser>(() => FindById(userId));
+        }
+
+        public async Task<AspNetUser> FindByUsernameAsync(string userName)
+        {
+            return await new Task<AspNetUser>(() => FindByUsername(userName));
+        }
+
+        public AspNetUser FindById(Guid userId)
+        {
+            return context.AspNetUsers.AsNoTracking().SingleOrDefault(o => Guid.Parse(o.Id) == userId);
+        }
+
+        public AspNetUser FindByUsername(string userName)
+        {
+            return context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
         }
 
         public List<AspNetUser> FindUsers()
         {
-            using (var context = new Entities())
-            {
-                var users = context.AspNetUsers.AsNoTracking();
-                return users.ToList();
-            }
+            return context.AspNetUsers.AsNoTracking().ToList();
         }
 
         public bool IsInRole(string role, Guid userId)
         {
             return FindUsers().Any(u => u.AspNetRoles.Any(r => r.Name == role));
+        }
+
+        public bool IsInRole(AspNetRole role, Guid userId)
+        {
+            return FindUsers().Any(u => u.AspNetRoles.Any(r => r.Name == role.Name));
         }
     }
 }
