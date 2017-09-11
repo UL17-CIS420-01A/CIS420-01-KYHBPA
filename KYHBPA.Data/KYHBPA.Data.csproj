@@ -62,31 +62,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\AspNetRole.cs">
-      <DependentUpon>KYHBPA.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUser.cs">
-      <DependentUpon>KYHBPA.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUserClaim.cs">
-      <DependentUpon>KYHBPA.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUserLogin.cs">
-      <DependentUpon>KYHBPA.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\KYHBPA.Context.cs">
+    <Compile Include="Entity\KYHBPADBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPA.Context.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\KYHBPA.cs">
+    <Compile Include="Entity\KYHBPADBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPA.tt</DependentUpon>
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\KYHBPADBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Membership.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Entities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,15 +124,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Entity\KYHBPA.Context.tt">
+    <Content Include="Entity\KYHBPADBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KYHBPADBModel.Context.cs</LastGenOutput>
       <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
-      <LastGenOutput>KYHBPA.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entity\KYHBPA.tt">
+    <Content Include="Entity\KYHBPADBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KYHBPADBModel.cs</LastGenOutput>
       <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
-      <LastGenOutput>KYHBPA.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

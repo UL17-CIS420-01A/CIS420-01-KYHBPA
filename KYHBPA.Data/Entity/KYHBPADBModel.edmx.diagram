@@ -12,6 +12,8 @@
         <AssociationConnector Association="KYHBPA.Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="KYHBPA.Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="KYHBPA.Models.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KYHBPA.Models.Membership" Width="1.5" PointX="5.375" PointY="6.875" />
+        <AssociationConnector Association="KYHBPA.Models.FK_dbo_AspNetUsers_dbo_Memberships_Membership_Id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

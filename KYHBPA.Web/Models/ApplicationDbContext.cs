@@ -13,5 +13,7 @@ namespace KYHBPA.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<KYHBPA.Web.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
