@@ -1,5 +1,6 @@
 using System.Data.Common;
 using System.Data.Entity;
+using KYHBPA.Data.Entity;
 using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Web
@@ -51,6 +52,7 @@ namespace KYHBPA.Web
             container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<DbContext, Entities>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IRepository<AspNetUser, string>, UserRepository>();
         }
     }
 }

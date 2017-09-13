@@ -17,13 +17,6 @@ namespace KYHBPA.Web.Models
             return userIdentity;
         }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FullName => $"{FirstName} {LastName}";
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public int ZipCode { get; set; }
-        public Membership Membership { get; set; }
+        public virtual Member Member { get; set; }
     }
 }

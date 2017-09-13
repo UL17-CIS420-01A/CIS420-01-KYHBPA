@@ -9,15 +9,10 @@
     using KYHBPA.Data.Entity;
     using KYHBPA.Data.Infrastructure;
 
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : BaseRepository<AspNetUser, string>, IUserRepository
     {
         public UserRepository(Entities context) : base(context)
         {
-        }
-
-        public async Task<AspNetUser> FindByIdAsync(Guid userId)
-        {
-            return await new Task<AspNetUser>(() => FindById(userId));
         }
 
         public async Task<AspNetUser> FindByUsernameAsync(string userName)
@@ -25,29 +20,29 @@
             return await new Task<AspNetUser>(() => FindByUsername(userName));
         }
 
-        public AspNetUser FindById(Guid userId)
+        public new AspNetUser FindById(string id)
         {
-            return context.AspNetUsers.AsNoTracking().SingleOrDefault(o => Guid.Parse(o.Id) == userId);
+            return Context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.Id == id);
         }
 
         public AspNetUser FindByUsername(string userName)
         {
-            return context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
+            return Context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
         }
 
         public List<AspNetUser> FindUsers()
         {
-            return context.AspNetUsers.AsNoTracking().ToList();
+            return Context.AspNetUsers.AsNoTracking().ToList();
         }
 
-        public bool IsInRole(string role, Guid userId)
+        public bool IsInRole(string role, string id)
         {
-            return FindUsers().Any(u => u.AspNetRoles.Any(r => r.Name == role));
+            return FindById(id).AspNetRoles.Any(r =>  r.Name == role);
         }
 
-        public bool IsInRole(AspNetRole role, Guid userId)
+        public bool IsInRole(AspNetRole role, string id)
         {
-            return FindUsers().Any(u => u.AspNetRoles.Any(r => r.Name == role.Name));
+            return FindById(id).AspNetRoles.Any(r =>  r.Name == role.Name);
         }
     }
 }

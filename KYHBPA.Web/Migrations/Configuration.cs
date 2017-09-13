@@ -9,7 +9,8 @@ namespace KYHBPA.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "KYHBPA.Web.Models.ApplicationDbContext";
         }
 

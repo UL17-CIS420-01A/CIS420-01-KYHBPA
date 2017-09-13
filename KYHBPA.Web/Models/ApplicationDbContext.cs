@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KYHBPA.Web.Models
 {
@@ -14,6 +15,9 @@ namespace KYHBPA.Web.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<KYHBPA.Web.Models.ApplicationUser> ApplicationUsers { get; set; }
+        public override IDbSet<ApplicationUser> Users { get; set; }
+        public IDbSet<Document> Documents { get; set; }
+        public IDbSet<Event> Events { get; set; }
+        public IDbSet<Poll> Polls { get; set; }
     }
 }
