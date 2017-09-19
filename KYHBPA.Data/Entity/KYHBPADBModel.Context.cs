@@ -29,6 +29,15 @@ namespace KYHBPA.Data.Entity
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Membership> Memberships { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<EmployeeContact> EmployeeContacts { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EventFeedback> EventFeedbacks { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<PollQuestion> PollQuestions { get; set; }
+        public virtual DbSet<PollRespons> PollResponses { get; set; }
+        public virtual DbSet<Poll> Polls { get; set; }
     }
 }

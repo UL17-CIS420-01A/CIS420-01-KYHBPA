@@ -17,7 +17,13 @@ namespace KYHBPA.Web.Models
 
         public override IDbSet<ApplicationUser> Users { get; set; }
         public IDbSet<Document> Documents { get; set; }
+        public IDbSet<Employee> Employees { get; set; }
+        public IDbSet<EmployeeContact> EmployeeContacts { get; set; }
         public IDbSet<Event> Events { get; set; }
+        public IDbSet<EventFeedback> EventFeedback {get;set; }
+        public IDbSet<Photo> Photos { get; set; }
         public IDbSet<Poll> Polls { get; set; }
+        public IDbSet<PollQuestion> PollQuestions { get; set; }
+        public IDbSet<PollResponse> PollResponses { get; set; }
     }
 }

@@ -12,18 +12,12 @@ namespace KYHBPA.Data.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Membership
+    public partial class Employee
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Membership()
-        {
-            this.AspNetUsers = new HashSet<AspNetUser>();
-        }
-    
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string JobTitle { get; set; }
+        public Nullable<int> Member_Id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual Member Member { get; set; }
     }
 }

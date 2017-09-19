@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-using KYHBPA.Web.Filters;
+using KYHBPA.Web.Infrastructure.Filters;
 
 namespace KYHBPA.Web
 {

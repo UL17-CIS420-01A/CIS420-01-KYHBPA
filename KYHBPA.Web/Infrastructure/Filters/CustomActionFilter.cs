@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web.Filters
+namespace KYHBPA.Web.Infrastructure.Filters
 {
 
     public class CustomActionFilter : IResultFilter, IActionFilter

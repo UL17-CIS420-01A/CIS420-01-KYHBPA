@@ -73,6 +73,21 @@
     <Compile Include="Entity\AspNetUserLogin.cs">
       <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Document.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Employee.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EmployeeContact.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Event.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EventFeedback.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entity\KYHBPADBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,15 +103,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Membership.cs">
+    <Compile Include="Entity\Member.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Photo.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Poll.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PollQuestion.cs">
+      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PollRespons.cs">
       <DependentUpon>KYHBPADBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Entities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
+    <Compile Include="Repository\Implementation\UserRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
-    <Compile Include="Repository\Implementation\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KYHBPA.Common\KYHBPA.Common.csproj">
@@ -113,10 +140,6 @@
       <LastGenOutput>KYHBPADBModel.Designer.cs</LastGenOutput>
       <CustomToolNamespace>KYHBPA.Data.Entity</CustomToolNamespace>
     </EntityDeploy>
-    <None Include="Entity\KYHBPADBModel.edmx.diagram">
-      <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

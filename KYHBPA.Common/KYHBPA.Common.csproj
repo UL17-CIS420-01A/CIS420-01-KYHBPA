@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +55,7 @@
     <Compile Include="Extension\Base64StringExtensions.cs" />
     <Compile Include="Extension\CommonFunctions.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />
+    <Compile Include="Extension\ImageExtensions.cs" />
     <Compile Include="Extension\LinqExtensions.cs" />
     <Compile Include="Extension\MemoryStreamExtensions.cs" />
     <Compile Include="Extension\NullableStringExtensions.cs" />

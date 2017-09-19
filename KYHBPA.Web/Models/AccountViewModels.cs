@@ -5,7 +5,7 @@ namespace KYHBPA.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
+        [Required]  
         [Display(Name = "Email")]
         public string Email
         {
@@ -133,6 +133,14 @@ namespace KYHBPA.Web.Models
         {
             get; set;
         }
+
+        //[Required]
+        //[DataType(DataType.Custom)]
+        //[Display(Name = "Member Details")]
+        //public Member Members
+        //{
+        //    get; set;
+        //}
     }
 
     public class ResetPasswordViewModel
