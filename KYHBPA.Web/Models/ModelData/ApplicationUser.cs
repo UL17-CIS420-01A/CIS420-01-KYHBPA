@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,7 +17,7 @@ namespace KYHBPA.Web.Models
             // Add custom user claims here
             return userIdentity;
         }
-
-        public virtual Member Member { get; set; }
+        
+        public Member Member { get; set; }
     }
 }

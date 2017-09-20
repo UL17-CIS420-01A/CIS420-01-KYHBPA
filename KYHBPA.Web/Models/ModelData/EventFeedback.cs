@@ -12,6 +12,6 @@ namespace KYHBPA.Web.Models
         public int Id { get; set; }
         public Event Event { get; set; }
         public Member Member { get; set; }
-        public String Comments { get; set; }
+        public string Comments { get; set; }
     }
 }

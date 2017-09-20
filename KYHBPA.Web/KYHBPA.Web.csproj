@@ -213,16 +213,22 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
+    <Compile Include="Infrastructure\Attributes\MinimumFileSizeValidator.cs" />
+    <Compile Include="Infrastructure\Attributes\ValidFileTypeValidator.cs" />
     <Compile Include="Infrastructure\Filters\CustomActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\PhotosViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ModelData\ApplicationUser.cs" />
@@ -308,6 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>

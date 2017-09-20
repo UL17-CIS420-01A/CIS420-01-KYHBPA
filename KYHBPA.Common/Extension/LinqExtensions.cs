@@ -18,5 +18,13 @@
         /// </example>
         public static IEnumerable<T> FlattenTree<T>(this IEnumerable<T> e, Func<T, IEnumerable<T>> f) =>
             e.SelectMany(c => f(c).FlattenTree(f)).Concat(e);
+
+
+        public static string ToConcatenatedString<T>(this IEnumerable<T> values, string separator = ",") =>
+            string.Join(separator, values.Select((o) => o.ToString()));
+
+        public static string ToConcatenatedString<T>(this IEnumerable<T> values, char separator) =>
+            values.ToConcatenatedString(separator.ToString());
+
     }
 }

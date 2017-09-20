@@ -9,7 +9,7 @@
 
 //namespace KYHBPA.Web.Controllers
 //{
-//    public class CalendarController : Controller
+//    public class CalendarController : BaseController
 //    {
 //        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 

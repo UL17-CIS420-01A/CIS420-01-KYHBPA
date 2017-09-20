@@ -7,6 +7,7 @@ namespace KYHBPA.Web.Models
     public class Member
     {
         [Required]
+        [Display(AutoGenerateField = false)]
         public int Id { get; set; }
 
         [RegularExpression(@"[\w' -]+")]

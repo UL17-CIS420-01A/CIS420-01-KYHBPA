@@ -10,6 +10,8 @@
         /// </summary>
         /// <param name="value">Input value</param>
         /// <returns>String output, even if value is null</returns>
-        public static string NullableToString(this object value) => value==null ? string.Empty : value.ToString();
+        public static string NullableToString(this object value) => value?.ToString() ?? string.Empty;
+
+        public static bool IsNull(this object value) => value == null;
     }
 }

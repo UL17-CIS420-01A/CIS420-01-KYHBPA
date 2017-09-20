@@ -20,14 +20,14 @@
         /// <returns>SecureString</returns>
         public static SecureString ToSecureString(this string value)
         {
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
             {
                 return null;
             }
 
             var secureString = new SecureString();
 
-            foreach(var character in value)
+            foreach (var character in value)
             {
                 secureString.AppendChar(character);
             }
@@ -42,7 +42,7 @@
         /// <returns>string or string.Empty</returns>
         public static string FromSecureString(this SecureString value)
         {
-            if(value==null)
+            if (value == null)
             {
                 return string.Empty;
             }
@@ -51,7 +51,7 @@
 
             try
             {
-                valuePtr=Marshal.SecureStringToGlobalAllocUnicode(value);
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
 
                 return Marshal.PtrToStringUni(valuePtr);
             }
