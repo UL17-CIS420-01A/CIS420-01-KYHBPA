@@ -15,17 +15,6 @@ namespace KYHBPA.Web.Controllers
         private UserStore<ApplicationUser> _userStore;
         private UserManager<ApplicationUser> _userManager;
 
-
-        public BaseController()
-        {
-        }
-
-        //protected ApplicationDbContext Db
-        //{
-        //    get { return _db ?? (Db = new ApplicationDbContext()); }
-        //    set { _db = value; }
-        //}
-
         protected UserStore<ApplicationUser> UserStore
         {
             get { return _userStore ?? (UserStore = new UserStore<ApplicationUser>(Db)); }
@@ -40,16 +29,7 @@ namespace KYHBPA.Web.Controllers
 
         protected IPrincipal CurrentPrincipal => base.User;
         protected IIdentity CurrentIdentity => CurrentPrincipal?.Identity;
-        protected new ApplicationUser User => //UserManager.FindByIdAsync(CurrentIdentity?.GetUserId()).Result;
-        HttpContext.GetOwinContext().Get<ApplicationUser>(CurrentIdentity?.GetUserId());
-        //public ApplicationUser User()
-        //{
-        //    return db.Users.SingleOrDefault(user => user.Id == AspNetUser.Identity.GetUserId());
-        //}
-
-        //public ApplicationUser GetApplicationUser()
-        //{
-        //    return db.Users.SingleOrDefault(user => user.Id == User.Identity.GetUserId());
-        //}
+        //UserManager.FindByIdAsync(CurrentIdentity?.GetUserId()).Result;
+        protected new ApplicationUser User => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(CurrentIdentity?.GetUserId()); //(CurrentIdentity?.GetUserId())
     }
 }
