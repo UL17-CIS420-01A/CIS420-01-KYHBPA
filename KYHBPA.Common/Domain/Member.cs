@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KYHBPA.Web.Models
+namespace KYHBPA
 {
     public class Member
     {
         [Required]
-        [Display(AutoGenerateField = false)]
         public int Id { get; set; }
 
         [RegularExpression(@"[\w' -]+")]
@@ -25,9 +24,6 @@ namespace KYHBPA.Web.Models
         [Display(Name = "Date of Birth")]
         public DateTime DateOfBirth { get; set; }
 
-        //[Required(AllowEmptyStrings = false, ErrorMessage = " Required")]
-        //[Display(Name = "")]
-        [Display(AutoGenerateField = false)]
         public DateTime MembershipEnrollment { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = " Required")]

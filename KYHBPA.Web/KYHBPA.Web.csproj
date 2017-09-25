@@ -220,7 +220,6 @@
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
     <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
-    <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
     <Compile Include="Infrastructure\Attributes\MinimumFileSizeValidator.cs" />
     <Compile Include="Infrastructure\Attributes\ValidFileTypeValidator.cs" />
@@ -229,21 +228,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\PhotosViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ModelData\ApplicationUser.cs" />
-    <Compile Include="Models\ModelData\Employee.cs" />
-    <Compile Include="Models\ModelData\EventFeedback.cs" />
-    <Compile Include="Models\ModelData\EmployeeContact.cs" />
-    <Compile Include="Models\ModelData\Document.cs" />
-    <Compile Include="Models\ModelData\Event.cs" />
+    <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelData\Photo.cs" />
-    <Compile Include="Models\ModelData\Member.cs" />
-    <Compile Include="Models\ModelData\Poll.cs" />
-    <Compile Include="Models\ModelData\PollResponse.cs" />
-    <Compile Include="Models\ModelData\PollQuestion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

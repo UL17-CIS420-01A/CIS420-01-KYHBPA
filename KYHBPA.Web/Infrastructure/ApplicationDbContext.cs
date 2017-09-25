@@ -1,7 +1,8 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace KYHBPA.Web.Models
+// ReSharper disable once CheckNamespace
+namespace KYHBPA
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

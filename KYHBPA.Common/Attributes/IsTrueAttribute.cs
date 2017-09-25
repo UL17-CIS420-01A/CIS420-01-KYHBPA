@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public class IsTrueAttribute : ValidationAttribute
     {

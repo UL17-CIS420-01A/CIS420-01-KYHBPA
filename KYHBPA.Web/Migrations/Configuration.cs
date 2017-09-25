@@ -5,7 +5,7 @@ namespace KYHBPA.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<KYHBPA.Web.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -14,7 +14,7 @@ namespace KYHBPA.Web.Migrations
             ContextKey = "KYHBPA.Web.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(KYHBPA.Web.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

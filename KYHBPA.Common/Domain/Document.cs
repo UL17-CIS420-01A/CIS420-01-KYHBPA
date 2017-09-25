@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace KYHBPA.Web.Models
+namespace KYHBPA
 {
     public class Document
     {
