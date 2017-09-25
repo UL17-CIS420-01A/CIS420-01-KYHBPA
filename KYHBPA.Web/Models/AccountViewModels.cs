@@ -134,13 +134,13 @@ namespace KYHBPA.Web.Models
             get; set;
         }
 
-        //[Required]
-        //[DataType(DataType.Custom)]
-        //[Display(Name = "Member Details")]
-        //public Member Members
-        //{
-        //    get; set;
-        //}
+        [Required]
+        [DataType(DataType.Custom)]
+        [Display(Name = "Member Details")]
+        public Member Member
+        {
+            get; set;
+        }
     }
 
     public class ResetPasswordViewModel
