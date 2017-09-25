@@ -27,5 +27,7 @@ namespace KYHBPA
         public IDbSet<PollQuestion> PollQuestions { get; set; }
         public IDbSet<PollResponse> PollResponses { get; set; }
         public IDbSet<Survey> Surveys { get; set; }
+
+        public System.Data.Entity.DbSet<KYHBPA.EventFeedback> EventFeedbacks { get; set; }
     }
 }
