@@ -29,5 +29,13 @@
         /// <param name="value">String value</param>
         /// <returns>Int value or null</returns>
         public static decimal? ToNullableDecimal(this string value) => decimal.TryParse(value, out var result) ? result : (decimal?)null;
+
+        /// <summary>
+        /// Parses a string to a nullable decimal. If the value is
+        /// null or invalid it returns a null value.
+        /// </summary>
+        /// <param name="value">String value</param>
+        /// <returns>Int value or null</returns>
+        public static double? ToNullableDouble(this string value) => double.TryParse(value, out var result) ? result : (double?)null;
     }
 }
