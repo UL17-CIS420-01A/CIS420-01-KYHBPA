@@ -14,27 +14,59 @@
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Content)2
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.PhotoName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th></th>
+        @if (Model.Any((p) => p.Uploader != null))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Uploader)
+            </th>
+        }
+        @if (Model.Any((p) => p.Event != null))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Event)
+            </th>
+        }
     </tr>
 
     @foreach (var photo in Model)
     {
         <tr>
-            <td>
-                <img src="data:image;base64,@System.Convert.ToBase64String(photo.Content)" width="100" height="100" />
+            <td class="smallImageWrapper">
+                <img src="@Url.Action("RenderImage", new { id = photo.Id })" class="img-thumbnail smallImage" />
             </td>
+            @*<td class="smallImageWrapper">
+                <img src="data:image;base64,@System.Convert.ToBase64String(photo.Content)" alt="@photo.PhotoName" class="smallImage" />
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => photo.PhotoName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => photo.Description)
             </td>
+
+            @if (Model.Any((p) => p.Uploader != null))
+            {
+                <td>
+                    @photo.Uploader!=null?Html.DisplayFor(modelItem => photo.Uploader.FullName):"Anonymous User"
+                </td>
+            }
+
+            @if (Model.Any((p) => p.Event != null))
+            {
+                <td>
+                    @photo.Event!=null?Html.DisplayFor(modelItem => photo.Event):""
+                </td>
+            }
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = photo.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = photo.Id }) |

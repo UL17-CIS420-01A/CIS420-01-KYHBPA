@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using KYHBPA.Web.Infrastructure.Attributes;
 
 namespace KYHBPA.Web.Models
 {

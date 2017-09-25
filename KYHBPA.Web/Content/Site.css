@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.smallImageWrapper {
+    width: 120px;
+    height: 120px;
+}
+.smallImage {
+    min-width: 60px; max-width: 120px; min-height: 60px; max-height: 120px;
+}

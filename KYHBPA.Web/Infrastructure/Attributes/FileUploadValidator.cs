@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web.Infrastructure.Attributes
+namespace KYHBPA.Web
 {
     public class FileUploadValidator
         : ValidationAttribute, IClientValidatable

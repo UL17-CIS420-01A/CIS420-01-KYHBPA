@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KYHBPA.Data.Infrastructure;
+using KYHBPA.Web.ActionResults;
 using KYHBPA.Web.Models;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -61,12 +62,6 @@ namespace KYHBPA.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //string path = Path.Combine(Server.MapPath("~/Content/files"), Path.GetFileName(file.FileName));
-                //file.SaveAs(path);
-
-                //var member = User?.Member;
-                //await Db.Users.Where((user) => user.Id == User.Id).Select(user => user.Member)
-                //                    .SingleOrDefaultAsync();
                 var photo = new Photo()
                 {
                     Uploader = User?.Member,
@@ -74,12 +69,6 @@ namespace KYHBPA.Web.Controllers
                     PhotoName = uploadPhoto.PhotoName,
                     Description = uploadPhoto.Description,
                 };
-                //ModelState.AddModelError("I1", uploadPhoto.IsNull().ToString());
-                //ModelState.AddModelError("I2", uploadPhoto?.ImageData.IsNull().ToString());
-                //ModelState.AddModelError("I3", uploadPhoto?.ImageData?.InputStream.ToByteArray().ToConcatenatedString(string.Empty));
-
-                //return View(uploadPhoto);
-                //Image.FromStream(file.InputStream, true, true).ToByteArray();
 
                 Db.Photos.Add(photo);
                 await Db.SaveChangesAsync();
@@ -88,30 +77,6 @@ namespace KYHBPA.Web.Controllers
 
             return View(uploadPhoto);
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create<T>(T productcategory, HttpPostedFileBase file) where T : new()
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        T newproductCategory = new T();
-        //        string path = Path.Combine(Server.MapPath("~/Content/files"), Path.GetFileName(file.FileName));
-        //        file.SaveAs(path);
-        //        //newproductCategory.ProductDescription = productcategory.ProductDescription;
-        //        //newproductCategory.ProductQuantity = productcategory.ProductQuantity;
-        //        //newproductCategory.ProductStatus = productcategory.ProductStatus;
-
-        //        //newproductCategory.CategoryId = productcategory.CategoryId;
-
-        //        //db.ProductCategories.Add(newproductCategory);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", productcategory.CategoryId);
-        //    return View(productcategory);
-        //}
 
         // GET: Photos/Edit/5
         [HttpGet]
@@ -172,22 +137,16 @@ namespace KYHBPA.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
-        public async Task<ActionResult> RenderImage(int id)
+        public ActionResult RenderImage(int id)
         {
+            string contentType = "image/jpeg";
             Photo photo = Db.Photos.Find(id);
             if (photo.Content.IsNull() || photo.Content.ToConcatenatedString().IsNullOrWhiteSpace())
             {
                 return new HttpNotFoundResult();
             }
-            Response.AddHeader("Content-Disposition", $"inline; filename={id}photo.jpg");
-            return await new Task<ActionResult>(() => File(new MemoryStream(photo.Content), "image/jpg", $"{id}photo.jpg"));
-        }
-
-        public async Task<ActionResult> RenderImagePreview(HttpPostedFileBase file)
-        {
-            return await new Task<ActionResult>(() => File(file.InputStream.ToByteArray(), "image/png"));
+            return Image(photo.Content, contentType);
         }
 
         protected override void Dispose(bool disposing)
@@ -197,6 +156,16 @@ namespace KYHBPA.Web.Controllers
                 Db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //public ImageResult Image(Stream imageStream, string contentType)
+        //{
+        //    return new ImageResult(imageStream, contentType);
+        //}
+
+        public ImageResult Image(byte[] imageBytes, string contentType)
+        {
+            return new ImageResult(new MemoryStream(imageBytes), contentType);
         }
     }
 }

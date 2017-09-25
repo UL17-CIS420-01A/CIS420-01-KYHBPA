@@ -10,7 +10,7 @@
 
     public class Entities : KYHBPAEntities
     {
-        public Entities() : base()
+        private Entities() : base()
         {
         }
 

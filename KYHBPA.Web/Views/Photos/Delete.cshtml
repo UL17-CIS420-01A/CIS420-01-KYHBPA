@@ -15,8 +15,8 @@
             @Html.DisplayNameFor(model => model.Content)
         </dt>
 
-        <dd>
-            <img src="@Url.Action("RenderImage", new {id = Model.Id})" />
+        <dd class="smallImageWrapper">
+            <img src="@Url.Action("RenderImage", new {id = Model.Id})" class="smallImage" />
         </dd>
 
         <dt>

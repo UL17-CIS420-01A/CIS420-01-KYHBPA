@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web.Infrastructure.Attributes
+namespace KYHBPA.Web
 {
     public class MaximumFileSizeValidator
         : ValidationAttribute, IClientValidatable

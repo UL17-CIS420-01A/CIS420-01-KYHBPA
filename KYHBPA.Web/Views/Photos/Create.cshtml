@@ -1,5 +1,4 @@
-﻿@using KYHBPA
-@model KYHBPA.Web.Models.UploadPhotoViewModel
+﻿@model KYHBPA.Web.Models.UploadPhotoViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -21,11 +20,6 @@
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.ImageData, new { @class = "form-control", Type = "File" })
                 @Html.ValidationMessageFor(model => model.ImageData, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <img src="@Url.Action("RenderImagePreview", new { file = Model.ImageData })" />
             </div>
         </div>
 

@@ -218,6 +218,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
+    <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
     <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
@@ -314,8 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
-    <Folder Include="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

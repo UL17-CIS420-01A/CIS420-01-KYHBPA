@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace KYHBPA.Web.Controllers
 {
-    public class BaseController : Controller
+    public partial class BaseController : Controller
     {
         protected ApplicationDbContext Db = ApplicationDbContext.Create();
         private UserStore<ApplicationUser> _userStore;
@@ -23,7 +23,8 @@ namespace KYHBPA.Web.Controllers
 
         protected UserManager<ApplicationUser> UserManager
         {
-            get { return _userManager ?? (UserManager = new UserManager<ApplicationUser>(UserStore)); }
+            get { return _userManager ?? /**/ (UserManager = new UserManager<ApplicationUser>(UserStore)) /*/ 
+                    HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>() /**/; } // TODO Get UserManager from OwinContext or by constructor?
             set { _userManager = value; }
         }
 
