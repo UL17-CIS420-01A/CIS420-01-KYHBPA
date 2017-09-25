@@ -26,5 +26,6 @@ namespace KYHBPA
         public IDbSet<Poll> Polls { get; set; }
         public IDbSet<PollQuestion> PollQuestions { get; set; }
         public IDbSet<PollResponse> PollResponses { get; set; }
+        public IDbSet<Survey> Surveys { get; set; }
     }
 }
