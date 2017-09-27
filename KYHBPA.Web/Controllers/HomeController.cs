@@ -29,7 +29,7 @@ namespace KYHBPA.Web.Controllers
         public ActionResult BoardofDirectors()
         {
             return View();
-        }-
+        }
 
         public ActionResult Membership()
         {
