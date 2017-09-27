@@ -12,11 +12,11 @@ namespace KYHBPA.Data.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class PollRespons
+    public partial class PollResponse
     {
         public int Id { get; set; }
-        public Nullable<int> Member_Id { get; set; }
         public string Message { get; set; }
+        public Nullable<int> Member_Id { get; set; }
         public Nullable<int> PollQuestion_Id { get; set; }
     
         public virtual Member Member { get; set; }

@@ -19,7 +19,6 @@ namespace KYHBPA.Web.Controllers
 {
     public class PhotosController : BaseController
     {
-        //private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Photos
         [HttpGet]
@@ -36,7 +35,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = Db.Photos.Find(id);
+            Photo photo = await Db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -86,7 +85,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = Db.Photos.Find(id);
+            Photo photo = await Db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -118,7 +117,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = Db.Photos.Find(id);
+            Photo photo = await Db.Photos.FindAsync(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -138,10 +137,14 @@ namespace KYHBPA.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult RenderImage(int id)
+        public async Task<ActionResult> RenderImage(int? id)
         {
+            if(id.IsNull())
+            {
+                return new HttpNotFoundResult();
+            }
             string contentType = "image/jpeg";
-            Photo photo = Db.Photos.Find(id);
+            Photo photo = await Db.Photos.FindAsync(id);
             if (photo.Content.IsNull() || photo.Content.ToConcatenatedString().IsNullOrWhiteSpace())
             {
                 return new HttpNotFoundResult();

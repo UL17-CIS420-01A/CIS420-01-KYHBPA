@@ -39,8 +39,8 @@ namespace KYHBPA.Web.ActionResults
 
                 response.OutputStream.Write(buffer, 0, read);
             }
-
-            response.End();
+            response.Flush();
+            response.Close();
         }
     }
 }

@@ -12,14 +12,8 @@ namespace KYHBPA.Data.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class EventFeedback
+    public partial class Survey
     {
         public int Id { get; set; }
-        public string Comments { get; set; }
-        public Nullable<int> Event_Id { get; set; }
-        public Nullable<int> Member_Id { get; set; }
-    
-        public virtual Event Event { get; set; }
-        public virtual Member Member { get; set; }
     }
 }

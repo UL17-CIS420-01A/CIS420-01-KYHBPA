@@ -35,6 +35,18 @@ namespace KYHBPA.Web.Controllers
         {
             return View();
         }
-       
+        public ActionResult Events()
+        {
+            return View();
+        }
+        public ActionResult News()
+        {
+            return View();
+        }
+        public ActionResult Legislation()
+        {
+            return View();
+        }
+
     }
 }
