@@ -13,10 +13,10 @@ namespace KYHBPA.Data.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class KYHBPAEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public KYHBPAEntities()
-            : base("name=KYHBPAEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -37,7 +37,8 @@ namespace KYHBPA.Data.Entity
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<PollQuestion> PollQuestions { get; set; }
-        public virtual DbSet<PollRespons> PollResponses { get; set; }
+        public virtual DbSet<PollResponse> PollResponses { get; set; }
         public virtual DbSet<Poll> Polls { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
     }
 }

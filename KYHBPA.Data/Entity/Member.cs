@@ -23,14 +23,15 @@ namespace KYHBPA.Data.Entity
             this.Employees = new HashSet<Employee>();
             this.EventFeedbacks = new HashSet<EventFeedback>();
             this.Photos = new HashSet<Photo>();
-            this.PollResponses = new HashSet<PollRespons>();
+            this.PollResponses = new HashSet<PollResponse>();
         }
     
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public System.DateTime DateOfBirth { get; set; }
-        public System.DateTime MembershipEnrollment { get; set; }
+        public Nullable<System.DateTime> MembershipEnrollment { get; set; }
+        public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -39,10 +40,8 @@ namespace KYHBPA.Data.Entity
         public string LicenseNumber { get; set; }
         public bool isOwner { get; set; }
         public bool isTrainer { get; set; }
-        public bool isOwnerAndTrainer { get; set; }
         public bool AgreedToTerms { get; set; }
         public string Signature { get; set; }
-        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
@@ -57,6 +56,29 @@ namespace KYHBPA.Data.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Photo> Photos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PollRespons> PollResponses { get; set; }
+        public virtual ICollection<PollResponse> PollResponses { get; set; }
+
+        public KYHBPA.Member ToDomain()
+        {
+            return new KYHBPA.Member()
+            {
+                Id = Id,
+                FirstName = FirstName,
+                LastName = LastName,
+                DateOfBirth = DateOfBirth,
+                MembershipEnrollment = MembershipEnrollment,
+                Email = Email,
+                PhoneNumber = PhoneNumber,
+                Address = Address,
+                City = City,
+                State = State,
+                ZipCode = ZipCode,
+                LicenseNumber = LicenseNumber,
+                isOwner = isOwner,
+                isTrainer = isTrainer,
+                AgreedToTerms = AgreedToTerms,
+                Signature = Signature
+            };
+        }
     }
 }

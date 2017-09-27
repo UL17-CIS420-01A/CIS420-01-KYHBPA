@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KYHBPA.Web.Models
 {
-    public class Member
+    public class MemberViewModel
     {
         [Required]
         [Display(AutoGenerateField = false)]

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KYHBPA.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -100,11 +100,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Members">
           <Key>
@@ -114,8 +114,8 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
-          <Property Name="MembershipEnrollment" Type="datetime" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MembershipEnrollment" Type="datetime" />
+          <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
           <Property Name="City" Type="nvarchar(max)" Nullable="false" />
@@ -124,7 +124,6 @@
           <Property Name="LicenseNumber" Type="nvarchar(max)" />
           <Property Name="isOwner" Type="bit" Nullable="false" />
           <Property Name="isTrainer" Type="bit" Nullable="false" />
-          <Property Name="isOwnerAndTrainer" Type="bit" Nullable="false" />
           <Property Name="AgreedToTerms" Type="bit" Nullable="false" />
           <Property Name="Signature" Type="nvarchar(max)" />
         </EntityType>
@@ -162,6 +161,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Surveys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -351,7 +356,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="KYHBPAModelsStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -367,6 +372,7 @@
           <EntitySet Name="PollQuestions" EntityType="Self.PollQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PollResponses" EntityType="Self.PollResponses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Polls" EntityType="Self.Polls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Surveys" EntityType="Self.Surveys" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -428,99 +434,28 @@
             <End Role="PollResponses" EntitySet="PollResponses" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="KYHBPA.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="KYHBPAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AspNetRoles" EntityType="KYHBPA.Models.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="KYHBPA.Models.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="KYHBPA.Models.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="KYHBPA.Models.AspNetUser" />
-          <EntitySet Name="Documents" EntityType="KYHBPA.Models.Document" />
-          <EntitySet Name="EmployeeContacts" EntityType="KYHBPA.Models.EmployeeContact" />
-          <EntitySet Name="Employees" EntityType="KYHBPA.Models.Employee" />
-          <EntitySet Name="EventFeedbacks" EntityType="KYHBPA.Models.EventFeedback" />
-          <EntitySet Name="Events" EntityType="KYHBPA.Models.Event" />
-          <EntitySet Name="Members" EntityType="KYHBPA.Models.Member" />
-          <EntitySet Name="Photos" EntityType="KYHBPA.Models.Photo" />
-          <EntitySet Name="PollQuestions" EntityType="KYHBPA.Models.PollQuestion" />
-          <EntitySet Name="PollResponses" EntityType="KYHBPA.Models.PollRespons" />
-          <EntitySet Name="Polls" EntityType="KYHBPA.Models.Poll" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="KYHBPA.Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="KYHBPA.Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Members_Member_Id" Association="KYHBPA.Models.FK_dbo_AspNetUsers_dbo_Members_Member_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Documents_dbo_Members_UploadedBy_Id" Association="KYHBPA.Models.FK_dbo_Documents_dbo_Members_UploadedBy_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Document" EntitySet="Documents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_EmployeeContacts_dbo_Members_Member_Id" Association="KYHBPA.Models.FK_dbo_EmployeeContacts_dbo_Members_Member_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="EmployeeContact" EntitySet="EmployeeContacts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Employees_dbo_Members_Member_Id" Association="KYHBPA.Models.FK_dbo_Employees_dbo_Members_Member_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_EventFeedbacks_dbo_Events_Event_Id" Association="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Events_Event_Id">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="EventFeedback" EntitySet="EventFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_EventFeedbacks_dbo_Members_Member_Id" Association="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Members_Member_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="EventFeedback" EntitySet="EventFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Photos_dbo_Events_Event_Id" Association="KYHBPA.Models.FK_dbo_Photos_dbo_Events_Event_Id">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="Photo" EntitySet="Photos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Photos_dbo_Members_Uploader_Id" Association="KYHBPA.Models.FK_dbo_Photos_dbo_Members_Uploader_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Photo" EntitySet="Photos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_PollResponses_dbo_Members_Member_Id" Association="KYHBPA.Models.FK_dbo_PollResponses_dbo_Members_Member_Id">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="PollRespons" EntitySet="PollResponses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_PollQuestions_dbo_Polls_Poll_Id" Association="KYHBPA.Models.FK_dbo_PollQuestions_dbo_Polls_Poll_Id">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="PollQuestion" EntitySet="PollQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" Association="KYHBPA.Models.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id">
-            <End Role="PollQuestion" EntitySet="PollQuestions" />
-            <End Role="PollRespons" EntitySet="PollResponses" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="KYHBPA.Models.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="KYHBPA.Models.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="KYHBPA.Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -528,16 +463,16 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="KYHBPA.Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -548,12 +483,12 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Member_Id" Type="Int32" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="KYHBPA.Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="KYHBPA.Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_AspNetUsers_dbo_Members_Member_Id" FromRole="AspNetUser" ToRole="Member" />
-          <NavigationProperty Name="AspNetRoles" Relationship="KYHBPA.Models.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_AspNetUsers_dbo_Members_Member_Id" FromRole="AspNetUsers" ToRole="Members" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -565,7 +500,7 @@
           <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Member_Id" Type="Int32" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_Documents_dbo_Members_UploadedBy_Id" FromRole="Document" ToRole="Member" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_Documents_dbo_Members_Member_Id" FromRole="Documents" ToRole="Members" />
         </EntityType>
         <EntityType Name="EmployeeContact">
           <Key>
@@ -576,7 +511,7 @@
           <Property Name="ContactSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ContactMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Member_Id" Type="Int32" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_EmployeeContacts_dbo_Members_Member_Id" FromRole="EmployeeContact" ToRole="Member" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_EmployeeContacts_dbo_Members_Member_Id" FromRole="EmployeeContacts" ToRole="Members" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -585,60 +520,59 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Member_Id" Type="Int32" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_Employees_dbo_Members_Member_Id" FromRole="Employee" ToRole="Member" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_Employees_dbo_Members_Member_Id" FromRole="Employees" ToRole="Members" />
         </EntityType>
         <EntityType Name="EventFeedback">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Event_Id" Type="Int32" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Event_Id" Type="Int32" />
           <Property Name="Member_Id" Type="Int32" />
-          <NavigationProperty Name="Event" Relationship="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Events_Event_Id" FromRole="EventFeedback" ToRole="Event" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Members_Member_Id" FromRole="EventFeedback" ToRole="Member" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_dbo_EventFeedbacks_dbo_Events_Event_Id" FromRole="EventFeedbacks" ToRole="Events" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_EventFeedbacks_dbo_Members_Member_Id" FromRole="EventFeedbacks" ToRole="Members" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EventFeedbacks" Relationship="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Events_Event_Id" FromRole="Event" ToRole="EventFeedback" />
-          <NavigationProperty Name="Photos" Relationship="KYHBPA.Models.FK_dbo_Photos_dbo_Events_Event_Id" FromRole="Event" ToRole="Photo" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="EventFeedbacks" Relationship="Self.FK_dbo_EventFeedbacks_dbo_Events_Event_Id" FromRole="Events" ToRole="EventFeedbacks" />
+          <NavigationProperty Name="Photos" Relationship="Self.FK_dbo_Photos_dbo_Events_Event_Id" FromRole="Events" ToRole="Photos" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MembershipEnrollment" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipEnrollment" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LicenseNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="isOwner" Type="Boolean" Nullable="false" />
           <Property Name="isTrainer" Type="Boolean" Nullable="false" />
-          <Property Name="isOwnerAndTrainer" Type="Boolean" Nullable="false" />
           <Property Name="AgreedToTerms" Type="Boolean" Nullable="false" />
           <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="KYHBPA.Models.FK_dbo_AspNetUsers_dbo_Members_Member_Id" FromRole="Member" ToRole="AspNetUser" />
-          <NavigationProperty Name="Documents" Relationship="KYHBPA.Models.FK_dbo_Documents_dbo_Members_UploadedBy_Id" FromRole="Member" ToRole="Document" />
-          <NavigationProperty Name="EmployeeContacts" Relationship="KYHBPA.Models.FK_dbo_EmployeeContacts_dbo_Members_Member_Id" FromRole="Member" ToRole="EmployeeContact" />
-          <NavigationProperty Name="Employees" Relationship="KYHBPA.Models.FK_dbo_Employees_dbo_Members_Member_Id" FromRole="Member" ToRole="Employee" />
-          <NavigationProperty Name="EventFeedbacks" Relationship="KYHBPA.Models.FK_dbo_EventFeedbacks_dbo_Members_Member_Id" FromRole="Member" ToRole="EventFeedback" />
-          <NavigationProperty Name="Photos" Relationship="KYHBPA.Models.FK_dbo_Photos_dbo_Members_Uploader_Id" FromRole="Member" ToRole="Photo" />
-          <NavigationProperty Name="PollResponses" Relationship="KYHBPA.Models.FK_dbo_PollResponses_dbo_Members_Member_Id" FromRole="Member" ToRole="PollRespons" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUsers_dbo_Members_Member_Id" FromRole="Members" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Members_Member_Id" FromRole="Members" ToRole="Documents" />
+          <NavigationProperty Name="EmployeeContacts" Relationship="Self.FK_dbo_EmployeeContacts_dbo_Members_Member_Id" FromRole="Members" ToRole="EmployeeContacts" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_dbo_Employees_dbo_Members_Member_Id" FromRole="Members" ToRole="Employees" />
+          <NavigationProperty Name="EventFeedbacks" Relationship="Self.FK_dbo_EventFeedbacks_dbo_Members_Member_Id" FromRole="Members" ToRole="EventFeedbacks" />
+          <NavigationProperty Name="Photos" Relationship="Self.FK_dbo_Photos_dbo_Members_Uploader_Id" FromRole="Members" ToRole="Photos" />
+          <NavigationProperty Name="PollResponses" Relationship="Self.FK_dbo_PollResponses_dbo_Members_Member_Id" FromRole="Members" ToRole="PollResponses" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
@@ -650,8 +584,8 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Event_Id" Type="Int32" />
           <Property Name="Uploader_Id" Type="Int32" />
-          <NavigationProperty Name="Event" Relationship="KYHBPA.Models.FK_dbo_Photos_dbo_Events_Event_Id" FromRole="Photo" ToRole="Event" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_Photos_dbo_Members_Uploader_Id" FromRole="Photo" ToRole="Member" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_dbo_Photos_dbo_Events_Event_Id" FromRole="Photos" ToRole="Events" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_Photos_dbo_Members_Uploader_Id" FromRole="Photos" ToRole="Members" />
         </EntityType>
         <EntityType Name="PollQuestion">
           <Key>
@@ -660,19 +594,19 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Poll_Id" Type="Int32" />
-          <NavigationProperty Name="Poll" Relationship="KYHBPA.Models.FK_dbo_PollQuestions_dbo_Polls_Poll_Id" FromRole="PollQuestion" ToRole="Poll" />
-          <NavigationProperty Name="PollResponses" Relationship="KYHBPA.Models.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" FromRole="PollQuestion" ToRole="PollRespons" />
+          <NavigationProperty Name="Poll" Relationship="Self.FK_dbo_PollQuestions_dbo_Polls_Poll_Id" FromRole="PollQuestions" ToRole="Polls" />
+          <NavigationProperty Name="PollResponses" Relationship="Self.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" FromRole="PollQuestions" ToRole="PollResponses" />
         </EntityType>
-        <EntityType Name="PollRespons">
+        <EntityType Name="PollResponse">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Member_Id" Type="Int32" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Member_Id" Type="Int32" />
           <Property Name="PollQuestion_Id" Type="Int32" />
-          <NavigationProperty Name="Member" Relationship="KYHBPA.Models.FK_dbo_PollResponses_dbo_Members_Member_Id" FromRole="PollRespons" ToRole="Member" />
-          <NavigationProperty Name="PollQuestion" Relationship="KYHBPA.Models.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" FromRole="PollRespons" ToRole="PollQuestion" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_dbo_PollResponses_dbo_Members_Member_Id" FromRole="PollResponses" ToRole="Members" />
+          <NavigationProperty Name="PollQuestion" Relationship="Self.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" FromRole="PollResponses" ToRole="PollQuestions" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -680,346 +614,431 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PollQuestions" Relationship="KYHBPA.Models.FK_dbo_PollQuestions_dbo_Polls_Poll_Id" FromRole="Poll" ToRole="PollQuestion" />
+          <NavigationProperty Name="PollQuestions" Relationship="Self.FK_dbo_PollQuestions_dbo_Polls_Poll_Id" FromRole="Polls" ToRole="PollQuestions" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="KYHBPA.Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="KYHBPA.Models.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaim">
+            <Dependent Role="AspNetUserClaims">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="KYHBPA.Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="KYHBPA.Models.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogin">
+            <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUsers_dbo_Members_Member_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUser">
+            <Dependent Role="AspNetUsers">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Documents_dbo_Members_UploadedBy_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.Document" Role="Document" Multiplicity="*" />
+        <Association Name="FK_dbo_Documents_dbo_Members_Member_Id">
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Document">
+            <Dependent Role="Documents">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_EmployeeContacts_dbo_Members_Member_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.EmployeeContact" Role="EmployeeContact" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="EmployeeContacts" Type="Self.EmployeeContact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="EmployeeContact">
+            <Dependent Role="EmployeeContacts">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_Employees_dbo_Members_Member_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.Employee" Role="Employee" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Employee">
+            <Dependent Role="Employees">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_EventFeedbacks_dbo_Events_Event_Id">
-          <End Type="KYHBPA.Models.Event" Role="Event" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.EventFeedback" Role="EventFeedback" Multiplicity="*" />
+          <End Role="Events" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="EventFeedbacks" Type="Self.EventFeedback" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Event">
+            <Principal Role="Events">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="EventFeedback">
+            <Dependent Role="EventFeedbacks">
               <PropertyRef Name="Event_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_EventFeedbacks_dbo_Members_Member_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.EventFeedback" Role="EventFeedback" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="EventFeedbacks" Type="Self.EventFeedback" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="EventFeedback">
+            <Dependent Role="EventFeedbacks">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_Photos_dbo_Events_Event_Id">
-          <End Type="KYHBPA.Models.Event" Role="Event" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.Photo" Role="Photo" Multiplicity="*" />
+          <End Role="Events" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="Photos" Type="Self.Photo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Event">
+            <Principal Role="Events">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Photo">
+            <Dependent Role="Photos">
               <PropertyRef Name="Event_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_Photos_dbo_Members_Uploader_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.Photo" Role="Photo" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Photos" Type="Self.Photo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Photo">
+            <Dependent Role="Photos">
               <PropertyRef Name="Uploader_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_PollResponses_dbo_Members_Member_Id">
-          <End Type="KYHBPA.Models.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.PollRespons" Role="PollRespons" Multiplicity="*" />
+          <End Role="Members" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="PollResponses" Type="Model.PollResponse" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Member">
+            <Principal Role="Members">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PollRespons">
+            <Dependent Role="PollResponses">
               <PropertyRef Name="Member_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_PollQuestions_dbo_Polls_Poll_Id">
-          <End Type="KYHBPA.Models.Poll" Role="Poll" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.PollQuestion" Role="PollQuestion" Multiplicity="*" />
+          <End Role="Polls" Type="Self.Poll" Multiplicity="0..1" />
+          <End Role="PollQuestions" Type="Self.PollQuestion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Poll">
+            <Principal Role="Polls">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PollQuestion">
+            <Dependent Role="PollQuestions">
               <PropertyRef Name="Poll_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id">
-          <End Type="KYHBPA.Models.PollQuestion" Role="PollQuestion" Multiplicity="0..1" />
-          <End Type="KYHBPA.Models.PollRespons" Role="PollRespons" Multiplicity="*" />
+          <End Role="PollQuestions" Type="Self.PollQuestion" Multiplicity="0..1" />
+          <End Role="PollResponses" Type="Model.PollResponse" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PollQuestion">
+            <Principal Role="PollQuestions">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PollRespons">
+            <Dependent Role="PollResponses">
               <PropertyRef Name="PollQuestion_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Type="KYHBPA.Models.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="KYHBPA.Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        </Schema>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="EmployeeContacts" EntityType="Self.EmployeeContact" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EventFeedbacks" EntityType="Self.EventFeedback" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Photos" EntityType="Self.Photo" />
+          <EntitySet Name="PollQuestions" EntityType="Self.PollQuestion" />
+          <EntitySet Name="PollResponses" EntityType="Model.PollResponse" />
+          <EntitySet Name="Polls" EntityType="Self.Poll" />
+          <EntitySet Name="Surveys" EntityType="Self.Survey" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Members_Member_Id" Association="Self.FK_dbo_AspNetUsers_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Documents_dbo_Members_Member_Id" Association="Self.FK_dbo_Documents_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EmployeeContacts_dbo_Members_Member_Id" Association="Self.FK_dbo_EmployeeContacts_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EmployeeContacts" EntitySet="EmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Employees_dbo_Members_Member_Id" Association="Self.FK_dbo_Employees_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EventFeedbacks_dbo_Events_Event_Id" Association="Self.FK_dbo_EventFeedbacks_dbo_Events_Event_Id">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventFeedbacks" EntitySet="EventFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EventFeedbacks_dbo_Members_Member_Id" Association="Self.FK_dbo_EventFeedbacks_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="EventFeedbacks" EntitySet="EventFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Photos_dbo_Events_Event_Id" Association="Self.FK_dbo_Photos_dbo_Events_Event_Id">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Photos" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Photos_dbo_Members_Uploader_Id" Association="Self.FK_dbo_Photos_dbo_Members_Uploader_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Photos" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PollResponses_dbo_Members_Member_Id" Association="Self.FK_dbo_PollResponses_dbo_Members_Member_Id">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="PollResponses" EntitySet="PollResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PollQuestions_dbo_Polls_Poll_Id" Association="Self.FK_dbo_PollQuestions_dbo_Polls_Poll_Id">
+            <End Role="Polls" EntitySet="Polls" />
+            <End Role="PollQuestions" EntitySet="PollQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id" Association="Self.FK_dbo_PollResponses_dbo_PollQuestions_PollQuestion_Id">
+            <End Role="PollQuestions" EntitySet="PollQuestions" />
+            <End Role="PollResponses" EntitySet="PollResponses" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="KYHBPAModelsStoreContainer" CdmEntityContainer="KYHBPAEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="KYHBPA.Models.AspNetRole">
+            <EntityTypeMapping TypeName="Model.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="KYHBPA.Models.AspNetUserClaim">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="KYHBPA.Models.AspNetUserLogin">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="KYHBPA.Models.AspNetUser">
+            <EntityTypeMapping TypeName="Model.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Document">
+            <EntityTypeMapping TypeName="Model.Document">
               <MappingFragment StoreEntitySet="Documents">
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
-                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
-                <ScalarProperty Name="FileBytes" ColumnName="FileBytes" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FileBytes" ColumnName="FileBytes" />
+                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeContacts">
-            <EntityTypeMapping TypeName="KYHBPA.Models.EmployeeContact">
+            <EntityTypeMapping TypeName="Model.EmployeeContact">
               <MappingFragment StoreEntitySet="EmployeeContacts">
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="ContactMessage" ColumnName="ContactMessage" />
-                <ScalarProperty Name="ContactSubject" ColumnName="ContactSubject" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactSubject" ColumnName="ContactSubject" />
+                <ScalarProperty Name="ContactMessage" ColumnName="ContactMessage" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Employee">
+            <EntityTypeMapping TypeName="Model.Employee">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EventFeedbacks">
-            <EntityTypeMapping TypeName="KYHBPA.Models.EventFeedback">
+            <EntityTypeMapping TypeName="Model.EventFeedback">
               <MappingFragment StoreEntitySet="EventFeedbacks">
-                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Event">
+            <EntityTypeMapping TypeName="Model.Event">
               <MappingFragment StoreEntitySet="Events">
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Members">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Member">
+            <EntityTypeMapping TypeName="Model.Member">
               <MappingFragment StoreEntitySet="Members">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Signature" ColumnName="Signature" />
-                <ScalarProperty Name="AgreedToTerms" ColumnName="AgreedToTerms" />
-                <ScalarProperty Name="isOwnerAndTrainer" ColumnName="isOwnerAndTrainer" />
-                <ScalarProperty Name="isTrainer" ColumnName="isTrainer" />
-                <ScalarProperty Name="isOwner" ColumnName="isOwner" />
-                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="MembershipEnrollment" ColumnName="MembershipEnrollment" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="MembershipEnrollment" ColumnName="MembershipEnrollment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="isOwner" ColumnName="isOwner" />
+                <ScalarProperty Name="isTrainer" ColumnName="isTrainer" />
+                <ScalarProperty Name="AgreedToTerms" ColumnName="AgreedToTerms" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Photos">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Photo">
+            <EntityTypeMapping TypeName="Model.Photo">
               <MappingFragment StoreEntitySet="Photos">
-                <ScalarProperty Name="Uploader_Id" ColumnName="Uploader_Id" />
-                <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
+                <ScalarProperty Name="Uploader_Id" ColumnName="Uploader_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PollQuestions">
-            <EntityTypeMapping TypeName="KYHBPA.Models.PollQuestion">
+            <EntityTypeMapping TypeName="Model.PollQuestion">
               <MappingFragment StoreEntitySet="PollQuestions">
-                <ScalarProperty Name="Poll_Id" ColumnName="Poll_Id" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Poll_Id" ColumnName="Poll_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PollResponses">
-            <EntityTypeMapping TypeName="KYHBPA.Models.PollRespons">
+            <EntityTypeMapping TypeName="Model.PollResponse">
               <MappingFragment StoreEntitySet="PollResponses">
-                <ScalarProperty Name="PollQuestion_Id" ColumnName="PollQuestion_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PollQuestion_Id" ColumnName="PollQuestion_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Polls">
-            <EntityTypeMapping TypeName="KYHBPA.Models.Poll">
+            <EntityTypeMapping TypeName="Model.Poll">
               <MappingFragment StoreEntitySet="Polls">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surveys">
+            <EntityTypeMapping TypeName="Model.Survey">
+              <MappingFragment StoreEntitySet="Surveys">
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="KYHBPA.Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

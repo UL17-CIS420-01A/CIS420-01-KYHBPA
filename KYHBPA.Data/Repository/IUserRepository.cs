@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using KYHBPA.Data.Entity;
-using KYHBPA.Data.Repository;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KYHBPA.Data.Repository
 {
-    public interface IUserRepository : IRepository<AspNetUser, string>
+    public interface IUserRepository : IRepository<ApplicationUser, string>
     {
-        Task<AspNetUser> FindByUsernameAsync(string userName);
-        AspNetUser FindByUsername(string userName);
-        List<AspNetUser> FindUsers();
-        bool IsInRole(string role, string id);
-        bool IsInRole(AspNetRole role, string id);
+        Task<ApplicationUser> FindByUsernameAsync(string userName);
+        ApplicationUser FindByUsername(string userName);
+        List<ApplicationUser> FindUsers();
+        bool? IsInRole(string role, string id);
+        bool? IsInRole(IdentityUserRole<string> role, string id);
     }
 }

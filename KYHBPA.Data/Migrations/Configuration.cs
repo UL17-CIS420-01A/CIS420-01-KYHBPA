@@ -1,20 +1,22 @@
-namespace KYHBPA.Web.Migrations
+namespace KYHBPA.Data.Migrations
 {
+    using KYHBPA.Data.Infrastructure;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<EntityDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "KYHBPA.Web.Models.ApplicationDbContext";
+            ContextType = typeof(EntityDbContext);
+            ContextKey = this.ContextType.FullName;
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(KYHBPA.Data.Infrastructure.EntityDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -27,9 +29,7 @@ namespace KYHBPA.Web.Migrations
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
-
-
-
+            //
         }
     }
 }

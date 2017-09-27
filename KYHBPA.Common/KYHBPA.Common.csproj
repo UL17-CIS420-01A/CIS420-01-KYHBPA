@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IsTrueAttribute.cs" />
+    <Compile Include="Domain\Survey.cs" />
     <Compile Include="Extension\Base64StringExtensions.cs" />
     <Compile Include="Extension\CommonFunctions.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />

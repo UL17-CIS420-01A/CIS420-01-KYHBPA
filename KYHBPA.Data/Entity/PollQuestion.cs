@@ -17,7 +17,7 @@ namespace KYHBPA.Data.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PollQuestion()
         {
-            this.PollResponses = new HashSet<PollRespons>();
+            this.PollResponses = new HashSet<PollResponse>();
         }
     
         public int Id { get; set; }
@@ -26,6 +26,6 @@ namespace KYHBPA.Data.Entity
     
         public virtual Poll Poll { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PollRespons> PollResponses { get; set; }
+        public virtual ICollection<PollResponse> PollResponses { get; set; }
     }
 }

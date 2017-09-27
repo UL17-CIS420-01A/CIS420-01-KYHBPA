@@ -49,7 +49,7 @@ namespace KYHBPA.Web
             //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
-            container.RegisterType<DbContext, Entities>();
+            container.RegisterType<DbContext, EntityDbContext>();
             //container.RegisterType<IUserRepository, UserRepository>();
             //container.RegisterType<IRepository<AspNetUser, string>, UserRepository>();
         }

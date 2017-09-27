@@ -24,19 +24,19 @@ namespace KYHBPA.Web.Controllers
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            UserManager=userManager;
-            SignInManager=signInManager;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager??HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
-                _signInManager=value;
+                _signInManager = value;
             }
         }
 
@@ -44,11 +44,11 @@ namespace KYHBPA.Web.Controllers
         {
             get
             {
-                return _userManager??HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                _userManager=value;
+                _userManager = value;
             }
         }
 
@@ -57,7 +57,7 @@ namespace KYHBPA.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl=returnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -76,7 +76,7 @@ namespace KYHBPA.Web.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch(result)
+            switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -101,11 +101,11 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if(!await SignInManager.HasBeenVerifiedAsync())
+            if (!await SignInManager.HasBeenVerifiedAsync())
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider=provider, ReturnUrl=returnUrl, RememberMe=rememberMe });
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -115,7 +115,7 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -125,7 +125,7 @@ namespace KYHBPA.Web.Controllers
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
-            switch(result)
+            switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
@@ -153,11 +153,13 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if(ModelState.IsValid)
+            model.Member.Email = model.Email;
+            model.Member.MembershipEnrollment = DateTime.UtcNow;
+            if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName=model.Email, Email=model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Member = model.Member };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -181,7 +183,7 @@ namespace KYHBPA.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if(userId==null||code==null)
+            if (userId == null || code == null)
             {
                 return View("Error");
             }
@@ -204,10 +206,10 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if(user==null||!(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -238,7 +240,7 @@ namespace KYHBPA.Web.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code==null ? View("Error") : View();
+            return code == null ? View("Error") : View();
         }
 
         //
@@ -248,18 +250,18 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
-            if(user==null)
+            if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
@@ -295,13 +297,13 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if(userId==null)
+            if (userId == null)
             {
                 return View("Error");
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text=purpose, Value=purpose }).ToList();
-            return View(new SendCodeViewModel { Providers=factorOptions, ReturnUrl=returnUrl, RememberMe=rememberMe });
+            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -311,13 +313,13 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
 
             // Generate the token and send it
-            if(!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -335,14 +337,14 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if(loginInfo==null)
+            if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch(result)
+            switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
@@ -357,9 +359,9 @@ namespace KYHBPA.Web.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl=returnUrl;
-                    ViewBag.LoginProvider=loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email=loginInfo.Email });
+                    ViewBag.ReturnUrl = returnUrl;
+                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -370,25 +372,25 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if(info==null)
+                if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName=model.Email, Email=model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
-                    result=await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if(result.Succeeded)
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
@@ -397,7 +399,7 @@ namespace KYHBPA.Web.Controllers
                 AddErrors(result);
             }
 
-            ViewBag.ReturnUrl=returnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 
@@ -421,18 +423,18 @@ namespace KYHBPA.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing)
+            if (disposing)
             {
-                if(_userManager!=null)
+                if (_userManager != null)
                 {
                     _userManager.Dispose();
-                    _userManager=null;
+                    _userManager = null;
                 }
 
-                if(_signInManager!=null)
+                if (_signInManager != null)
                 {
                     _signInManager.Dispose();
-                    _signInManager=null;
+                    _signInManager = null;
                 }
             }
 
@@ -453,7 +455,7 @@ namespace KYHBPA.Web.Controllers
 
         private void AddErrors(IdentityResult result)
         {
-            foreach(var error in result.Errors)
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
@@ -461,7 +463,7 @@ namespace KYHBPA.Web.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if(Url.IsLocalUrl(returnUrl))
+            if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
@@ -477,9 +479,9 @@ namespace KYHBPA.Web.Controllers
 
             public ChallengeResult(string provider, string redirectUri, string userId)
             {
-                LoginProvider=provider;
-                RedirectUri=redirectUri;
-                UserId=userId;
+                LoginProvider = provider;
+                RedirectUri = redirectUri;
+                UserId = userId;
             }
 
             public string LoginProvider
@@ -497,10 +499,10 @@ namespace KYHBPA.Web.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri=RedirectUri };
-                if(UserId!=null)
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                if (UserId != null)
                 {
-                    properties.Dictionary[XsrfKey]=UserId;
+                    properties.Dictionary[XsrfKey] = UserId;
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
