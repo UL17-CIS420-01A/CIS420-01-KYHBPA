@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using KYHBPA.Data.Infrastructure;
+using KYHBPA.Data.Entity;
 
 namespace KYHBPA.Web.Controllers
 {
@@ -17,16 +18,35 @@ namespace KYHBPA.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page."; // ((User?.Email) ?? "NULL") + " | " + ((User?.Member) == null) + " | " + ((User?.Member?.FullName) ?? "NULL");
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
+        public ActionResult BoardofDirectors()
+        {
+            return View();
+        }-
+
+        public ActionResult Membership()
+        {
+            return View();
+        }
+        public ActionResult Events()
+        {
+            return View();
+        }
+        public ActionResult News()
+        {
+            return View();
+        }
+        public ActionResult Legislation()
+        {
+            return View();
+        }
+
     }
 }
