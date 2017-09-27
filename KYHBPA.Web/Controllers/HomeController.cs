@@ -18,16 +18,23 @@ namespace KYHBPA.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
+        public ActionResult BoardofDirectors()
+        {
+            return View();
+        }
+
+        public ActionResult Membership()
+        {
+            return View();
+        }
+       
     }
 }
