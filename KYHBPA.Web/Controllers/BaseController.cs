@@ -6,12 +6,14 @@ using KYHBPA.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using KYHBPA.Data.Infrastructure;
+using KYHBPA.Data.Repository;
 
 namespace KYHBPA.Web.Controllers
 {
     public partial class BaseController : Controller
     {
-        protected ApplicationDbContext Db = ApplicationDbContext.Create();
+        protected EntityDbContext Db = EntityDbContext.Create();
         private UserStore<ApplicationUser> _userStore;
         private UserManager<ApplicationUser> _userManager;
 
@@ -23,14 +25,30 @@ namespace KYHBPA.Web.Controllers
 
         protected UserManager<ApplicationUser> UserManager
         {
-            get { return _userManager ?? /**/ (UserManager = new UserManager<ApplicationUser>(UserStore)) /*/ 
-                    HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>() /**/; } // TODO Get UserManager from OwinContext or by constructor?
+            get
+            {
+                return _userManager ?? /**/ (UserManager = new UserManager<ApplicationUser>(UserStore)) /*/ 
+                    HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>() /**/;
+            } // TODO Get UserManager from OwinContext or by constructor?
             set { _userManager = value; }
         }
 
         protected IPrincipal CurrentPrincipal => base.User;
         protected IIdentity CurrentIdentity => CurrentPrincipal?.Identity;
-        //UserManager.FindByIdAsync(CurrentIdentity?.GetUserId()).Result;
-        protected new ApplicationUser User => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(CurrentIdentity?.GetUserId()); //(CurrentIdentity?.GetUserId())
+        public new ApplicationUser User
+        {
+            get
+            {
+                //var user = UserManager.FindByIdAsync(CurrentIdentity?.GetUserId()).Result;
+                //if(user != null)
+                //{
+                //    user.Member = Db.Users.Find(user.Id).Member;
+                //}
+                //return user;
+                return (new UserRepository(Db)).FindById(CurrentIdentity?.GetUserId());
+            }
+        }
+        //public new ApplicationUser User => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(CurrentIdentity?.GetUserId());
+
     }
 }

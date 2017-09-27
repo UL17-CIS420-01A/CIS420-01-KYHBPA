@@ -133,9 +133,7 @@ namespace KYHBPA.Web.Models
         {
             get; set;
         }
-
-        [Required]
-        [DataType(DataType.Custom)]
+        
         [Display(Name = "Member Details")]
         public Member Member
         {

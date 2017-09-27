@@ -6,43 +6,49 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using KYHBPA.Data.Entity;
     using KYHBPA.Data.Infrastructure;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class UserRepository : BaseRepository<AspNetUser, string>, IUserRepository
+    public class UserRepository : BaseRepository<ApplicationUser, string>, IUserRepository
     {
-        public UserRepository(Entities context) : base(context)
+        public UserRepository(EntityDbContext context) : base(context)
         {
         }
 
-        public async Task<AspNetUser> FindByUsernameAsync(string userName)
+        public async Task<ApplicationUser> FindByUsernameAsync(string userName)
         {
-            return await new Task<AspNetUser>(() => FindByUsername(userName));
+            return await new Task<ApplicationUser>(() => FindByUsername(userName));
         }
 
-        public new AspNetUser FindById(string id)
+        public override ApplicationUser FindById(string id)
         {
-            return Context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.Id == id);
+            var applicationUser = Context.Users.AsNoTracking()
+                .SingleOrDefault(o => o.Id.ToString() == id);
+            //var member = Context.Users.Select(o =>
+            //      new BaseRepository<Entity.AspNetUser, string>(Context).FindById(id).Member
+            //).SingleOrDefault(o => o.Id.ToString() == applicationUser.Id);
+            //applicationUser.Member = member.ToDomain();
+            return applicationUser;
         }
 
-        public AspNetUser FindByUsername(string userName)
+        public ApplicationUser FindByUsername(string userName)
         {
-            return Context.AspNetUsers.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
+            return Context.Users.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
         }
 
-        public List<AspNetUser> FindUsers()
+        public List<ApplicationUser> FindUsers()
         {
-            return Context.AspNetUsers.AsNoTracking().ToList();
+            return Context.Users.AsNoTracking().ToList();
         }
 
-        public bool IsInRole(string role, string id)
+        public bool? IsInRole(string role, string id)
         {
-            return FindById(id).AspNetRoles.Any(r =>  r.Name == role);
+            return FindById(id)?.Roles.Any(r => r.RoleId == role);
         }
 
-        public bool IsInRole(AspNetRole role, string id)
+        public bool? IsInRole(IdentityUserRole<string> role, string id)
         {
-            return FindById(id).AspNetRoles.Any(r =>  r.Name == role.Name);
+            return FindById(id)?.Roles.Any(r => r.RoleId == role.RoleId);
         }
     }
 }

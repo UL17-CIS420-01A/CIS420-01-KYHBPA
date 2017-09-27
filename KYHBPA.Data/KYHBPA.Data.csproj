@@ -62,63 +62,68 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\AspNetRole.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUser.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUserClaim.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\AspNetUserLogin.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Document.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Employee.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\EmployeeContact.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Event.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\EventFeedback.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\KYHBPADBModel.Context.cs">
+    <Compile Include="Entity\KYHBPAEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPADBModel.Context.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\KYHBPADBModel.cs">
+    <Compile Include="Entity\KYHBPAEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\KYHBPADBModel.Designer.cs">
+    <Compile Include="Entity\KYHBPAEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
+      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\Member.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Photo.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Poll.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\PollQuestion.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\PollRespons.cs">
-      <DependentUpon>KYHBPADBModel.tt</DependentUpon>
+    <Compile Include="Entity\PollResponse.cs">
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Entities.cs" />
+    <Compile Include="Entity\Survey.cs">
+      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\EntityDbContext.cs" />
+    <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
     <Compile Include="Repository\Implementation\UserRepository.cs" />
@@ -135,11 +140,13 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Entity\KYHBPADBModel.edmx">
+    <EntityDeploy Include="Entity\KYHBPAEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KYHBPADBModel.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>KYHBPA.Data.Entity</CustomToolNamespace>
+      <LastGenOutput>KYHBPAEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Entity\KYHBPAEntities.edmx.diagram">
+      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -149,15 +156,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Entity\KYHBPADBModel.Context.tt">
+    <Content Include="Entity\KYHBPAEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KYHBPADBModel.Context.cs</LastGenOutput>
-      <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
+      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
+      <LastGenOutput>KYHBPAEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entity\KYHBPADBModel.tt">
+    <Content Include="Entity\KYHBPAEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KYHBPADBModel.cs</LastGenOutput>
-      <DependentUpon>KYHBPADBModel.edmx</DependentUpon>
+      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
+      <LastGenOutput>KYHBPAEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

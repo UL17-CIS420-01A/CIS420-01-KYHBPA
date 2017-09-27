@@ -14,12 +14,10 @@ namespace KYHBPA.Web.Controllers
 {
     public class EventFeedbacksController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: EventFeedbacks
         public async Task<ActionResult> Index()
         {
-            return View(await db.EventFeedbacks.ToListAsync());
+            return View(await Db.EventFeedback.ToListAsync());
         }
 
         // GET: EventFeedbacks/Details/5
@@ -29,7 +27,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EventFeedback eventFeedback = await db.EventFeedbacks.FindAsync(id);
+            EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
             if (eventFeedback == null)
             {
                 return HttpNotFound();
@@ -55,8 +53,8 @@ namespace KYHBPA.Web.Controllers
                 EventFeedback obj = new EventFeedback()
                 { Member=User?.Member, Event=null, Comments=eventFeedback.Comments };
            
-                db.EventFeedbacks.Add(obj);
-                await db.SaveChangesAsync();
+                Db.EventFeedback.Add(obj);
+                await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -70,7 +68,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EventFeedback eventFeedback = await db.EventFeedbacks.FindAsync(id);
+            EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
             if (eventFeedback == null)
             {
                 return HttpNotFound();
@@ -90,8 +88,8 @@ namespace KYHBPA.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(eventFeedback).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                Db.Entry(eventFeedback).State = EntityState.Modified;
+                await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(eventFeedback);
@@ -104,7 +102,7 @@ namespace KYHBPA.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EventFeedback eventFeedback = await db.EventFeedbacks.FindAsync(id);
+            EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
             if (eventFeedback == null)
             {
                 return HttpNotFound();
@@ -117,9 +115,9 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            EventFeedback eventFeedback = await db.EventFeedbacks.FindAsync(id);
-            db.EventFeedbacks.Remove(eventFeedback);
-            await db.SaveChangesAsync();
+            EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
+            Db.EventFeedback.Remove(eventFeedback);
+            await Db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -127,7 +125,7 @@ namespace KYHBPA.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
