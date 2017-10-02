@@ -5124,9 +5124,28 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 .navbar {
     position: relative;
+    z-index: 1000;
     min-height: 60px;
     margin-bottom: 21px;
     border: 1px solid transparent;
+}
+
+.navbar:before, .navbar:after {
+    display: table;
+    content: " ";
+}
+
+.navbar:after {
+    clear: both;
+}
+
+.navbar:before, .navbar:after {
+    display: table;
+    content: " ";
+}
+
+.navbar:after {
+    clear: both;
 }
 
 @media (min-width: 768px) {

@@ -33,6 +33,18 @@ namespace KYHBPA.Web.Controllers
             set { _userManager = value; }
         }
 
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
+
         protected IPrincipal CurrentPrincipal => base.User;
         protected IIdentity CurrentIdentity => CurrentPrincipal?.Identity;
         public new ApplicationUser User

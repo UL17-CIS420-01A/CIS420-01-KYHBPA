@@ -17,7 +17,7 @@ namespace KYHBPA.Web.Controllers
         // GET: EventFeedbacks
         public async Task<ActionResult> Index()
         {
-            return View(await Db.EventFeedback.ToListAsync());
+            return View(await Db.EventFeedback.Select(o => new EventFeedbackViewModel() { Id = o.Id, Event = o.Event, Member = o.Member, Comments = o.Comments }).ToListAsync());
         }
 
         // GET: EventFeedbacks/Details/5
@@ -32,7 +32,11 @@ namespace KYHBPA.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(eventFeedback);
+
+            EventFeedbackViewModel model = new EventFeedbackViewModel()
+            { Id = eventFeedback.Id, Member = eventFeedback.Member, Event = eventFeedback.Event, Comments = eventFeedback.Comments };
+
+            return View(model);
         }
 
         // GET: EventFeedbacks/Create
@@ -50,10 +54,10 @@ namespace KYHBPA.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                EventFeedback obj = new EventFeedback()
-                { Member=User?.Member, Event=null, Comments=eventFeedback.Comments };
-           
-                Db.EventFeedback.Add(obj);
+                EventFeedback model = new EventFeedback()
+                { Member = User?.Member, Event = null, Comments = eventFeedback.Comments };
+
+                Db.EventFeedback.Add(model);
                 await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -74,8 +78,8 @@ namespace KYHBPA.Web.Controllers
                 return HttpNotFound();
             }
             EventFeedbackViewModel obj = new EventFeedbackViewModel()
-            {Id= eventFeedback.Id, Member = eventFeedback.Member, Event = eventFeedback.Event, Comments = eventFeedback.Comments };
-            
+            { Id = eventFeedback.Id, Member = eventFeedback.Member, Event = eventFeedback.Event, Comments = eventFeedback.Comments };
+
             return View(obj);
         }
 
@@ -107,7 +111,16 @@ namespace KYHBPA.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(eventFeedback);
+
+            EventFeedbackViewModel model = new EventFeedbackViewModel()
+            {
+                Id = eventFeedback.Id,
+                Event = eventFeedback.Event,
+                Member = eventFeedback.Member,
+                Comments = eventFeedback.Comments
+            };
+
+            return View(model);
         }
 
         // POST: EventFeedbacks/Delete/5
@@ -116,8 +129,11 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
-            Db.EventFeedback.Remove(eventFeedback);
-            await Db.SaveChangesAsync();
+            if ((eventFeedback?.Id) != null)
+            {
+                Db.EventFeedback.Remove(eventFeedback);
+                await Db.SaveChangesAsync();
+            }
             return RedirectToAction("Index");
         }
 

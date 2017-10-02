@@ -22,55 +22,55 @@ namespace KYHBPA.Web.Controllers
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            UserManager=userManager;
-            SignInManager=signInManager;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager??HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager ?? (_signInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>());
             }
             private set
             {
-                _signInManager=value;
+                _signInManager = value;
             }
         }
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager??HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager=value;
-            }
-        }
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager??HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager=value;
+        //    }
+        //}
 
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage=
-                message==ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message==ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message==ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message==ManageMessageId.Error ? "An error has occurred."
-                : message==ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message==ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
             var userId = User.Id;
             var model = new IndexViewModel
             {
-                HasPassword=HasPassword(),
-                PhoneNumber=await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor=await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins=await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered=await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                Logins = await UserManager.GetLoginsAsync(userId),
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
@@ -83,18 +83,18 @@ namespace KYHBPA.Web.Controllers
         {
             ManageMessageId? message;
             var result = await UserManager.RemoveLoginAsync(User.Id, new UserLoginInfo(loginProvider, providerKey));
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Id);
-                if(user!=null)
+                if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                message=ManageMessageId.RemoveLoginSuccess;
+                message = ManageMessageId.RemoveLoginSuccess;
             }
             else
             {
-                message=ManageMessageId.Error;
+                message = ManageMessageId.Error;
             }
             return RedirectToAction("ManageLogins", new
             {
@@ -115,18 +115,18 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             // Generate the token and send it
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Id, model.Number);
-            if(UserManager.SmsService!=null)
+            if (UserManager.SmsService != null)
             {
                 var message = new IdentityMessage
                 {
-                    Destination=model.Number,
-                    Body="Your security code is: "+code
+                    Destination = model.Number,
+                    Body = "Your security code is: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -144,7 +144,7 @@ namespace KYHBPA.Web.Controllers
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Id, true);
             var user = await UserManager.FindByIdAsync(User.Id);
-            if(user!=null)
+            if (user != null)
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
@@ -159,7 +159,7 @@ namespace KYHBPA.Web.Controllers
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Id, false);
             var user = await UserManager.FindByIdAsync(User.Id);
-            if(user!=null)
+            if (user != null)
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
@@ -172,7 +172,7 @@ namespace KYHBPA.Web.Controllers
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Id, phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber==null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber=phoneNumber });
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
         //
@@ -181,15 +181,15 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var result = await UserManager.ChangePhoneNumberAsync(User.Id, model.PhoneNumber, model.Code);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Id);
-                if(user!=null)
+                if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
@@ -210,7 +210,7 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Id, null);
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return RedirectToAction("Index", new
                 {
@@ -218,7 +218,7 @@ namespace KYHBPA.Web.Controllers
                 });
             }
             var user = await UserManager.FindByIdAsync(User.Id);
-            if(user!=null)
+            if (user != null)
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
@@ -241,15 +241,15 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var result = await UserManager.ChangePasswordAsync(User.Id, model.OldPassword, model.NewPassword);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Id);
-                if(user!=null)
+                if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
@@ -275,13 +275,13 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = await UserManager.AddPasswordAsync(User.Id, model.NewPassword);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     var user = await UserManager.FindByIdAsync(User.Id);
-                    if(user!=null)
+                    if (user != null)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
@@ -301,22 +301,22 @@ namespace KYHBPA.Web.Controllers
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
-            ViewBag.StatusMessage=
-                message==ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message==ManageMessageId.Error ? "An error has occurred."
+            ViewBag.StatusMessage =
+                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Id);
-            if(user==null)
+            if (user == null)
             {
                 return View("Error");
             }
             var userLogins = await UserManager.GetLoginsAsync(User.Id);
-            var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType!=ul.LoginProvider)).ToList();
-            ViewBag.ShowRemoveButton=user.PasswordHash!=null||userLogins.Count>1;
+            var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
+            ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
             {
-                CurrentLogins=userLogins,
-                OtherLogins=otherLogins
+                CurrentLogins = userLogins,
+                OtherLogins = otherLogins
             });
         }
 
@@ -335,7 +335,7 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Id);
-            if(loginInfo==null)
+            if (loginInfo == null)
             {
                 return RedirectToAction("ManageLogins", new
                 {
@@ -351,10 +351,10 @@ namespace KYHBPA.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if(disposing&&_userManager!=null)
+            if (disposing && _userManager != null)
             {
                 _userManager.Dispose();
-                _userManager=null;
+                _userManager = null;
             }
 
             base.Dispose(disposing);
@@ -374,7 +374,7 @@ namespace KYHBPA.Web.Controllers
 
         private void AddErrors(IdentityResult result)
         {
-            foreach(var error in result.Errors)
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
@@ -383,9 +383,9 @@ namespace KYHBPA.Web.Controllers
         private bool HasPassword()
         {
             var user = UserManager.FindById(User.Id);
-            if(user!=null)
+            if (user != null)
             {
-                return user.PasswordHash!=null;
+                return user.PasswordHash != null;
             }
             return false;
         }
@@ -393,9 +393,9 @@ namespace KYHBPA.Web.Controllers
         private bool HasPhoneNumber()
         {
             var user = UserManager.FindById(User.Id);
-            if(user!=null)
+            if (user != null)
             {
-                return user.PhoneNumber!=null;
+                return user.PhoneNumber != null;
             }
             return false;
         }

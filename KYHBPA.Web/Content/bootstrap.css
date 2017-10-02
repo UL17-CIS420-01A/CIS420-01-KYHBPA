@@ -3933,6 +3933,29 @@ tbody.collapse.in {
     left: auto
 }
 
+
+/*
+.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+  border-top: 0 dotted;
+  border-bottom: 4px solid #000000;
+  content: "";
+}
+
+.dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
+@media (min-width: 768px) {
+  .navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+*/
+
 .dropup .caret, .navbar-fixed-bottom .dropdown .caret {
     border-top: 0;
     border-bottom: 4px dashed;
@@ -7219,7 +7242,29 @@ button.close {
 }
 
 .navbar {
-    border-width: 0
+    position: relative;
+    z-index: 1000;
+    min-height: 60px;
+    margin-bottom: 21px;
+    border: 1px solid transparent;
+}
+
+.navbar:before, .navbar:after {
+    display: table;
+    content: " ";
+}
+
+.navbar:after {
+    clear: both;
+}
+
+.navbar:before, .navbar:after {
+    display: table;
+    content: " ";
+}
+
+.navbar:after {
+    clear: both;
 }
 
 .navbar-default .badge {
