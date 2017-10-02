@@ -324,6 +324,11 @@
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Legislation.cshtml" />
     <None Include="Views\Home\News.cshtml" />
+    <Content Include="Views\Surveys\Create.cshtml" />
+    <Content Include="Views\Surveys\Delete.cshtml" />
+    <Content Include="Views\Surveys\Details.cshtml" />
+    <Content Include="Views\Surveys\Edit.cshtml" />
+    <Content Include="Views\Surveys\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

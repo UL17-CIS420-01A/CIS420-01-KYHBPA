@@ -2,118 +2,127 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using KYHBPA.Data.Entity;
+using System.Web;
+using System.Web.Mvc;
+using KYHBPA;
 using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Web.Controllers
 {
-    public class SurveysController : ApiController
+    public class SurveysController : BaseController
     {
-        private EntityDbContext db = new EntityDbContext();
-
-        // GET: api/Surveys
-        public IQueryable<Survey> GetSurveys()
+        
+        // GET: Surveys
+        public async Task<ActionResult> Index()
         {
-            return db.Surveys;
+            return View(await Db.Surveys.ToListAsync());
         }
 
-        // GET: api/Surveys/5
-        [ResponseType(typeof(Survey))]
-        public IHttpActionResult GetSurvey(int id)
+        // GET: Surveys/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
-            Survey survey = db.Surveys.Find(id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = await Db.Surveys.FindAsync(id);
             if (survey == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(survey);
+            return View(survey);
         }
 
-        // PUT: api/Surveys/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutSurvey(int id, Survey survey)
+        // GET: Surveys/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != survey.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(survey).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SurveyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return View();
         }
 
-        // POST: api/Surveys
-        [ResponseType(typeof(Survey))]
-        public IHttpActionResult PostSurvey(Survey survey)
+        // POST: Surveys/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "Id")] Survey survey)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                Db.Surveys.Add(survey);
+                await Db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
 
-            db.Surveys.Add(survey);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = survey.Id }, survey);
+            return View(survey);
         }
 
-        // DELETE: api/Surveys/5
-        [ResponseType(typeof(Survey))]
-        public IHttpActionResult DeleteSurvey(int id)
+        // GET: Surveys/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
-            Survey survey = db.Surveys.Find(id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = await Db.Surveys.FindAsync(id);
             if (survey == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(survey);
+        }
 
-            db.Surveys.Remove(survey);
-            db.SaveChanges();
+        // POST: Surveys/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "Id")] Survey survey)
+        {
+            if (ModelState.IsValid)
+            {
+                Db.Entry(survey).State = EntityState.Modified;
+                await Db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(survey);
+        }
 
-            return Ok(survey);
+        // GET: Surveys/Delete/5
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = await Db.Surveys.FindAsync(id);
+            if (survey == null)
+            {
+                return HttpNotFound();
+            }
+            return View(survey);
+        }
+
+        // POST: Surveys/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Survey survey = await Db.Surveys.FindAsync(id);
+            Db.Surveys.Remove(survey);
+            await Db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool SurveyExists(int id)
-        {
-            return db.Surveys.Count(e => e.Id == id) > 0;
         }
     }
 }
