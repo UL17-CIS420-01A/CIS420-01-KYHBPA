@@ -69,7 +69,7 @@ namespace KYHBPA.Web.Controllers
             }
             else if ((imageContent = uploadPhoto.ImageData.InputStream.ToByteArray()).IsNull())
             {
-                ModelState.AddModelError("ImageData", "You must select an image to upload.");
+                ModelState.AddModelError("ImageData", "The file you uploaded is not an acceptable type of image.");
             }
 
 
