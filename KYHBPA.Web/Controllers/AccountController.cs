@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -157,9 +159,26 @@ namespace KYHBPA.Web.Controllers
             model.Member.MembershipEnrollment = DateTime.UtcNow;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Member = model.Member };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Member.PhoneNumber, Member = model.Member };
+                IdentityResult result = new IdentityResult();
+                try
+                {
+                    result = await UserManager.CreateAsync(user, model.Password);
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                }
+                if (!result.IsNull() && result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -181,9 +200,9 @@ namespace KYHBPA.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(Guid userId, string code)
         {
-            if (userId == null || code == null)
+            if (userId.IsNull() || code.IsNull())
             {
                 return View("Error");
             }
@@ -209,7 +228,7 @@ namespace KYHBPA.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user.IsNull() || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -240,7 +259,7 @@ namespace KYHBPA.Web.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            return code.IsNull() ? View("Error") : View();
         }
 
         //
@@ -255,7 +274,7 @@ namespace KYHBPA.Web.Controllers
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            if (user.IsNull())
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -297,7 +316,7 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if (userId.IsNull())
             {
                 return View("Error");
             }
@@ -337,7 +356,7 @@ namespace KYHBPA.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            if (loginInfo.IsNull())
             {
                 return RedirectToAction("Login");
             }
@@ -381,7 +400,7 @@ namespace KYHBPA.Web.Controllers
             {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                if (info.IsNull())
                 {
                     return View("ExternalLoginFailure");
                 }
@@ -477,7 +496,7 @@ namespace KYHBPA.Web.Controllers
             {
             }
 
-            public ChallengeResult(string provider, string redirectUri, string userId)
+            public ChallengeResult(string provider, string redirectUri, Guid? userId)
             {
                 LoginProvider = provider;
                 RedirectUri = redirectUri;
@@ -492,7 +511,7 @@ namespace KYHBPA.Web.Controllers
             {
                 get; set;
             }
-            public string UserId
+            public Guid? UserId
             {
                 get; set;
             }
@@ -502,7 +521,7 @@ namespace KYHBPA.Web.Controllers
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
-                    properties.Dictionary[XsrfKey] = UserId;
+                    properties.Dictionary[XsrfKey] = UserId.ToString();
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }

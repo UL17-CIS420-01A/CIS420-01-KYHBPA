@@ -34,6 +34,21 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadedBy.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event.Name)
+        </dd>
     </dl>
 </div>
 <p>

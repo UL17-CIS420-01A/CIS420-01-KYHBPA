@@ -1,4 +1,7 @@
-﻿namespace KYHBPA.Data.Repository
+﻿using KYHBPA.Entity;
+using static AutoMapper.Mapper;
+
+namespace KYHBPA.Data.Repository
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +12,7 @@
     using KYHBPA.Data.Infrastructure;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class UserRepository : BaseRepository<ApplicationUser, string>, IUserRepository
+    public class UserRepository : BaseRepository<ApplicationUser, Guid>, IUserRepository
     {
         public UserRepository(EntityDbContext context) : base(context)
         {
@@ -20,35 +23,29 @@
             return await new Task<ApplicationUser>(() => FindByUsername(userName));
         }
 
-        public override ApplicationUser FindById(string id)
-        {
-            var applicationUser = Context.Users.AsNoTracking()
-                .SingleOrDefault(o => o.Id.ToString() == id);
-            //var member = Context.Users.Select(o =>
-            //      new BaseRepository<Entity.AspNetUser, string>(Context).FindById(id).Member
-            //).SingleOrDefault(o => o.Id.ToString() == applicationUser.Id);
-            //applicationUser.Member = member.ToDomain();
-            return applicationUser;
-        }
+        public override ApplicationUser FindById(Guid id) => id.IsEmpty() ? null : Context.Users.AsNoTracking()
+            .Include(o => o.Member)
+            .SingleOrDefault(o => o.Id == id);
 
-        public ApplicationUser FindByUsername(string userName)
-        {
-            return Context.Users.AsNoTracking().SingleOrDefault(o => o.UserName == userName.ToString());
-        }
+        //if (result.IsNull())
+        //    return null;
+        //result.Member = Context.Members.Single(o => o.Id == result.Member_Id);
+        public ApplicationUser FindByUsername(string userName) => Context.Users.AsNoTracking()
+            .Include(o => o.Member)
+            .SingleOrDefault(o => o.UserName == userName.ToString());
 
-        public List<ApplicationUser> FindUsers()
-        {
-            return Context.Users.AsNoTracking().ToList();
-        }
+        public List<ApplicationUser> FindUsers() => Context.Users.AsNoTracking()
+            .Include(o => o.Member).ToList();
 
-        public bool? IsInRole(string role, string id)
-        {
-            return FindById(id)?.Roles.Any(r => r.RoleId == role);
-        }
+        public bool? IsInRole(Guid role, Guid id) => FindById(id)?.Roles.Any(r => r.RoleId == role);
 
-        public bool? IsInRole(IdentityUserRole<string> role, string id)
-        {
-            return FindById(id)?.Roles.Any(r => r.RoleId == role.RoleId);
-        }
+        public bool? IsInRole(AspNetUserRole role, Guid id) => FindById(id)?.Roles.Any(r => r.RoleId == role.RoleId);
+
+        //private ApplicationUser FindApplicationUserByAspNetUser(ApplicationUser ApplicationUser)
+        //{
+        //    ApplicationUser applicationUser = Map(ApplicationUser, new ApplicationUser());
+        //    applicationUser.Member = Map(Context.Members.Single(o => ApplicationUser.Member_Id == o.Id), new Member());
+        //    return applicationUser;
+        //}
     }
 }

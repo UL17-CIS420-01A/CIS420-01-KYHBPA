@@ -9,9 +9,9 @@ namespace KYHBPA.Web.ActionResults
     {
         public ImageResult(Stream imageStream, string contentType)
         {
-            if (imageStream == null)
+            if (imageStream.IsNull())
                 throw new ArgumentNullException(nameof(imageStream));
-            if (contentType == null)
+            if (contentType.IsNull())
                 throw new ArgumentNullException(nameof(contentType));
 
             this.ImageStream = imageStream;
@@ -23,7 +23,7 @@ namespace KYHBPA.Web.ActionResults
 
         public override void ExecuteResult(ControllerContext context)
         {
-            if (context == null)
+            if (context.IsNull())
                 throw new ArgumentNullException(nameof(context));
 
             HttpResponseBase response = context.HttpContext.Response;

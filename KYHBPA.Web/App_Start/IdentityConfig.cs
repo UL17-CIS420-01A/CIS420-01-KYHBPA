@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using KYHBPA.Data.Infrastructure;
+using KYHBPA.Entity;
 
 namespace KYHBPA.Web
 {
@@ -33,63 +34,63 @@ namespace KYHBPA.Web
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, Guid>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, Guid> store)
             : base(store)
         {
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<EntityDbContext>()));
+            var manager = new ApplicationUserManager(new ApplicationUserStore(EntityDbContext.Create()));
             // Configure validation logic for usernames
-            manager.UserValidator=new UserValidator<ApplicationUser>(manager)
+            manager.UserValidator = new UserValidator<ApplicationUser, Guid>(manager)
             {
-                AllowOnlyAlphanumericUserNames=false,
-                RequireUniqueEmail=true
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
-            manager.PasswordValidator=new PasswordValidator
+            manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength=6,
-                RequireNonLetterOrDigit=false,
-                RequireDigit=false,
-                RequireLowercase=false,
-                RequireUppercase=false,
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault=false;
-            manager.DefaultAccountLockoutTimeSpan=TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout=5;
+            manager.UserLockoutEnabledByDefault = false;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser, Guid>
             {
-                MessageFormat="Your security code is {0}"
+                MessageFormat = "Your security code is {0}"
             });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser, Guid>
             {
-                Subject="Security Code",
-                BodyFormat="Your security code is {0}"
+                Subject = "Security Code",
+                BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService=new EmailService();
-            manager.SmsService=new SmsService();
+            manager.EmailService = new EmailService();
+            manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
-            if(dataProtectionProvider!=null)
+            if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider=
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser, Guid>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
 
     // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, Guid>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
@@ -105,5 +106,14 @@ namespace KYHBPA.Web
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+    }
+
+    public class ApplicationUserStore :
+        UserStore<ApplicationUser, AspNetRole, Guid, AspNetUserLogin, AspNetUserRole, AspNetUserClaim>,
+        IUserStore<ApplicationUser, Guid>,
+        IDisposable
+    {
+        public ApplicationUserStore(EntityDbContext context) : base(context) { }
+
     }
 }

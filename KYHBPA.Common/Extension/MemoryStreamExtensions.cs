@@ -2,6 +2,7 @@
 namespace System.IO
 {
     using System.Text;
+    using KYHBPA;
 
     /// <summary>
     /// MemoryStream Extension Methods that provide conversions to and from strings
@@ -16,8 +17,10 @@ namespace System.IO
         /// <returns></returns>
         public static string AsString(this MemoryStream ms, Encoding encoding = null)
         {
-            if(encoding==null)
-                encoding=Encoding.Unicode;
+            if (ms.IsNull() || ms.Length == 0)
+                return string.Empty;
+            if (encoding.IsNull())
+                encoding = Encoding.Unicode;
 
             return encoding.GetString(ms.ToArray());
         }
@@ -30,8 +33,8 @@ namespace System.IO
         /// <param name="encoding"></param>
         public static void FromString(this MemoryStream ms, string inputString, Encoding encoding = null)
         {
-            if(encoding==null)
-                encoding=Encoding.Unicode;
+            if (encoding.IsNull())
+                encoding = Encoding.Unicode;
 
             byte[] buffer = encoding.GetBytes(inputString);
             ms.Write(buffer, 0, buffer.Length);

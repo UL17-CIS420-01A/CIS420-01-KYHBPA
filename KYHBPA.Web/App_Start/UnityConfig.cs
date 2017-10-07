@@ -1,5 +1,6 @@
 using System.Data.Common;
 using System.Data.Entity;
+using AutoMapper;
 using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Web
@@ -45,13 +46,14 @@ namespace KYHBPA.Web
             //container.LoadConfiguration();
 
             // TODO: Register your types here
-            //container.RegisterType<IdentityDbContext<ApplicationUser>, ApplicationDbContext>();
-            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            container.RegisterType<IUserStore<ApplicationUser, Guid>, ApplicationUserStore>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<DbContext, EntityDbContext>();
-            //container.RegisterType<IUserRepository, UserRepository>();
-            //container.RegisterType<IRepository<AspNetUser, string>, UserRepository>();
+            container.RegisterType<EntityDbContext>(new InjectionFactory(c => new EntityDbContextFactory().Create()));
+            container.RegisterType<Mapper>();
+            container.RegisterType<IUserRepository, UserRepository>();
+            //container.RegisterType<IRepository<User, string>, UserRepository>();
         }
     }
 }

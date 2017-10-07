@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KYHBPA.Data.Entity
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace KYHBPA.Entity
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Employee
-    {
-        public int Id { get; set; }
-        public string JobTitle { get; set; }
-        public Nullable<int> Member_Id { get; set; }
-    
-        public virtual Member Member { get; set; }
+
+    public partial class AspNetUserClaim : IdentityUserClaim<Guid>
+    {        
+        [ForeignKey(nameof(User))]
+        public override Guid UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

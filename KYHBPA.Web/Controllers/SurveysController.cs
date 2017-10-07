@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using KYHBPA;
-using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Web.Controllers
 {
     public class SurveysController : BaseController
     {
-        
+
         // GET: Surveys
         public async Task<ActionResult> Index()
         {
@@ -24,12 +22,12 @@ namespace KYHBPA.Web.Controllers
         // GET: Surveys/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Survey survey = await Db.Surveys.FindAsync(id);
-            if (survey == null)
+            if (survey.IsNull())
             {
                 return HttpNotFound();
             }
@@ -62,12 +60,12 @@ namespace KYHBPA.Web.Controllers
         // GET: Surveys/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Survey survey = await Db.Surveys.FindAsync(id);
-            if (survey == null)
+            if (survey.IsNull())
             {
                 return HttpNotFound();
             }
@@ -93,12 +91,12 @@ namespace KYHBPA.Web.Controllers
         // GET: Surveys/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Survey survey = await Db.Surveys.FindAsync(id);
-            if (survey == null)
+            if (survey.IsNull())
             {
                 return HttpNotFound();
             }

@@ -2,41 +2,48 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using KYHBPA.Data.Infrastructure;
 using KYHBPA.Web.ActionResults;
 using KYHBPA.Web.Models;
 using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
+using static System.Drawing.Image;
 
 namespace KYHBPA.Web.Controllers
 {
     public class PhotosController : BaseController
     {
+        public ImageResult ImageNotAvailable
+        {
+            get
+            {
+                var imageResult = new ImageResult(
+                     new MemoryStream(FromFile(Server.MapPath(@"~/content/images/ImageNotAvailable.jpg")).ToByteArray()), "image/jpeg");
+                return imageResult;
+            }
+        }
 
         // GET: Photos
         [HttpGet]
-        public async Task<ActionResult> Index()
-        {
-            return View(await Db.Photos.ToListAsync());
-        }
+        public async Task<ActionResult> Index() => View((await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).ToListAsync()));
 
         // GET: Photos/Details/5
         [HttpGet]
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(Guid? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.FindAsync(id);
-            if (photo == null)
+            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            if (photo.IsNull())
             {
                 return HttpNotFound();
             }
@@ -45,33 +52,44 @@ namespace KYHBPA.Web.Controllers
 
         // GET: Photos/Create
         [HttpGet]
-        public ActionResult Create()
-        {
-
-            var uploadPhoto = new UploadPhotoViewModel();
-            return View(uploadPhoto);
-        }
+        public ActionResult Create() => View(new UploadPhotoViewModel());
 
         // POST: Photos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ImageData,PhotoName,Description")] UploadPhotoViewModel uploadPhoto, HttpPostedFileBase file)
+        public async Task<ActionResult> Create(
+            [Bind(Include = "ImageData,PhotoName,Description")] UploadPhotoViewModel uploadPhoto, HttpPostedFileBase imageData)
         {
+            byte[] imageContent = null;
+            if (uploadPhoto.ImageData.IsNull())
+            {
+                ModelState.AddModelError("ImageData", "You must select an image to upload.");
+            }
+            else if ((imageContent = uploadPhoto.ImageData.InputStream.ToByteArray()).IsNull())
+            {
+                ModelState.AddModelError("ImageData", "You must select an image to upload.");
+            }
+
+
             if (ModelState.IsValid)
             {
-                var photo = new Photo()
+                var photo = new Photo
                 {
-                    Uploader = User?.Member,
-                    Content = uploadPhoto.ImageData.InputStream.ToByteArray(),
+                    Content = imageContent,
+                    ContentLength = uploadPhoto.ImageData.ContentLength,
+                    ContentType = uploadPhoto.ImageData.ContentType,
                     PhotoName = uploadPhoto.PhotoName,
                     Description = uploadPhoto.Description,
+                    UploadedBy = User?.Member,
+                    Uploaded = DateTime.UtcNow,
+                    LastModifiedBy = User?.Member,
+                    LastModified = DateTime.UtcNow
                 };
-
                 Db.Photos.Add(photo);
                 await Db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
 
             return View(uploadPhoto);
@@ -79,14 +97,14 @@ namespace KYHBPA.Web.Controllers
 
         // GET: Photos/Edit/5
         [HttpGet]
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.FindAsync(id);
-            if (photo == null)
+            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            if (photo.IsNull())
             {
                 return HttpNotFound();
             }
@@ -98,27 +116,38 @@ namespace KYHBPA.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Content,PhotoName,Description")] Photo photo)
+        public async Task<ActionResult> Edit(Photo photo)
         {
+            Photo p = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == photo.Id);
+            if (p.IsNull())
+                return RedirectToAction(nameof(Index));
+            photo.Content = p.Content;
+            photo.ContentLength = p.ContentLength;
+            photo.ContentType = p.ContentType;
+            photo.Event = p.Event;
+            photo.UploadedBy = p.UploadedBy;
+            photo.Uploaded = p.Uploaded;
             if (ModelState.IsValid)
             {
-                Db.Entry(photo).State = EntityState.Modified;
+                photo.LastModifiedBy = User?.Member;
+                photo.LastModified = DateTime.UtcNow;
+                Db.Photos.AddOrUpdate((o) => o.Id, photo);
                 await Db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(photo);
         }
 
         // GET: Photos/Delete/5
         [HttpGet]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(Guid? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.FindAsync(id);
-            if (photo == null)
+            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            if (photo.IsNull())
             {
                 return HttpNotFound();
             }
@@ -128,47 +157,67 @@ namespace KYHBPA.Web.Controllers
         // POST: Photos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(Guid? id)
         {
-            Photo photo = Db.Photos.Find(id);
+            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.LastModifiedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            if (ModelState.IsValid)
+            {
+                photo.DeletedBy = User?.Member;
+                photo.Deleted = DateTime.UtcNow;
+                Db.Entry(photo).State = EntityState.Modified;
+                await Db.SaveChangesAsync();
+            }
             Db.Photos.Remove(photo);
             await Db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
-        public async Task<ActionResult> RenderImage(int? id)
+        public async Task<ActionResult> RenderImage(Guid? id)
         {
-            if(id.IsNull())
+            if (id.IsNull())
             {
-                return new HttpNotFoundResult();
+                return ImageNotAvailable;
             }
-            string contentType = "image/jpeg";
             Photo photo = await Db.Photos.FindAsync(id);
-            if (photo.Content.IsNull() || photo.Content.ToConcatenatedString().IsNullOrWhiteSpace())
+            if ((photo?.Content).IsEmptyArray())
             {
-                return new HttpNotFoundResult();
+                return ImageNotAvailable;
             }
-            return Image(photo.Content, contentType);
+            return Image(photo.Content, photo.ContentType);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        //public ImageResult Image(Stream imageStream, string contentType)
-        //{
-        //    return new ImageResult(imageStream, contentType);
-        //}
 
         public ImageResult Image(byte[] imageBytes, string contentType)
         {
-            return new ImageResult(new MemoryStream(imageBytes), contentType);
+            try
+            {
+                var img = imageBytes.ToImage();
+                var bmap = new System.Drawing.Bitmap(img);
+
+                var imageResult = new ImageResult(new MemoryStream(imageBytes), contentType);
+                ////calculate the ratio
+                //double dbl = (double)img.Width / (double)img.Height;
+                //Bitmap resizedImage;
+                //int boxHeight = 600;
+                //int boxWidth = 800;
+                ////set height of image to boxHeight and check if resulting width is less than boxWidth, 
+                ////else set width of image to boxWidth and calculate new height
+                //if ((int)((double)boxHeight * dbl) <= boxWidth)
+                //{
+                //    resizedImage = new Bitmap(img, (int)((double)boxHeight * dbl), boxHeight);
+                //}
+                //else
+                //{
+                //    resizedImage = new Bitmap(img, boxWidth, (int)((double)boxWidth / dbl));
+                //}
+                return imageResult;
+            }
+            catch (Exception ex)
+            {
+                return ImageNotAvailable;
+            }
         }
     }
 }

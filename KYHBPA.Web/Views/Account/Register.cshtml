@@ -90,13 +90,13 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Member.isOwner, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Member.isOwner, "Are you a horse owner?", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.CheckBoxFor(m => m.Member.isOwner, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Member.isTrainer, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Member.isTrainer, "Are you a horse trainer?", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.CheckBoxFor(m => m.Member.isTrainer, new { @class = "form-control" })
         </div>

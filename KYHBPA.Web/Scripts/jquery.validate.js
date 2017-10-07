@@ -139,7 +139,7 @@ $.extend( $.fn, {
 			settings, staticRules, existingRules, data, param, filtered;
 
 		// If nothing is selected, return empty object; can't chain anyway
-		if ( element == null || element.form == null ) {
+		if ( element.IsNull() || element.form.IsNull() ) {
 			return;
 		}
 
@@ -214,7 +214,7 @@ $.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables
 	// http://jqueryvalidation.org/filled-selector/
 	filled: function( a ) {
 		var val = $( a ).val();
-		return val !== null && !!$.trim( "" + val );
+		return val !.IsNull() && !!$.trim( "" + val );
 	},
 
 	// http://jqueryvalidation.org/unchecked-selector/
@@ -1157,7 +1157,7 @@ $.extend( $.validator, {
 
 		// Convert the value to a number for number inputs, and for text for backwards compability
 		// allows type="date" and others to be compared as strings
-		if ( /min|max|step/.test( method ) && ( type === null || /number|range|text/.test( type ) ) ) {
+		if ( /min|max|step/.test( method ) && ( type =.IsNull() || /number|range|text/.test( type ) ) ) {
 			value = Number( value );
 
 			// Support Opera Mini, which returns NaN for undefined minlength

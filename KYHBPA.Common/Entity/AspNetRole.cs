@@ -7,25 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KYHBPA.Data.Entity
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace KYHBPA.Entity
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class PollQuestion
+
+    public partial class AspNetRole : IdentityRole<Guid, AspNetUserRole>
     {
+        private readonly ICollection<AspNetUserRole> _users;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PollQuestion()
+        public AspNetRole()
         {
-            this.PollResponses = new HashSet<PollResponse>();
+            this._users = new HashSet<AspNetUserRole>();
         }
-    
-        public int Id { get; set; }
-        public string Message { get; set; }
-        public Nullable<int> Poll_Id { get; set; }
-    
-        public virtual Poll Poll { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PollResponse> PollResponses { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
+            "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public override ICollection<AspNetUserRole> Users
+        {
+            get { return _users; }
+        }
     }
 }

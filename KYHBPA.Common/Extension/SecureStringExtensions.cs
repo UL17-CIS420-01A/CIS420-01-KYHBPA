@@ -42,7 +42,7 @@
         /// <returns>string or string.Empty</returns>
         public static string FromSecureString(this SecureString value)
         {
-            if (value == null)
+            if (value.IsNull())
             {
                 return string.Empty;
             }

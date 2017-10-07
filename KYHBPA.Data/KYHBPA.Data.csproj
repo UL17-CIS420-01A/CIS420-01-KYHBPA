@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -46,6 +49,29 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -59,68 +85,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\AspNetRole.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\AspNetUser.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\AspNetUserClaim.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\AspNetUserLogin.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Document.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Employee.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\EmployeeContact.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Event.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\EventFeedback.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\KYHBPAEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPAEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\KYHBPAEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\KYHBPAEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Member.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Photo.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Poll.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\PollQuestion.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\PollResponse.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Survey.cs">
-      <DependentUpon>KYHBPAEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\EntityDbContext.cs" />
     <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
+    <Compile Include="Infrastructure\Helper\SoftDelete\SoftDeleteInterceptor.cs" />
+    <Compile Include="Infrastructure\Helper\SoftDelete\SoftDeleteQueryVisitor.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
@@ -131,13 +99,6 @@
   <ItemGroup>
     <None Include="App.Config">
       <SubType>Designer</SubType>
-    </None>
-    <EntityDeploy Include="Entity\KYHBPAEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KYHBPAEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Entity\KYHBPAEntities.edmx.diagram">
-      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -152,18 +113,7 @@
       <Name>KYHBPA.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Entity\KYHBPAEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
-      <LastGenOutput>KYHBPAEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\KYHBPAEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KYHBPAEntities.edmx</DependentUpon>
-      <LastGenOutput>KYHBPAEntities.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

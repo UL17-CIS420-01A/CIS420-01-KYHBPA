@@ -41,7 +41,7 @@ namespace KYHBPA
 
         public static byte[] ToByteArray(this Stream inputStream)
         {
-            return inputStream?.ToImage().ToByteArray();
+            return inputStream?.ToImage()?.ToByteArray();
         }
     }
 }

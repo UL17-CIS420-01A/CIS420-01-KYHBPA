@@ -23,12 +23,12 @@ namespace KYHBPA.Web.Controllers
         // GET: EventFeedbacks/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
-            if (eventFeedback == null)
+            if (eventFeedback.IsNull())
             {
                 return HttpNotFound();
             }
@@ -56,7 +56,7 @@ namespace KYHBPA.Web.Controllers
             {
                 EventFeedback model = new EventFeedback()
                 { Member = User?.Member, Event = null, Comments = eventFeedback.Comments };
-
+                
                 Db.EventFeedback.Add(model);
                 await Db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -68,12 +68,12 @@ namespace KYHBPA.Web.Controllers
         // GET: EventFeedbacks/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
-            if (eventFeedback == null)
+            if (eventFeedback.IsNull())
             {
                 return HttpNotFound();
             }
@@ -102,12 +102,12 @@ namespace KYHBPA.Web.Controllers
         // GET: EventFeedbacks/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id.IsNull())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             EventFeedback eventFeedback = await Db.EventFeedback.FindAsync(id);
-            if (eventFeedback == null)
+            if (eventFeedback.IsNull())
             {
                 return HttpNotFound();
             }

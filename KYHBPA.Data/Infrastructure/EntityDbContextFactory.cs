@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace KYHBPA.Data.Infrastructure
 {
-    class EntityDbContextFactory : IDbContextFactory<EntityDbContext>
+    public class EntityDbContextFactory : IDbContextFactory<EntityDbContext>
     {
-        public EntityDbContextFactory()
-        {
-        }
-
         public EntityDbContext Create() => EntityDbContext.Create();
     }
 }

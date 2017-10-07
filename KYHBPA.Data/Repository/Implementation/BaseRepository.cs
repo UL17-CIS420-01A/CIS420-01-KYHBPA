@@ -13,7 +13,7 @@ namespace KYHBPA.Data.Repository
 
         internal BaseRepository(EntityDbContext context)
         {
-            if (context == null) { throw new ArgumentNullException(nameof(context)); }
+            if (context.IsNull()) { throw new ArgumentNullException(nameof(context)); }
             this._context = context;
         }
 
@@ -21,7 +21,7 @@ namespace KYHBPA.Data.Repository
 
         public virtual void Create(TEntity entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Add(entity);
         }
 
@@ -42,13 +42,13 @@ namespace KYHBPA.Data.Repository
 
         public virtual void Delete(TEntity entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Attach(entity);
             Context.Set<TEntity>().Remove(entity);
         }
         public virtual void Update(TEntity entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
         }

@@ -27,7 +27,7 @@ namespace KYHBPA.Web
         {
             var file = value as HttpPostedFileBase;
 
-            if (value == null || string.IsNullOrEmpty(file.FileName))
+            if (value.IsNull() || string.IsNullOrEmpty(file.FileName))
             {
                 return true;
             }

@@ -25,7 +25,7 @@ namespace KYHBPA.Web
         public override bool IsValid(
             object value)
         {
-            if (value == null)
+            if (value.IsNull())
             {
                 return true;
             }

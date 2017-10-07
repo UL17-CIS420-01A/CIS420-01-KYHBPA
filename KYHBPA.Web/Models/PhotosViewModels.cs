@@ -41,7 +41,7 @@ namespace KYHBPA.Web.Models
     }
     public class PhotoViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public Member Uploader { get; set; }
 

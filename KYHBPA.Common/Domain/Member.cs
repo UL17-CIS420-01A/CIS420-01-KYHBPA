@@ -1,24 +1,28 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KYHBPA
 {
     public class Member
     {
-        [Required]
-        public int Id { get; set; }
+        [Key, Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         [RegularExpression(@"[\w' -]+")]
         [Required(ErrorMessage = "First Name Required")]
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessage = "First name must be between 1 and 50 characters.")]
         [Display(Name = "First Name")]
+        [DefaultValue("")]
         public string FirstName { get; set; }
 
         [RegularExpression(@"[\w' -]+")]
         [Required(ErrorMessage = "Last Name Required")]
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessage = "Last name must be between 1 and 50 characters.")]
         [Display(Name = "Last Name")]
+        [DefaultValue("")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Date of Birth Required")]
@@ -28,7 +32,7 @@ namespace KYHBPA
 
         [DataType(DataType.Date)]
         public DateTime? MembershipEnrollment { get; set; }
-        
+
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -54,25 +58,31 @@ namespace KYHBPA
         [DataType(DataType.PostalCode)]
         public string ZipCode { get; set; }
 
-        //[Required(AllowEmptyStrings = false, ErrorMessage = "KRC License Number Required")]
+        [Required(ErrorMessage = "KRC License Number Required")]
         [Display(Name = "KRC License Number")]
         public string LicenseNumber { get; set; }
 
+        [Display(Name = "Are you a horse owner?")]
         public bool isOwner { get; set; }
 
+        [Display(Name = "Are you a horse trainer?")]
+        [DefaultValue(false)]
         public bool isTrainer { get; set; }
 
         [Required]
         [IsTrue(ErrorMessage = "You must agree to the Terms of Service.")]
         [Display(Name = "Agree to Terms", Description = "By checking this, you agree to the Terms of Service of the Kentucky Horseman's Benevolent and Protective Association.")]
+        [DefaultValue(false)]
         public bool AgreedToTerms { get; set; }
 
+        [Required]
         [Display(Name = "Signature")]
         [Description(description: "By checking this, you confirm that all information provided is correct.")]
         [Compare("FullName", ErrorMessage = "Your signature must match your first and last name.")]
+        [DefaultValue("")]
         public string Signature { get; set; }
 
         [Display(Name = "Full Name")]
-        public virtual string FullName => $"{FirstName} {LastName}";
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

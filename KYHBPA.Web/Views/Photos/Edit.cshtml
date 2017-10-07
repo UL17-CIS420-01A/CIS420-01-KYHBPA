@@ -14,9 +14,8 @@
     <div class="form-horizontal">
         <h4>Photo</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
 
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -38,6 +37,20 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UploadedBy.FullName, htmlAttributes: new { @class = "control-label col-md-2" }, labelText: "UploadedBy Name")
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.UploadedBy.FullName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.Name, htmlAttributes: new { @class = "control-label col-md-2" }, labelText: "Event")
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Event.Name)
             </div>
         </div>
 

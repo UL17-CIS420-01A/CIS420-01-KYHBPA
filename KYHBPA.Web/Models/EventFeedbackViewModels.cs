@@ -9,7 +9,7 @@ namespace KYHBPA.Web.Models
     public class EventFeedbackViewModel
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Event Event { get; set; }
         public Member Member { get; set; }
         [DataType(DataType.MultilineText)]

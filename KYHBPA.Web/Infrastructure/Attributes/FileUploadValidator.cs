@@ -53,7 +53,7 @@ namespace KYHBPA.Web
               object value
             , ValidationContext validationContext)
         {
-            if (value == null)
+            if (value.IsNull())
             {
                 return ValidationResult.Success;
             }
