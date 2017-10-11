@@ -1,27 +1,10 @@
 ﻿@model IEnumerable<KYHBPA.Survey>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Survey";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+    <script>(function (t, e, c, s) { var n, o, a; t.SMCX = t.SMCX || [], e.getElementById(s) || (n = e.getElementsByTagName(c), o = n[n.length - 1], a = e.createElement(c), a.type = "text/javascript", a.async = !0, a.id = s, a.src = ["https:" === location.protocol ? "https://" : "http://", "widget.surveymonkey.com/collect/website/js/RzT2dLaxY_2FvcXEuX2QFf7Yt0o_2B04XRXn_2FqsxGOX5N4PLBA6mFj4ljcXecF20sWT1.js"].join(""), o.parentNode.insertBefore(a, o)) })(window, document, "script", "smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;" href=https://www.surveymonkey.com> Create your survey with SurveyMonkey </a></p>
