@@ -259,8 +259,9 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
-    <Compile Include="Controllers\EventFeedbacksController.cs" />
+    <Compile Include="Controllers\EventFeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\EventFeedbackViewModels.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\PhotosViewModels.cs" />
@@ -370,11 +372,11 @@
     <Content Include="Views\Photos\Details.cshtml" />
     <Content Include="Views\Photos\Edit.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
-    <Content Include="Views\EventFeedbacks\Create.cshtml" />
-    <Content Include="Views\EventFeedbacks\Delete.cshtml" />
-    <Content Include="Views\EventFeedbacks\Details.cshtml" />
-    <Content Include="Views\EventFeedbacks\Edit.cshtml" />
-    <Content Include="Views\EventFeedbacks\Index.cshtml" />
+    <Content Include="Views\EventFeedback\Create.cshtml" />
+    <Content Include="Views\EventFeedback\Delete.cshtml" />
+    <Content Include="Views\EventFeedback\Details.cshtml" />
+    <Content Include="Views\EventFeedback\Edit.cshtml" />
+    <Content Include="Views\EventFeedback\Index.cshtml" />
     <Content Include="Views\Home\BoardofDirectors.cshtml" />
     <Content Include="Views\Home\Membership.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
@@ -391,6 +393,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Blog\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
