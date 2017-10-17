@@ -4,7 +4,6 @@
     width: 70px;
     height: 70px;
     text-align: center;
-
     margin: 5px 5px;
 }
 .fa-facebook {
@@ -13,9 +12,5 @@
 }
 .fa-twitter {
     background: #55ACEE;
-    color: white;
-}
-.fa-youtube {
-    background: #bb0000;
     color: white;
 }
