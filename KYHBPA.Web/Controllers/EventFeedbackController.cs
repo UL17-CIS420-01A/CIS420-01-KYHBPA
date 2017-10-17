@@ -12,7 +12,7 @@ using KYHBPA.Web.Models;
 
 namespace KYHBPA.Web.Controllers
 {
-    public class EventFeedbacksController : BaseController
+    public class EventFeedbackController : BaseController
     {
         // GET: EventFeedbacks
         public async Task<ActionResult> Index()
