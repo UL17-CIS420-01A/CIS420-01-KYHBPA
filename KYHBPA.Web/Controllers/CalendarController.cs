@@ -129,3 +129,159 @@
 //        }
 //    }
 //}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Helpers;
+using System.Web.Mvc;
+using System.Xml.Linq;
+using KYHBPA.Web.Models;
+using DHTMLX.Common;
+using DHTMLX.Scheduler;
+using DHTMLX.Scheduler.Data;
+using KYHBPA;
+using KYHBPA.Data.Infrastructure;
+
+namespace KYHBPA.Web.Controllers
+{
+    public class EventController : BaseController
+    {
+        //Refer to this link in order to set up the Calendar.
+        //http://scheduler-net.com/docs/simple-.net-mvc-application-with-scheduler.html#step_2_add_the_scheduler_reference
+
+        
+
+        public ActionResult Index()
+        {
+            //try { 
+            var scheduler = new DHXScheduler(this); //initializes dhtmlxScheduler
+            scheduler.LoadData = true;// allows loading data
+            scheduler.EnableDataprocessor = true;// enables DataProcessor in order to enable implementation CRUD operations
+
+            return View(scheduler);
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (ex != null)
+            //    {
+            //        return RedirectToAction("Index", "Home");
+            //    }                
+            //}
+
+            //return RedirectToAction("Index", "Home");
+           
+        }
+
+        public JsonResult Data()
+        {
+            //Using Dxhtml JavaScript Edition (open source)
+            var events = Db.Events;
+
+            var formatedEvents = new List<object>();
+            foreach (var ev in events)
+            {
+                var formattingEvent = new
+                {
+                    id = ev.Id,
+                    start_date = ev.StartDate.ToString(),
+                    end_date = ev.EndDate.ToString(),
+                    //start_date = ev.start_date.Date.ToString("yyyy-MM-dd"),
+                    //end_date = ev.end_date.Date.ToString("yyyy-MM-dd"),
+                    text = ev.Description
+                };
+                formatedEvents.Add(formattingEvent);
+            }
+
+
+
+            return Json(formatedEvents, JsonRequestBehavior.AllowGet);
+
+            //Using Dxhtml MVC Scheduler Edition (free trial)
+            //events for loading to scheduler
+            //return new SchedulerAjaxData(_db.Events);
+        }
+
+        public ActionResult Save(string id, string text, string start_date, string end_date)
+        {
+
+            var existingEvent = Db.Events.FirstOrDefault(e => e.Id.ToString() == id);
+            var newStartDate = Convert.ToDateTime(start_date);
+            var newEndDate = Convert.ToDateTime(end_date);
+
+
+            if (existingEvent != null)
+            {
+                existingEvent.StartDate = newStartDate;
+                existingEvent.EndDate = newEndDate;
+                existingEvent.Description = text;
+            }
+            else
+            {
+
+                var newEvent = new Event()
+                {
+                    StartDate = newStartDate,
+                    EndDate = newEndDate,
+                    Description = text
+                };
+                Db.Events.Add(newEvent);
+            }
+
+            Db.SaveChanges();
+
+
+
+            return View("Index");
+        }
+
+        public ActionResult Delete(string id, string text, string start_date, string end_date)
+        {
+
+            var existingEvent = Db.Events.FirstOrDefault(e => e.Id.ToString() == id);
+            var newStartDate = Convert.ToDateTime(start_date);
+            var newEndDate = Convert.ToDateTime(end_date);
+
+            if (existingEvent != null)
+            {
+                Db.Events.Remove(existingEvent);
+                Db.SaveChanges();
+            }
+
+            return View("Index");
+        }
+
+
+        //public ActionResult Save(Event updatedEvent, FormCollection formData)
+        //{
+        //    var action = new DataAction(formData);
+
+        //    try
+        //    {
+        //        switch (action.Type)
+        //        {
+        //            case DataActionTypes.Insert: // your Insert logic
+        //                _db.Events.Add(updatedEvent);
+        //                break;
+        //            case DataActionTypes.Delete: // your Delete logic
+        //                updatedEvent = _db.Events.SingleOrDefault(ev => ev.id == updatedEvent.id);
+        //                _db.Events.Remove(updatedEvent);
+        //                break;
+        //            default:// "update" // your Update logic
+        //                updatedEvent = _db.Events.SingleOrDefault(
+        //                ev => ev.id == updatedEvent.id);
+        //                UpdateModel(updatedEvent);
+        //                break;
+        //        }
+        //        _db.SaveChanges();
+        //        action.TargetId = updatedEvent.id;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        action.Type = DataActionTypes.Error;
+        //    }
+        //    return (new AjaxSaveResponse(action));
+        //}
+    }
+}
