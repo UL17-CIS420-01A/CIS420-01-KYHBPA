@@ -1,5 +1,5 @@
 ﻿@using System.Text
-@model IEnumerable<byte []>
+@model IEnumerable<byte[]>
 @{
     ViewBag.Title = "Kentucky Horsemen's Benevolent and Protective Association";
 }
@@ -7,6 +7,7 @@
 <script src="~/Scripts/jquery-3.2.1.js"></script>
 <script src="~/Scripts/jquery-3.2.1.min.js"></script>
 
+@* make it 100% of the container, not of the page*@
 <div id="carousel" class="carousel slide" data-ride="carousel">
     <!-- Menu -->
     <ol class="carousel-indicators">
@@ -14,7 +15,7 @@
         @for (int i = 1; i < Model.Count(); i++)
         {
             <li data-target="#carousel" data-slide-to="@i"></li>
-        }              
+        }
     </ol>
 
     <!-- Items -->
@@ -44,6 +45,7 @@
     </a>
 </div>
 
+@* nix, make me a picture and get rid of the text*@
 <div class="jumbotron">
     <h1>Kentucky Horsemen's Benevolent and Protective Association</h1>
     <p class="lead">
@@ -57,17 +59,21 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Events</h2>
+        <p>Imagine a picture here...for now</p>
         <p>Join us on the track!</p>
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>News</h2>
+        <p>Imagine a picture here...for now</p>
         <p>Read about current issues.</p>
         <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Legislation</h2>
+        <p>Imagine a picture here...for now</p>
         <p>Help us advocate for horsemen's rights.</p>
         <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
+
 </div>
