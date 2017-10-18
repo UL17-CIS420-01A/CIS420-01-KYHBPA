@@ -11,7 +11,11 @@ namespace KYHBPA.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+
+            //var imageStrings = Db.Photos.Where(photo => photo.Description.ToLower().Contains("carousel")).Select(s => s.Content).ToList();
+            var imageStrings = Db.Photos.Select(c => c.Content).Take(5).ToList();
+
+            return View(imageStrings);
         }
 
         public ActionResult About()

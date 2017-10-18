@@ -1,7 +1,48 @@
 ﻿@using System.Text
+@model IEnumerable<byte []>
 @{
     ViewBag.Title = "Kentucky Horsemen's Benevolent and Protective Association";
 }
+
+<script src="~/Scripts/jquery-3.2.1.js"></script>
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+<div id="carousel" class="carousel slide" data-ride="carousel">
+    <!-- Menu -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        @for (int i = 1; i < Model.Count(); i++)
+        {
+            <li data-target="#carousel" data-slide-to="@i"></li>
+        }              
+    </ol>
+
+    <!-- Items -->
+    <div class="carousel-inner">
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            if (i == 0)
+            {
+                <div class="item active">
+                    <img style="height:100%;width:500px" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                </div>
+            }
+            if (i != 0)
+            {
+                <div class="item">
+                    <img style="height:100%;width:500px" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                </div>
+            }
+        }
+    </div>
+    <a href="#carousel" class="left carousel-control" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a href="#carousel" class="right carousel-control" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
 
 <div class="jumbotron">
     <h1>Kentucky Horsemen's Benevolent and Protective Association</h1>

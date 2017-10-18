@@ -4,60 +4,40 @@
 <h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
-<p> <strong>President:</strong><br/>
-    Rick Hiles<br />
-    Rickhiles1@aol.com<br />
-        <br />
-    <strong>Vice President:</strong><br/>
-    Frank Jones, Jr.<br />
-    jjohnson@recrenoics.com<br />
-        <br />
-    <strong>Vice President:</strong><br />
-    Dale Romans<br />
-    dalerracing@aol.com<br />
-        <br />
-    <strong>Executive Director:</strong><br />
-    Martin Maline<br />
-    kymarty@aol.com<br />
-        <br />
-    <strong>Treasurer:</strong><br />
-    John Griffith<br />
-    Margaritaville52@yahoo.com<br />
-        <br />
-    <strong>Executive Assistant:</strong><br />
-    Sara Toomey<br />
-    KentuckyHBPA@gmail.com<br />
-        <br />
-    <strong>Owner Director:</strong><br />
-    Mark C. Bacon<br />
-    Mark_Bacon@B-F.com<br />
-        <br />
-    <strong>Owner Director:</strong><br />
-    F. Thomas Conway<br />
-    FTConway@yahoo.com<br />
-        <br />
-    <strong>Owner Director:</strong><br />
-    Travis Foley Jr.<br />
-    G.Foley@gregfoleyracing.com<br />
-        <br />
-    <strong>Owner Director:</strong><br />
-    William (Buff) Bradley<br />
-    buffracing@aol.com<br />
-        <br />
-    <strong>Trainer Director:</strong><br />
-    William R. Connelly<br/>
-    BillConnelly1956@gmail.com<br/>
-        <br /> 
-    <strong>Trainer Director:</strong><br />
-    John Hancock<br />
-    JADstables@gmail.com<br />
-        <br />
-    <strong>Trainer Director:</strong><br />
-    Ken McPeek <br />
-    kenny@mcpeekracing.com <br />
-    <br />
-    <strong>Alternate Trainer Director:</strong><br />
-    R.C. Sturgeon <br />
-    bobbysturgeon@gmail.com
-</p>
-
+<div class="row">
+    <div class="col-md-4">
+        <h2>President</h2>
+        <p>Rick Hiles</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis magna justo, 
+        eget sodales massa egestas et. Ut fermentum urna pharetra nisi convallis dignissim. 
+        Fusce ut interdum sapien. Etiam eleifend consequat nisl eu pharetra. Maecenas sagittis, 
+        quam sit amet dictum gravida, ante arcu volutpat risus, quis egestas nulla lectus sit amet diam.</p>
+        <p><a href="mailto:Rickhiles1@aol.com?Subject=KYHBPA&Body=Body" title="title">Email</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Vice President</h2>
+        <p>Franke Jones, Jr.</p>
+        <p>Read about current issues.</p>
+        <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Legislation</h2>
+        <p>Help us advocate for horsemen's rights.</p>
+        <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>President</h2>
+        <p>Rick Hiles</p>
+        <p><a href="mailto:Rickhiles1@aol.com?Subject=KYHBPA&Body=Body" title="title">Email</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>News</h2>
+        <p>Read about current issues.</p>
+        <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Legislation</h2>
+        <p>Help us advocate for horsemen's rights.</p>
+        <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
+    </div>
+</div>
