@@ -26,13 +26,13 @@
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:500px;width:100%" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                    <img style="height:250px;width:100%" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:500px;width:100%" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                    <img style="height:250px;width:100%" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
                 </div>
             }
         }
@@ -48,12 +48,6 @@
 @* nix, make me a picture and get rid of the text*@
 <div class="jumbotron">
     <h1>Kentucky Horsemen's Benevolent and Protective Association</h1>
-    <p class="lead">
-        The HBPA, established in 1940, is an organization of Owners and Trainers,
-        approximately 40,000 nationally in 23 states and Canada, and over 6,000 in Kentucky.
-        The association is governed by a Board of Directors consisting of Owners and Trainers
-        volunteering their time and elected by the membership every three years. The HBPA is
-        committed to working for the betterment of racing on all levels.
 </div>
 
 <div class="row">
