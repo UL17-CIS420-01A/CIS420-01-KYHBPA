@@ -35,14 +35,14 @@
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
+                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
                                                            Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
+                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
         }
@@ -63,19 +63,19 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Events</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.EventsImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.EventsImage)))" />
         <p>Join us on the track!</p>
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>News</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.NewsImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.NewsImage)))" />
         <p>Read about current issues.</p>
         <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Legislation</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.LegislationImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.LegislationImage)))" />
         <p>Help us advocate for horsemen's rights.</p>
         <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
     </div>

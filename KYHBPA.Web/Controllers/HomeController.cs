@@ -15,8 +15,8 @@ namespace KYHBPA.Web.Controllers
 
             var carouselImageStrings = Db.Photos.Select(c => c.Content).Take(5).ToList();
 
-            var newsImageBytes = Db.Photos.FirstOrDefault().Content;
-            var eventsImageBytes = Db.Photos.FirstOrDefault().Content;
+            var newsImageBytes = Db.Photos.LastOrDefault().Content; 
+            var eventsImageBytes = Db.Photos.LastOrDefault().Content;
             var legislationImageBytes = Db.Photos.FirstOrDefault().Content;
 
             var viewModel = new HomepageViewModel()
