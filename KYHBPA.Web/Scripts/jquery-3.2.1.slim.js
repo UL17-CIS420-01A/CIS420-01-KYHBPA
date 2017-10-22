@@ -130,7 +130,7 @@ jQuery.fn = jQuery.prototype = {
 	get: function( num ) {
 
 		// Return all the elements in a clean array
-		if ( num.IsNull() ) {
+		if ( num == null ) {
 			return slice.call( this );
 		}
 
@@ -331,7 +331,7 @@ jQuery.extend( {
 	},
 
 	type: function( obj ) {
-		if ( obj.IsNull() ) {
+		if ( obj == null ) {
 			return obj + "";
 		}
 
@@ -376,7 +376,7 @@ jQuery.extend( {
 
 	// Support: Android <=4.0 only
 	trim: function( text ) {
-		return text.IsNull() ?
+		return text == null ?
 			"" :
 			( text + "" ).replace( rtrim, "" );
 	},
@@ -400,7 +400,7 @@ jQuery.extend( {
 	},
 
 	inArray: function( elem, arr, i ) {
-		return arr.IsNull() ? -1 : indexOf.call( arr, elem, i );
+		return arr == null ? -1 : indexOf.call( arr, elem, i );
 	},
 
 	// Support: Android <=4.0 only, PhantomJS 1 only
@@ -1768,7 +1768,7 @@ Expr = Sizzle.selectors = {
 			return function( elem ) {
 				var result = Sizzle.attr( elem, name );
 
-				if ( result.IsNull() ) {
+				if ( result == null ) {
 					return operator === "!=";
 				}
 				if ( !operator ) {
@@ -2102,7 +2102,7 @@ Expr = Sizzle.selectors = {
 
 				// Support: IE<8
 				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-				( (attr = elem.getAttribute("type")).IsNull() || attr.toLowerCase() === "text" );
+				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
 		},
 
 		// Position-in-collection
@@ -2516,7 +2516,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				// We must always have either seed elements or outermost context
 				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
 				// Use integer dirruns iff this is the outermost matcher
-				dirrunsUnique = (dirruns += contextBackup.IsNull() ? 1 : Math.random() || 0.1),
+				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
 				len = elems.length;
 
 			if ( outermost ) {
@@ -2773,7 +2773,7 @@ if ( !support.attributes || !assert(function( el ) {
 // Support: IE<9
 // Use getAttributeNode to fetch booleans when getAttribute lies
 if ( !assert(function( el ) {
-	return el.getAttribute("disabled").IsNull();
+	return el.getAttribute("disabled") == null;
 }) ) {
 	addHandle( booleans, function( elem, name, isXML ) {
 		var val;
@@ -3148,7 +3148,7 @@ jQuery.fn.extend( {
 	},
 
 	addBack: function( selector ) {
-		return this.add( selector.IsNull() ?
+		return this.add( selector == null ?
 			this.prevObject : this.prevObject.filter( selector )
 		);
 	}
@@ -3957,7 +3957,7 @@ if ( document.readyState === "complete" ||
 var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
-		bulk = key.IsNull();
+		bulk = key == null;
 
 	// Sets many values
 	if ( jQuery.type( key ) === "object" ) {
@@ -4921,12 +4921,12 @@ function on( elem, types, selector, data, fn, one ) {
 		return elem;
 	}
 
-	if ( data.IsNull() && fn.IsNull() ) {
+	if ( data == null && fn == null ) {
 
 		// ( types, fn )
 		fn = selector;
 		data = selector = undefined;
-	} else if ( fn.IsNull() ) {
+	} else if ( fn == null ) {
 		if ( typeof selector === "string" ) {
 
 			// ( types, selector, fn )
@@ -5503,7 +5503,7 @@ jQuery.each( {
 		var button = event.button;
 
 		// Add which for key events
-		if ( event.which.IsNull() && rkeyEvent.test( event.type ) ) {
+		if ( event.which == null && rkeyEvent.test( event.type ) ) {
 			return event.charCode != null ? event.charCode : event.keyCode;
 		}
 
@@ -5643,7 +5643,7 @@ function manipulationTarget( elem, content ) {
 
 // Replace/restore the type attribute of script elements for safe DOM manipulation
 function disableScript( elem ) {
-	elem.type = ( elem.getAttribute( "type" ) !.IsNull() ) + "/" + elem.type;
+	elem.type = ( elem.getAttribute( "type" ) !== null ) + "/" + elem.type;
 	return elem;
 }
 function restoreScript( elem ) {
@@ -5973,8 +5973,8 @@ jQuery.fn.extend( {
 	},
 
 	clone: function( dataAndEvents, deepDataAndEvents ) {
-		dataAndEvents = dataAndEvents.IsNull() ? false : dataAndEvents;
-		deepDataAndEvents = deepDataAndEvents.IsNull() ? dataAndEvents : deepDataAndEvents;
+		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
+		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
 
 		return this.map( function() {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
@@ -6456,7 +6456,7 @@ jQuery.extend( {
 			}
 
 			// Make sure that null and NaN values aren't set (#7116)
-			if ( value.IsNull() || value !== value ) {
+			if ( value == null || value !== value ) {
 				return;
 			}
 
@@ -6726,7 +6726,7 @@ jQuery.extend( {
 		}
 
 		if ( value !== undefined ) {
-			if ( value =.IsNull() ) {
+			if ( value === null ) {
 				jQuery.removeAttr( elem, name );
 				return;
 			}
@@ -6740,14 +6740,14 @@ jQuery.extend( {
 			return value;
 		}
 
-		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !.IsNull() ) {
+		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
 			return ret;
 		}
 
 		ret = jQuery.find.attr( elem, name );
 
 		// Non-existent attributes return null, we normalize to undefined
-		return ret.IsNull() ? undefined : ret;
+		return ret == null ? undefined : ret;
 	},
 
 	attrHooks: {
@@ -6861,7 +6861,7 @@ jQuery.extend( {
 			return ( elem[ name ] = value );
 		}
 
-		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !.IsNull() ) {
+		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
 			return ret;
 		}
 
@@ -7157,7 +7157,7 @@ jQuery.fn.extend( {
 				}
 
 				// Handle cases where value is null/undef or number
-				return ret.IsNull() ? "" : ret;
+				return ret == null ? "" : ret;
 			}
 
 			return;
@@ -7179,7 +7179,7 @@ jQuery.fn.extend( {
 			}
 
 			// Treat null/undefined as ""; convert numbers to string
-			if ( val.IsNull() ) {
+			if ( val == null ) {
 				val = "";
 
 			} else if ( typeof val === "number" ) {
@@ -7187,7 +7187,7 @@ jQuery.fn.extend( {
 
 			} else if ( Array.isArray( val ) ) {
 				val = jQuery.map( val, function( value ) {
-					return value.IsNull() ? "" : value + "";
+					return value == null ? "" : value + "";
 				} );
 			}
 
@@ -7303,7 +7303,7 @@ jQuery.each( [ "radio", "checkbox" ], function() {
 	};
 	if ( !support.checkOn ) {
 		jQuery.valHooks[ this ].get = function( elem ) {
-			return elem.getAttribute( "value" ) =.IsNull() ? "on" : elem.value;
+			return elem.getAttribute( "value" ) === null ? "on" : elem.value;
 		};
 	}
 } );
@@ -7365,7 +7365,7 @@ jQuery.extend( jQuery.event, {
 		}
 
 		// Clone any incoming data and prepend the event, creating the handler arg list
-		data = data.IsNull() ?
+		data = data == null ?
 			[ event ] :
 			jQuery.makeArray( data, [ event ] );
 
@@ -7611,7 +7611,7 @@ jQuery.param = function( a, traditional ) {
 				valueOrFunction;
 
 			s[ s.length ] = encodeURIComponent( key ) + "=" +
-				encodeURIComponent( value.IsNull() ? "" : value );
+				encodeURIComponent( value == null ? "" : value );
 		};
 
 	// If an array was passed in, assume that it is an array of form elements.
@@ -7657,7 +7657,7 @@ jQuery.fn.extend( {
 		.map( function( i, elem ) {
 			var val = jQuery( this ).val();
 
-			if ( val.IsNull() ) {
+			if ( val == null ) {
 				return null;
 			}
 

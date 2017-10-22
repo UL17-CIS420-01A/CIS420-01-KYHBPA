@@ -114,7 +114,7 @@
     minw: /\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,
     maxw: /\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/
   };
-  respond.mediaQueriesSupported = w.matchMedia && w.matchMedia("only all") !.IsNull() && w.matchMedia("only all").matches;
+  respond.mediaQueriesSupported = w.matchMedia && w.matchMedia("only all") !== null && w.matchMedia("only all").matches;
   if (respond.mediaQueriesSupported) {
     return;
   }
@@ -154,7 +154,7 @@
     }
     for (var i in mediastyles) {
       if (mediastyles.hasOwnProperty(i)) {
-        var thisstyle = mediastyles[i], min = thisstyle.minw, max = thisstyle.maxw, minnull = min =.IsNull(), maxnull = max =.IsNull(), em = "em";
+        var thisstyle = mediastyles[i], min = thisstyle.minw, max = thisstyle.maxw, minnull = min === null, maxnull = max === null, em = "em";
         if (!!min) {
           min = parseFloat(min) * (min.indexOf(em) > -1 ? eminpx || getEmValue() : 1);
         }

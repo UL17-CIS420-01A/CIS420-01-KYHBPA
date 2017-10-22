@@ -10,56 +10,79 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Kentucky HBPA", "Index", "Home", new
-           {
-               area = ""
-           }, new
-           {
-               @class = "navbar-brand"
-           })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
-                    <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
-                    <li>@Html.ActionLink("Events","Index", "Event")</li>
-                    <li>@Html.ActionLink("News", "News", "Home")</li>
-                    <li>@Html.ActionLink("Blog", "Blog", "Home")</li>
-                    <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
-                    <li>@Html.ActionLink("Surveys","Index","Surveys")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+<div id="fb-root"></div>
+@*Facebook sdk (news feed)
+    <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>*@
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Kentucky HBPA", "Index", "Home", new
+            {
+                area = ""
+            }, new
+            {
+                @class = "navbar-brand"
+            })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">About Us</a>
+                    <ul>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
+                        <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
+                <li>
+                    <a href="#">News</a>
+                    <ul>
+                        <li>@Html.ActionLink("Events", "Index", "Event")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>
+                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
+                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
-    <div class="container body-content" style="background-position: center bottom">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Kentucky Horsemen’s Benevolent and Protective Association, Inc. </p>
-              
-           <p><a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"</a>
-           <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a></p>
-            <p>
-               <div align="right"><a href="https://www.paypal.com/us/home">
-                   <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-large.png" alt="Buy now with PayPal" /></a></div>
-            </p>
-        </footer>
-    </div>
+</div>
+<div class="container body-content" style="background-position: center bottom">
+    <div>@RenderBody()</div>
+    @*Facebook news feed
+        <div class="container" style="background-position: right center">
+            <div class="fb-page" data-href="https://www.facebook.com/pg/KYhbpa" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/pg/KYhbpa" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/pg/KYhbpa">Kentucky HBPA</a></blockquote></div>
+        </div>*@
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Kentucky Horsemen’s Benevolent and Protective Association, Inc. </p>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        <div> 
+            <a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"></a>
+            <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a> 
+        </div>
+        <div align="right"><a href="https://www.paypal.com/us/home">
+                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-large.png" alt="Buy now with PayPal"/></a>
+        </div> 
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
