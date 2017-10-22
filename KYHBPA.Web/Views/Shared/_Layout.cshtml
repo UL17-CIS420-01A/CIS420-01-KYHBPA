@@ -37,18 +37,22 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="#">About Us</a>
-                    <ul>
+                <li class="dropdown">
+                    <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                        About Us <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu navbar-inverse">
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
                         <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
                     </ul>
                 </li>
                 <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
-                <li>
-                    <a href="#">News</a>
-                    <ul>
+                <li class="dropdown">
+                    <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                        News <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu navbar-inverse">
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
                     </ul>
                 </li>
