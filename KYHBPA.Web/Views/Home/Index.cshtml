@@ -26,14 +26,14 @@
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", 
+                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", 
                                                             Convert.ToBase64String(Model.ElementAt(i))))"/>
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
                 </div>
             }
         }
