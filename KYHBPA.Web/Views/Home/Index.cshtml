@@ -35,14 +35,17 @@
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
-                                                           Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
+                    @*<img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
+                                                                                   Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />*@
+                    <img style="height: 512px;width: 100%;object-fit: fill;" src="@(string.Format("data:image/gif;base64,{0}",
+                                                                             Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
+                    @*<img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />*@
+                    <img style="height: 512px;width: 100%;object-fit: fill;" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
         }
