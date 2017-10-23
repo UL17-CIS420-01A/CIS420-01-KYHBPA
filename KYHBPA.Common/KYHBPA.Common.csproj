@@ -110,6 +110,7 @@
     <Compile Include="Domain\Poll.cs" />
     <Compile Include="Domain\PollQuestion.cs" />
     <Compile Include="Domain\PollResponse.cs" />
+    <Compile Include="Infrastructure\MyLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extension\EnumExtension.cs" />
   </ItemGroup>

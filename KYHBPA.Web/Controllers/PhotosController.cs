@@ -32,7 +32,11 @@ namespace KYHBPA.Web.Controllers
 
         // GET: Photos
         [HttpGet]
-        public async Task<ActionResult> Index() => View((await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).ToListAsync()));
+        public async Task<ActionResult> Index()
+        {
+            var result = new TaskFactory().StartNew(()=>Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).ToList()).Result;
+            return View(result);
+        }
 
         // GET: Photos/Details/5
         [HttpGet]

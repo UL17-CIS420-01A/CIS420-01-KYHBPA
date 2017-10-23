@@ -33,7 +33,10 @@ namespace KYHBPA.Data.Infrastructure
 
         public static EntityDbContext Create()
         {
-            return new EntityDbContext();
+            var result = new EntityDbContext();
+            var logger = new MyLogger();
+            result.Database.Log = s => logger.Log("EntityDbContext", s);
+            return result;
         }
 
         // Domain Model
