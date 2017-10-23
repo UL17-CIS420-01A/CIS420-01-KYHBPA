@@ -1,16 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Security.Principal;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
-using KYHBPA.Web.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using KYHBPA.Data.Infrastructure;
 using KYHBPA.Data.Repository;
+using KYHBPA.Web.ActionResults;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Practices.Unity;
+using static System.Drawing.Image;
 
 namespace KYHBPA.Web.Controllers
 {
@@ -50,6 +49,46 @@ namespace KYHBPA.Web.Controllers
                 Db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+
+        public ImageResult ImageNotAvailable
+        {
+            get
+            {
+                var imageResult = new ImageResult(
+                    new MemoryStream(FromFile(Server.MapPath(@"~/content/images/ImageNotAvailable.jpg")).ToByteArray()), "image/jpeg");
+                return imageResult;
+            }
+        }
+
+        public ImageResult Image(byte[] imageBytes, string contentType)
+        {
+            try
+            {
+                var imageResult = new ImageResult(new MemoryStream(imageBytes), contentType);
+                return imageResult;
+            }
+            catch (Exception ex)
+            {
+                return ImageNotAvailable;
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> RenderImage(Guid? id)
+        {
+            if (id.IsNull())
+            {
+                return ImageNotAvailable;
+            }
+            Photo photo = await Db.Photos.FindAsync(id);
+            if ((photo?.Content).IsEmptyArray())
+            {
+                return ImageNotAvailable;
+            }
+            return Image(photo.Content, photo.ContentType);
         }
     }
 }

@@ -20,15 +20,6 @@ namespace KYHBPA.Web.Controllers
 {
     public class PhotosController : BaseController
     {
-        public ImageResult ImageNotAvailable
-        {
-            get
-            {
-                var imageResult = new ImageResult(
-                     new MemoryStream(FromFile(Server.MapPath(@"~/content/images/ImageNotAvailable.jpg")).ToByteArray()), "image/jpeg");
-                return imageResult;
-            }
-        }
 
         // GET: Photos
         [HttpGet]
@@ -174,54 +165,6 @@ namespace KYHBPA.Web.Controllers
             Db.Photos.Remove(photo);
             await Db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-
-        [HttpGet]
-        public async Task<ActionResult> RenderImage(Guid? id)
-        {
-            if (id.IsNull())
-            {
-                return ImageNotAvailable;
-            }
-            Photo photo = await Db.Photos.FindAsync(id);
-            if ((photo?.Content).IsEmptyArray())
-            {
-                return ImageNotAvailable;
-            }
-            return Image(photo.Content, photo.ContentType);
-        }
-
-
-        public ImageResult Image(byte[] imageBytes, string contentType)
-        {
-            try
-            {
-                var img = imageBytes.ToImage();
-                var bmap = new System.Drawing.Bitmap(img);
-
-                var imageResult = new ImageResult(new MemoryStream(imageBytes), contentType);
-                ////calculate the ratio
-                //double dbl = (double)img.Width / (double)img.Height;
-                //Bitmap resizedImage;
-                //int boxHeight = 600;
-                //int boxWidth = 800;
-                ////set height of image to boxHeight and check if resulting width is less than boxWidth, 
-                ////else set width of image to boxWidth and calculate new height
-                //if ((int)((double)boxHeight * dbl) <= boxWidth)
-                //{
-                //    resizedImage = new Bitmap(img, (int)((double)boxHeight * dbl), boxHeight);
-                //}
-                //else
-                //{
-                //    resizedImage = new Bitmap(img, boxWidth, (int)((double)boxWidth / dbl));
-                //}
-                return imageResult;
-            }
-            catch (Exception ex)
-            {
-                return ImageNotAvailable;
-            }
         }
     }
 }

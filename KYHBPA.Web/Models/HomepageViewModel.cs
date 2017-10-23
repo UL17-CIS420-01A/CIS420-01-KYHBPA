@@ -8,9 +8,9 @@ namespace KYHBPA.Web.Models
 {
     public class HomepageViewModel
     {
-        public List<byte[]> CarouselBytes { get; set; }
-        public byte[] EventsImage { get; set; }
-        public byte[] NewsImage { get; set; }
-        public byte[] LegislationImage { get; set; }
+        public List<Guid> CarouselIds { get; set; }
+        public Guid EventsImageId { get; set; }
+        public Guid NewsImageId { get; set; }
+        public Guid LegislationImageId { get; set; }
     }
 }

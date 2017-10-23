@@ -13,18 +13,18 @@ namespace KYHBPA.Web.Controllers
         public ActionResult Index()
         {
 
-            var carouselImageStrings = Db.Photos.Select(c => c.Content).Take(5).ToList();
+            var carouselImageIds = Db.Photos.Select(c => c.Id).Take(5).ToList();
 
-            var newsImageBytes = Db.Photos.OrderBy(o => o.Uploaded).FirstOrDefault()?.Content;
-            var eventsImageBytes = Db.Photos.OrderBy(o => o.Uploaded).FirstOrDefault()?.Content;
-            var legislationImageBytes = Db.Photos.OrderBy(o => o.Uploaded).FirstOrDefault()?.Content;
+            var newsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o=>o.Id).FirstOrDefault();
+            var eventsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o => o.Id).FirstOrDefault();
+            var legislationImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o => o.Id).FirstOrDefault();
 
             var viewModel = new HomepageViewModel()
             {
-                CarouselBytes = carouselImageStrings,
-                NewsImage = newsImageBytes,
-                EventsImage = eventsImageBytes,
-                LegislationImage = legislationImageBytes
+                CarouselIds = carouselImageIds,
+                NewsImageId = newsImageId,
+                EventsImageId = eventsImageId,
+                LegislationImageId = legislationImageId
             };
 
             return View(viewModel);
