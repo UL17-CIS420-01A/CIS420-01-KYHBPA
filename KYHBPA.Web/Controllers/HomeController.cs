@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KYHBPA.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,21 @@ namespace KYHBPA.Web.Controllers
         public ActionResult Index()
         {
 
-            //var imageStrings = Db.Photos.Where(photo => photo.Description.ToLower().Contains("carousel")).Select(s => s.Content).ToList();
-            var imageStrings = Db.Photos.Select(c => c.Content).Take(5).ToList();
+            var carouselImageStrings = Db.Photos.Select(c => c.Content).Take(5).ToList();
 
-            return View(imageStrings);
+            var newsImageBytes = Db.Photos.LastOrDefault().Content; 
+            var eventsImageBytes = Db.Photos.LastOrDefault().Content;
+            var legislationImageBytes = Db.Photos.FirstOrDefault().Content;
+
+            var viewModel = new HomepageViewModel()
+            {
+                CarouselBytes = carouselImageStrings,
+                NewsImage = newsImageBytes,
+                EventsImage = eventsImageBytes,
+                LegislationImage = legislationImageBytes
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult About()

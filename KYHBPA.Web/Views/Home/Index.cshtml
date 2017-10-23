@@ -1,18 +1,27 @@
-﻿@using System.Text
-@model IEnumerable<byte[]>
+﻿@using KYHBPA.Web.Models
+
+@model HomepageViewModel
 @{
     ViewBag.Title = "Kentucky Horsemen's Benevolent and Protective Association";
 }
 
+
 <script src="~/Scripts/jquery-3.2.1.js"></script>
 <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+<style>
+    .container.body-content {
+        width: 100%;
+    }
+</style>
+
 
 @* make it 100% of the container, not of the page*@
 <div id="carousel" class="carousel slide" data-ride="carousel">
     <!-- Menu -->
     <ol class="carousel-indicators">
         <li data-target="#carousel" data-slide-to="0" class="active"></li>
-        @for (int i = 1; i < Model.Count(); i++)
+        @for (int i = 1; i < Model.CarouselBytes.Count(); i++)
         {
             <li data-target="#carousel" data-slide-to="@i"></li>
         }
@@ -21,18 +30,19 @@
     <!-- Items -->
     <div class="carousel-inner">
 
-        @for (int i = 0; i < Model.Count(); i++)
+        @for (int i = 0; i < Model.CarouselBytes.Count(); i++)
         {
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:100%;width:500px" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
+                                                           Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:100%;width:500px" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ElementAt(i))))" />
+                    <img style="height:50%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
                 </div>
             }
         }
@@ -48,30 +58,24 @@
 @* nix, make me a picture and get rid of the text*@
 <div class="jumbotron">
     <h1>Kentucky Horsemen's Benevolent and Protective Association</h1>
-    <p class="lead">
-        The HBPA, established in 1940, is an organization of Owners and Trainers,
-        approximately 40,000 nationally in 23 states and Canada, and over 6,000 in Kentucky.
-        The association is governed by a Board of Directors consisting of Owners and Trainers
-        volunteering their time and elected by the membership every three years. The HBPA is
-        committed to working for the betterment of racing on all levels.
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>Events</h2>
-        <p>Imagine a picture here...for now</p>
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.EventsImage)))" />
         <p>Join us on the track!</p>
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>News</h2>
-        <p>Imagine a picture here...for now</p>
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.NewsImage)))" />
         <p>Read about current issues.</p>
         <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Legislation</h2>
-        <p>Imagine a picture here...for now</p>
+        <img style="height:100%;width:100%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.LegislationImage)))" />
         <p>Help us advocate for horsemen's rights.</p>
         <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
