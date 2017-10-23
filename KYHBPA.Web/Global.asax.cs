@@ -13,7 +13,7 @@ using Google.Apis.Util.Store;
 using System.IO;
 using System.Threading;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public class MvcApplication : System.Web.HttpApplication
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(KYHBPA.Web.Startup))]
-namespace KYHBPA.Web
+[assembly: OwinStartupAttribute(typeof(KYHBPA.Startup))]
+namespace KYHBPA
 {
     public partial class Startup
     {

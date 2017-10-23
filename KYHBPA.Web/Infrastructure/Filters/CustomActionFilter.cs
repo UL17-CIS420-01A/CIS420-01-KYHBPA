@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
 
     public class CustomActionFilter : IResultFilter, IActionFilter

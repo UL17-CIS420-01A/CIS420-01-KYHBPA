@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using KYHBPA.Web.ActionResults;
-using KYHBPA.Web.Models;
+using KYHBPA.ActionResults;
+using KYHBPA.Models;
 using Microsoft.Ajax.Utilities;
 using static System.Drawing.Image;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public class PhotosController : BaseController
     {

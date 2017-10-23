@@ -1,13 +1,13 @@
 ﻿//using System.Linq;
 //using System.Net;
 //using System.Web.Mvc;
-//using KYHBPA.Web.Models;
-//using EventClickArgs = KYHBPA.Web.Mvc.Events.Month.EventClickArgs;
-//using EventMoveArgs = KYHBPA.Web.Mvc.Events.Month.EventMoveArgs;
-//using InitArgs = KYHBPA.Web.Mvc.Events.Month.InitArgs;
-//using TimeRangeSelectedArgs = KYHBPA.Web.Mvc.Events.Month.TimeRangeSelectedArgs;
+//using KYHBPA.Models;
+//using EventClickArgs = KYHBPA.Mvc.Events.Month.EventClickArgs;
+//using EventMoveArgs = KYHBPA.Mvc.Events.Month.EventMoveArgs;
+//using InitArgs = KYHBPA.Mvc.Events.Month.InitArgs;
+//using TimeRangeSelectedArgs = KYHBPA.Mvc.Events.Month.TimeRangeSelectedArgs;
 
-//namespace KYHBPA.Web.Controllers
+//namespace KYHBPA.Controllers
 //{
 //    public class CalendarController : BaseController
 //    //{
@@ -137,14 +137,14 @@ using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using KYHBPA.Web.Models;
+using KYHBPA.Models;
 using DHTMLX.Common;
 using DHTMLX.Scheduler;
 using DHTMLX.Scheduler.Data;
 using KYHBPA;
 using KYHBPA.Data.Infrastructure;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public class EventController : BaseController
     {

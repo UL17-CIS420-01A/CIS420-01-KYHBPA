@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KYHBPA.Web</RootNamespace>
-    <AssemblyName>KYHBPA.Web</AssemblyName>
+    <RootNamespace>KYHBPA</RootNamespace>
+    <AssemblyName>KYHBPA</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -261,6 +261,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\SoftDeleteAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -270,15 +272,48 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
+    <Compile Include="Domain\ApplicationUser.cs" />
+    <Compile Include="Domain\Document.cs" />
+    <Compile Include="Domain\Employee.cs" />
+    <Compile Include="Domain\EmployeeContact.cs" />
+    <Compile Include="Domain\Event.cs" />
+    <Compile Include="Domain\EventFeedback.cs" />
+    <Compile Include="Domain\Member.cs" />
+    <Compile Include="Domain\Photo.cs" />
+    <Compile Include="Domain\Poll.cs" />
+    <Compile Include="Domain\PollQuestion.cs" />
+    <Compile Include="Domain\PollResponse.cs" />
+    <Compile Include="Domain\Survey.cs" />
+    <Compile Include="Entity\AspNetRole.cs" />
+    <Compile Include="Entity\AspNetUserClaim.cs" />
+    <Compile Include="Entity\AspNetUserLogin.cs" />
+    <Compile Include="Entity\AspNetUserRole.cs" />
+    <Compile Include="Extension\Base64StringExtensions.cs" />
+    <Compile Include="Extension\CommonFunctions.cs" />
+    <Compile Include="Extension\DateTimeExtensions.cs" />
+    <Compile Include="Extension\EnumExtension.cs" />
+    <Compile Include="Extension\GuidExtensions.cs" />
+    <Compile Include="Extension\IEnumerableExtensions.cs" />
+    <Compile Include="Extension\ImageExtensions.cs" />
+    <Compile Include="Extension\MemoryStreamExtensions.cs" />
+    <Compile Include="Extension\NullableStringExtensions.cs" />
+    <Compile Include="Extension\ObjectExtensions.cs" />
+    <Compile Include="Extension\SecureStringExtensions.cs" />
     <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
     <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
     <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
     <Compile Include="Infrastructure\Attributes\MinimumFileSizeValidator.cs" />
     <Compile Include="Infrastructure\Attributes\ValidFileTypeValidator.cs" />
+    <Compile Include="Infrastructure\EntityDbContext.cs" />
+    <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
     <Compile Include="Infrastructure\Filters\CustomActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Helper\SoftDelete\SoftDeleteInterceptor.cs" />
+    <Compile Include="Infrastructure\Helper\SoftDelete\SoftDeleteQueryVisitor.cs" />
+    <Compile Include="Infrastructure\MyLogger.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\EventFeedbackViewModels.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
@@ -287,6 +322,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Implementation\BaseRepository.cs" />
+    <Compile Include="Repository\Implementation\UserRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -610,17 +649,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Attributes\" />
     <Folder Include="Views\Calendar\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KYHBPA.Common\KYHBPA.Common.csproj">
-      <Project>{8a13dddd-e7a2-4ae6-a6d3-964a3e92a4d8}</Project>
-      <Name>KYHBPA.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\KYHBPA.Data\KYHBPA.Data.csproj">
-      <Project>{71746551-eccc-4678-96ab-c0616d2175da}</Project>
-      <Name>KYHBPA.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

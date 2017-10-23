@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using KYHBPA.Data.Infrastructure;
 using KYHBPA.Data.Repository;
-using KYHBPA.Web.ActionResults;
+using KYHBPA.ActionResults;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Practices.Unity;
 using static System.Drawing.Image;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public partial class BaseController : Controller
     {

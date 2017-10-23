@@ -10,9 +10,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using KYHBPA.Web.Models;
+using KYHBPA.Models;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     [Authorize]
     public class AccountController : Controller

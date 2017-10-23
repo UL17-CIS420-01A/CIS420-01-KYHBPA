@@ -13,7 +13,7 @@ using Microsoft.Owin.Security;
 using KYHBPA.Data.Infrastructure;
 using KYHBPA.Entity;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public class EmailService : IIdentityMessageService
     {

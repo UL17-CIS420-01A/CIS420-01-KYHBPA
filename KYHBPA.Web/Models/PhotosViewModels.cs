@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using KYHBPA.Web.ActionResults;
+using KYHBPA.ActionResults;
 
-namespace KYHBPA.Web.Models
+namespace KYHBPA.Models
 {
     public class UploadPhotoViewModel
     {

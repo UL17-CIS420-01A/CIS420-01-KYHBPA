@@ -8,9 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KYHBPA;
-using KYHBPA.Web.Models;
+using KYHBPA.Models;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public class EventFeedbackController : BaseController
     {

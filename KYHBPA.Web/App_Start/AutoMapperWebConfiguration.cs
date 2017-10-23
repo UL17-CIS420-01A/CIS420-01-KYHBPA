@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public static class AutoMapperWebConfiguration
     {
