@@ -25,3 +25,22 @@ textarea {
 .smallImage {
     min-width: 60px; max-width: 120px; min-height: 60px; max-height: 120px;
 }
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    margin: 5px 5px;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
