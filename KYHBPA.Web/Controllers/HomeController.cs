@@ -5,15 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using KYHBPA.Data.Repository;
+using Microsoft.Practices.Unity;
 
 namespace KYHBPA.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IPhotoRepository _photoRepository =
+            UnityConfig.GetConfiguredContainer().Resolve<IPhotoRepository>();
+
         public ActionResult Index()
         {
 
-            var carouselImageIds = Db.Photos.Select(c => c.Id).Take(5).ToList();
+            var carouselImageIds = Db.Photos.Take(5).Select(c => c.Id).ToList();
 
             var newsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o=>o.Id).FirstOrDefault();
             var eventsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o => o.Id).FirstOrDefault();

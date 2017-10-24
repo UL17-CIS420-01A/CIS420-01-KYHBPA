@@ -19,10 +19,11 @@ namespace KYHBPA.Data.Repository
 
         protected EntityDbContext Context => _context;
 
-        public virtual void Create(TEntity entity)
+        public virtual void Create(TEntity photo)
         {
-            if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
-            Context.Set<TEntity>().Add(entity);
+            if (photo.IsNull()) throw new ArgumentNullException(nameof(photo));
+            Context.Set<TEntity>().Add(photo);
+            Context.SaveChanges();
         }
 
         public virtual async Task<TEntity> FindByIdAsync(TKey id)
@@ -45,12 +46,14 @@ namespace KYHBPA.Data.Repository
             if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Attach(entity);
             Context.Set<TEntity>().Remove(entity);
+            Context.SaveChanges();
         }
         public virtual void Update(TEntity entity)
         {
             if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
+            Context.SaveChanges();
         }
     }
 }

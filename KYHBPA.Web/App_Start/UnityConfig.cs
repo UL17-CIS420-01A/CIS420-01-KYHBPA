@@ -53,6 +53,7 @@ namespace KYHBPA
             container.RegisterType<EntityDbContext>(new InjectionFactory(c => new EntityDbContextFactory().Create()));
             container.RegisterType<Mapper>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IPhotoRepository, PhotoRepository>();
             //container.RegisterType<IRepository<User, string>, UserRepository>();
         }
     }

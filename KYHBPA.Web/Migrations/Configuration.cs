@@ -16,7 +16,7 @@ namespace KYHBPA.Data.Migrations
             ContextKey = this.ContextType.FullName;
         }
 
-        protected override void Seed(KYHBPA.Data.Infrastructure.EntityDbContext context)
+        protected override void Seed(EntityDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

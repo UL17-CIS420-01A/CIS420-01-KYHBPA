@@ -3,7 +3,7 @@ namespace KYHBPA.Data.Repository
 {
     public interface IRepository<TEntity, in TKey> where TEntity : class
     {
-        void Create(TEntity entity);
+        void Create(TEntity photo);
         void Delete(TEntity entity);
         Task<TEntity> FindByIdAsync(TKey id);
         TEntity FindById(TKey id);

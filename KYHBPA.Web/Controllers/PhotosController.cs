@@ -12,20 +12,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KYHBPA.ActionResults;
+using KYHBPA.Data.Repository;
 using KYHBPA.Models;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Practices.Unity;
 using static System.Drawing.Image;
 
 namespace KYHBPA.Controllers
 {
     public class PhotosController : BaseController
     {
+        private readonly IPhotoRepository _photoRepository =
+            UnityConfig.GetConfiguredContainer().Resolve<IPhotoRepository>();
 
         // GET: Photos
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var result = new TaskFactory().StartNew(()=>Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).ToList()).Result;
+            PhotoViewModel result = new PhotoViewModel()
+            {
+                CurrentUser =  User,
+                Ids = _photoRepository.FindPhotoIds()
+            };
             return View(result);
         }
 
@@ -33,11 +41,11 @@ namespace KYHBPA.Controllers
         [HttpGet]
         public async Task<ActionResult> Details(Guid? id)
         {
-            if (id.IsNull())
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            Photo photo = _photoRepository.FindById(id.Value);
             if (photo.IsNull())
             {
                 return HttpNotFound();
@@ -82,8 +90,7 @@ namespace KYHBPA.Controllers
                     LastModifiedBy = User?.Member,
                     LastModified = DateTime.UtcNow
                 };
-                Db.Photos.Add(photo);
-                await Db.SaveChangesAsync();
+                _photoRepository.Create(photo);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -94,7 +101,7 @@ namespace KYHBPA.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id.IsNull())
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

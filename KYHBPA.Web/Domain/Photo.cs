@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core;
 
 namespace KYHBPA
 {
-    [SoftDelete("IsDeleted")]
     public class Photo
     {
         [Key, Required]
@@ -26,6 +27,7 @@ namespace KYHBPA
         public bool IsDeleted { get; set; }
         public Member DeletedBy { get; set; }
         public DateTime? Deleted { get; set; }
-
+        
+        public IEnumerable<PhotoCollection> PhotoCollection { get; set; }
     }
 }

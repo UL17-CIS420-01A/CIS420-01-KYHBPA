@@ -24,6 +24,10 @@ namespace KYHBPA.Models
         [ValidFileTypeValidator(validFileTypes: new[] { "jpg", "png", "gif", "bmp" },
             ErrorMessage = "The image uploaded is not an accepted format. Please upload a jpg, png, gif, or bmp file.")]
         public HttpPostedFileBase ImageData { get; set; }
+
+        public string PhotoKey { get; set; }
+
+        public IEnumerable<string> PhotoKeys { get; set; }
     }
     public class EditPhotoViewModel
     {
@@ -38,26 +42,15 @@ namespace KYHBPA.Models
         public string Description { get; set; }
 
         public ImageResult ImageData { get; set; }
+
+        public string PhotoKey { get; set; }
+
+        public IEnumerable<string> PhotoKeys { get; set; }
     }
     public class PhotoViewModel
     {
-        public Guid Id { get; set; }
+        public ApplicationUser CurrentUser { get; set; }
 
-        public Member Uploader { get; set; }
-
-        // Associated Event
-        public Event Event { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Photo Name")]
-        public string PhotoName { get; set; }
-
-        [Required]
-        [DataType(DataType.MultilineText)]
-        [Display(Name = "Description")]
-        public string Description { get; set; }
-
-        public byte[] ImageData { get; set; }
+        public IEnumerable<Guid> Ids { get; set; }
     }
 }

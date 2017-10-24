@@ -19,11 +19,11 @@ textarea {
 }
 
 .smallImageWrapper {
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
 }
 .smallImage {
-    min-width: 60px; max-width: 120px; min-height: 60px; max-height: 120px;
+    min-width: 60px; max-width: 200px; min-height: 60px; max-height: 200px;
 }
 
 .fa {
