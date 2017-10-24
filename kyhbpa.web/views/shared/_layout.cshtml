@@ -38,7 +38,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                        About Us <span class="caret"></span>
+                        About <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu navbar-inverse">
                         <li>@Html.ActionLink("About Us", "About", "Home")</li>
@@ -46,17 +46,17 @@
                         <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
                 <li class="dropdown">
                     <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
                         News <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu navbar-inverse">
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
+                        <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                        <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>
-                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
                 <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
                 <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
             </ul>

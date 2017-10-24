@@ -154,16 +154,17 @@ namespace KYHBPA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid? id)
         {
-            Photo photo = await Db.Photos.FirstOrDefaultAsync(o => o.Id == id);
+            Photo photo = Db.Photos.FirstOrDefault(o => o.Id == id);
             if (ModelState.IsValid)
             {
                 photo.DeletedBy = User?.Member;
                 photo.Deleted = DateTime.UtcNow;
                 Db.Entry(photo).State = EntityState.Modified;
                 await Db.SaveChangesAsync();
+
+                Db.Photos.Remove(photo);
+                await Db.SaveChangesAsync();
             }
-            Db.Photos.Remove(photo);
-            await Db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
