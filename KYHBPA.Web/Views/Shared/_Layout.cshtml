@@ -59,6 +59,8 @@
                 @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
                 <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
                 <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                <li><a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!" />
+</a></li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
@@ -74,12 +76,10 @@
     <footer>
         <p>&copy; @DateTime.Now.Year - Kentucky Horsemen’s Benevolent and Protective Association, Inc. </p>
 
+        Follow us on Social Media<br>
         <div> 
             <a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"></a>
             <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a> 
-        <div align="right"><a href="https://www.paypal.com/us/home">
-                <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-large.png" alt="Buy now with PayPal"/></a>
-        </div> 
         </div>
     </footer>
 </div>
