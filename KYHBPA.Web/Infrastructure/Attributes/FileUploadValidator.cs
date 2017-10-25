@@ -7,7 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public class FileUploadValidator
         : ValidationAttribute, IClientValidatable

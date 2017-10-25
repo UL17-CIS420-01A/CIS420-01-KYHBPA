@@ -1,60 +1,35 @@
-﻿@model IEnumerable<KYHBPA.Photo>
-
+﻿@model KYHBPA.Models.PhotoViewModel
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhotoName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UploadedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event)
-        </th>
 
-    </tr>
-
-    @foreach (var photo in Model)
+<div style="display: flex">
+    @foreach (var id in Model.Ids)
     {
-        <tr>
-            <td class="smallImageWrapper">
-                <img src="@Url.Action("RenderImage", new { id = photo.Id })" class="img-thumbnail smallImage" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => photo.PhotoName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => photo.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => photo.UploadedBy.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => photo.Event.Name)
-            </td>
-
-
-            <td>
+        <div class="col-xs-3">
+            @if (!Model.CurrentUser.IsNull())
+            {
+                <a href="Photos/Details/@id">
+                    <div class="smallImageWrapper">
+                        <img src="@Url.Action("RenderImage", new {id = id})" class="img-thumbnail smallImage" />
+                    </div>
+                </a>
+            }
+            else
+            {
+                <div class="smallImageWrapper">
+                    <img src="@Url.Action("RenderImage", new {id = id})" class="img-thumbnail smallImage" />
+                </div>
+            }
+        </div>
+        @*<td>
                 @Html.ActionLink("Edit", "Edit", new { id = photo.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = photo.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = photo.Id })
-            </td>
-        </tr>
+            </td>*@
     }
-
-</table>
+</div>

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     public class BundleConfig
     {
@@ -25,7 +25,9 @@ namespace KYHBPA.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-superhero.css",
-                      "~/Content/site.css"));
+                      //"~/Content/bootstrap-theme.min.css",
+                      "~/Content/site.css",
+                      "~/Content/socialMedia.css"));
         }
     }
 }

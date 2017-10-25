@@ -1,4 +1,4 @@
-﻿@using KYHBPA.Web.Models
+﻿@using KYHBPA.Models
 
 @model HomepageViewModel
 @{
@@ -21,7 +21,7 @@
     <!-- Menu -->
     <ol class="carousel-indicators">
         <li data-target="#carousel" data-slide-to="0" class="active"></li>
-        @for (int i = 1; i < Model.CarouselBytes.Count(); i++)
+        @for (int i = 1; i < Model.CarouselIds.Count(); i++)
         {
             <li data-target="#carousel" data-slide-to="@i"></li>
         }
@@ -29,20 +29,24 @@
 
     <!-- Items -->
     <div class="carousel-inner">
-
-        @for (int i = 0; i < Model.CarouselBytes.Count(); i++)
+        @if (!Model.CarouselIds.Any())
+        {
+            <div class="item active">
+                <img src="@Url.Action("RenderImage")" style="height: 512px; width: 100%; object-fit: fill;" />
+            </div>
+        }
+        @for (int i = 0; i < Model.CarouselIds.Count(); i++)
         {
             if (i == 0)
             {
                 <div class="item active">
-                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}",
-                                                           Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
+                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 100%; object-fit: fill;" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.CarouselBytes.ElementAt(i))))" />
+                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 100%; object-fit: fill;" />
                 </div>
             }
         }
@@ -63,19 +67,19 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Events</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.EventsImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.EventsImageId })" />
         <p>Join us on the track!</p>
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>News</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.NewsImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.NewsImageId })" />
         <p>Read about current issues.</p>
         <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Legislation</h2>
-        <img style="height:50%;width:50%;object-fit:cover" src="@(string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.LegislationImage)))" />
+        <img style="height:100%;width:100%;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.LegislationImageId })" />
         <p>Help us advocate for horsemen's rights.</p>
         <p>@Html.ActionLink("Learn more »", "Legislation", "Home", null, new { Class = "btn btn-default" })</p>
     </div>

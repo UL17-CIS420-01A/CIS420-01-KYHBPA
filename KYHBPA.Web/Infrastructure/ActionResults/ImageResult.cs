@@ -3,7 +3,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web.ActionResults
+namespace KYHBPA.ActionResults
 {
     public class ImageResult : ActionResult
     {

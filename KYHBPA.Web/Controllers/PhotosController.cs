@@ -11,38 +11,41 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using KYHBPA.Web.ActionResults;
-using KYHBPA.Web.Models;
+using KYHBPA.ActionResults;
+using KYHBPA.Data.Repository;
+using KYHBPA.Models;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Practices.Unity;
 using static System.Drawing.Image;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public class PhotosController : BaseController
     {
-        public ImageResult ImageNotAvailable
-        {
-            get
-            {
-                var imageResult = new ImageResult(
-                     new MemoryStream(FromFile(Server.MapPath(@"~/content/images/ImageNotAvailable.jpg")).ToByteArray()), "image/jpeg");
-                return imageResult;
-            }
-        }
+        private readonly IPhotoRepository _photoRepository =
+            UnityConfig.GetConfiguredContainer().Resolve<IPhotoRepository>();
 
         // GET: Photos
         [HttpGet]
-        public async Task<ActionResult> Index() => View((await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).ToListAsync()));
+        public async Task<ActionResult> Index()
+        {
+            PhotoViewModel result = new PhotoViewModel()
+            {
+                CurrentUser =  User,
+                Ids = _photoRepository.FindPhotoIds()
+            };
+            return View(result);
+        }
 
         // GET: Photos/Details/5
         [HttpGet]
         public async Task<ActionResult> Details(Guid? id)
         {
-            if (id.IsNull())
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            Photo photo = _photoRepository.FindById(id.Value);
             if (photo.IsNull())
             {
                 return HttpNotFound();
@@ -87,8 +90,7 @@ namespace KYHBPA.Web.Controllers
                     LastModifiedBy = User?.Member,
                     LastModified = DateTime.UtcNow
                 };
-                Db.Photos.Add(photo);
-                await Db.SaveChangesAsync();
+                _photoRepository.Create(photo);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -99,7 +101,7 @@ namespace KYHBPA.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id.IsNull())
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -159,65 +161,18 @@ namespace KYHBPA.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid? id)
         {
-            Photo photo = await Db.Photos.FirstOrDefaultAsync(o => o.Id == id);
+            Photo photo = Db.Photos.FirstOrDefault(o => o.Id == id);
             if (ModelState.IsValid)
             {
                 photo.DeletedBy = User?.Member;
                 photo.Deleted = DateTime.UtcNow;
                 Db.Entry(photo).State = EntityState.Modified;
                 await Db.SaveChangesAsync();
+
+                Db.Photos.Remove(photo);
+                await Db.SaveChangesAsync();
             }
-            Db.Photos.Remove(photo);
-            await Db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-
-        [HttpGet]
-        public async Task<ActionResult> RenderImage(Guid? id)
-        {
-            if (id.IsNull())
-            {
-                return ImageNotAvailable;
-            }
-            Photo photo = await Db.Photos.FindAsync(id);
-            if ((photo?.Content).IsEmptyArray())
-            {
-                return ImageNotAvailable;
-            }
-            return Image(photo.Content, photo.ContentType);
-        }
-
-
-        public ImageResult Image(byte[] imageBytes, string contentType)
-        {
-            try
-            {
-                var img = imageBytes.ToImage();
-                var bmap = new System.Drawing.Bitmap(img);
-
-                var imageResult = new ImageResult(new MemoryStream(imageBytes), contentType);
-                ////calculate the ratio
-                //double dbl = (double)img.Width / (double)img.Height;
-                //Bitmap resizedImage;
-                //int boxHeight = 600;
-                //int boxWidth = 800;
-                ////set height of image to boxHeight and check if resulting width is less than boxWidth, 
-                ////else set width of image to boxWidth and calculate new height
-                //if ((int)((double)boxHeight * dbl) <= boxWidth)
-                //{
-                //    resizedImage = new Bitmap(img, (int)((double)boxHeight * dbl), boxHeight);
-                //}
-                //else
-                //{
-                //    resizedImage = new Bitmap(img, boxWidth, (int)((double)boxWidth / dbl));
-                //}
-                return imageResult;
-            }
-            catch (Exception ex)
-            {
-                return ImageNotAvailable;
-            }
         }
     }
 }

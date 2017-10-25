@@ -1,17 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYHBPA.Web", "KYHBPA.Web\KYHBPA.Web.csproj", "{5E9429CE-E7AB-4F77-967A-DECF6AFC5336}"
-	ProjectSection(ProjectDependencies) = postProject
-		{71746551-ECCC-4678-96AB-C0616D2175DA} = {71746551-ECCC-4678-96AB-C0616D2175DA}
-		{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8} = {8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYHBPA.Data", "KYHBPA.Data\KYHBPA.Data.csproj", "{71746551-ECCC-4678-96AB-C0616D2175DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KYHBPA.Common", "KYHBPA.Common\KYHBPA.Common.csproj", "{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +15,6 @@ Global
 		{5E9429CE-E7AB-4F77-967A-DECF6AFC5336}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9429CE-E7AB-4F77-967A-DECF6AFC5336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E9429CE-E7AB-4F77-967A-DECF6AFC5336}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71746551-ECCC-4678-96AB-C0616D2175DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71746551-ECCC-4678-96AB-C0616D2175DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71746551-ECCC-4678-96AB-C0616D2175DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71746551-ECCC-4678-96AB-C0616D2175DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A13DDDD-E7A2-4AE6-A6D3-964A3E92A4D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

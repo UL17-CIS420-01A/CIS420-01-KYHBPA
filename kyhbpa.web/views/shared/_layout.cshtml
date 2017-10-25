@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Kentucky HBPA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/Content/socialMedia.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -39,25 +38,25 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                        About Us <span class="caret"></span>
+                        About <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu navbar-inverse">
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
                         <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
                         <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
                 <li class="dropdown">
                     <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
                         News <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu navbar-inverse">
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
+                        <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                        <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>
-                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
                 <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
                 <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
             </ul>
@@ -78,7 +77,7 @@
         <div> 
             <a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"></a>
             <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a> 
-        <div align="right"><a href="https://www.paypal.com/us/home">
+        <div align="left"><a href="https://www.paypal.com/us/home">
                 <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-large.png" alt="Buy now with PayPal"/></a>
         </div> 
         </div>

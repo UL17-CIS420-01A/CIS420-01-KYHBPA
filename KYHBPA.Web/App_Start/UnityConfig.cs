@@ -3,16 +3,16 @@ using System.Data.Entity;
 using AutoMapper;
 using KYHBPA.Data.Infrastructure;
 
-namespace KYHBPA.Web
+namespace KYHBPA
 {
     using System;
     using Microsoft.Practices.Unity;
     using Microsoft.Practices.Unity.Configuration;
     using Microsoft.AspNet.Identity;
-    using KYHBPA.Web.Models;
+    using KYHBPA.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
     using KYHBPA.Data.Repository;
-    using KYHBPA.Web.Controllers;
+    using KYHBPA.Controllers;
 
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -53,6 +53,7 @@ namespace KYHBPA.Web
             container.RegisterType<EntityDbContext>(new InjectionFactory(c => new EntityDbContextFactory().Create()));
             container.RegisterType<Mapper>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IPhotoRepository, PhotoRepository>();
             //container.RegisterType<IRepository<User, string>, UserRepository>();
         }
     }

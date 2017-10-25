@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace KYHBPA.Web.Controllers
+namespace KYHBPA.Controllers
 {
     public class BlogController : BaseController
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KYHBPA.Web.Models
+namespace KYHBPA.Models
 {
     public class MemberViewModel
     {
