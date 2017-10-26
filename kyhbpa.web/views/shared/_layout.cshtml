@@ -19,7 +19,7 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>*@
     <div class="navbar">
-        <a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!"></a>
+        <div align="right"> <a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!"></a></div>
         <a href="mailto:kentuckyhbpa@gmail.com">Contact Us!</a>
     </div>
 <div class="navbar navbar-inverse">
@@ -65,7 +65,6 @@
                 @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
                 <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
                 <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
-                <li><a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!"  ></a></li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
