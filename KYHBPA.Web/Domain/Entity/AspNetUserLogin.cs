@@ -16,6 +16,7 @@ namespace KYHBPA.Entity
     using System;
     using System.Collections.Generic;
 
+    [Table("UserLogins", Schema = "Identity")]
     public partial class AspNetUserLogin : IdentityUserLogin<Guid>
     {
         [Key, Required]
@@ -29,6 +30,7 @@ namespace KYHBPA.Entity
         [ForeignKey(nameof(User))]
         public override Guid UserId { get; set; }
 
+        //[InverseProperty("Logins")]
         public virtual ApplicationUser User { get; set; }
     }
 }

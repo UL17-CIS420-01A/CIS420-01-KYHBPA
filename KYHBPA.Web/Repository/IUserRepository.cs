@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using KYHBPA.Entity;
 
-namespace KYHBPA.Data.Repository
+namespace KYHBPA.Repository
 {
     public interface IUserRepository : IRepository<ApplicationUser, Guid>
     {
         Task<ApplicationUser> FindByUsernameAsync(string userName);
         ApplicationUser FindByUsername(string userName);
         List<ApplicationUser> FindUsers();
-        bool? IsInRole(Guid role, Guid id);
-        bool? IsInRole(AspNetUserRole role, Guid id);
+        bool? IsInRole(Guid roleId, Guid userId);
+        bool? IsInRole(AspNetUserRole role, Guid userId);
     }
 }

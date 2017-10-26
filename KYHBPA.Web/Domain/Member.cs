@@ -50,8 +50,9 @@ namespace KYHBPA
         public string City { get; set; }
 
         [Required(ErrorMessage = "State Required")]
+        [EnumDataType(enumType: typeof(State), ErrorMessage = "State is not valid")]
         [Display(Name = "State")]
-        public string State { get; set; }
+        public State State { get; set; }
 
         [Required(ErrorMessage = "Zip Code Required")]
         [Display(Name = "Zip Code")]
@@ -63,11 +64,12 @@ namespace KYHBPA
         public string LicenseNumber { get; set; }
 
         [Display(Name = "Are you a horse owner?")]
-        public bool isOwner { get; set; }
+        [DefaultValue(false)]
+        public bool IsOwner { get; set; }
 
         [Display(Name = "Are you a horse trainer?")]
         [DefaultValue(false)]
-        public bool isTrainer { get; set; }
+        public bool IsTrainer { get; set; }
 
         [Required]
         [IsTrue(ErrorMessage = "You must agree to the Terms of Service.")]
@@ -78,11 +80,13 @@ namespace KYHBPA
         [Required]
         [Display(Name = "Signature")]
         [Description(description: "By checking this, you confirm that all information provided is correct.")]
-        [Compare("FullName", ErrorMessage = "Your signature must match your first and last name.")]
+        [Compare(nameof(FullName), ErrorMessage = "Your signature must match your first and last name.")]
         [DefaultValue("")]
         public string Signature { get; set; }
 
-        [Display(Name = "Full Name")]
+        [Display(Name = "Name")]
         public string FullName => $"{FirstName} {LastName}";
+
+        //public virtual ApplicationUser User { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace KYHBPA.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? (UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>());
             }
             private set
             {

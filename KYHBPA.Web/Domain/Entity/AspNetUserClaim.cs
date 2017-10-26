@@ -15,11 +15,13 @@ namespace KYHBPA.Entity
     using System;
     using System.Collections.Generic;
 
+    [Table("UserClaims", Schema = "Identity")]
     public partial class AspNetUserClaim : IdentityUserClaim<Guid>
     {        
         [ForeignKey(nameof(User))]
         public override Guid UserId { get; set; }
 
+        //[InverseProperty("Claims")]
         public virtual ApplicationUser User { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace KYHBPA
+﻿using System.IO;
+using Newtonsoft.Json;
+
+namespace KYHBPA
 {
     /// <summary>
     /// Object Extension Class

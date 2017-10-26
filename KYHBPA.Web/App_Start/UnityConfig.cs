@@ -2,6 +2,8 @@ using System.Data.Common;
 using System.Data.Entity;
 using AutoMapper;
 using KYHBPA.Data.Infrastructure;
+using KYHBPA.Repository;
+using KYHBPA.Repository.Implementation;
 
 namespace KYHBPA
 {
@@ -11,7 +13,6 @@ namespace KYHBPA
     using Microsoft.AspNet.Identity;
     using KYHBPA.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using KYHBPA.Data.Repository;
     using KYHBPA.Controllers;
 
     /// <summary>

@@ -12,8 +12,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KYHBPA.ActionResults;
-using KYHBPA.Data.Repository;
 using KYHBPA.Models;
+using KYHBPA.Repository;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Practices.Unity;
 using static System.Drawing.Image;
@@ -29,10 +29,10 @@ namespace KYHBPA.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            PhotoViewModel result = new PhotoViewModel()
+            PhotoGalleryViewModel result = new PhotoGalleryViewModel()
             {
-                CurrentUser =  User,
-                Ids = _photoRepository.FindPhotoIds()
+                CurrentUser = User,
+                Ids = await _photoRepository.FindPhotoGalleryIdsAsync()
             };
             return View(result);
         }
@@ -45,56 +45,65 @@ namespace KYHBPA.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = _photoRepository.FindById(id.Value);
+            Photo photo = await _photoRepository.FindByIdAsync(id.Value);
             if (photo.IsNull())
             {
                 return HttpNotFound();
             }
-            return View(photo);
+
+            var model = AutoMapper.Mapper.Map(photo, new PhotoDetailedViewModel());
+
+            return View(model);
         }
 
         // GET: Photos/Create
         [HttpGet]
-        public ActionResult Create() => View(new UploadPhotoViewModel());
+        public async Task<ActionResult> Create()
+        {
+            var viewModel = new PhotoUploadViewModel()
+            {
+                PhotoKeys = (await _photoRepository.FindAvailableCollectionKeysAsync()).Select(o => new SelectListItem() { Value = o, Text = o })
+            };
+            return View(new PhotoUploadViewModel());
+        }
 
         // POST: Photos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(
-            [Bind(Include = "ImageData,PhotoName,Description")] UploadPhotoViewModel uploadPhoto, HttpPostedFileBase imageData)
+        public async Task<ActionResult> Create(PhotoUploadViewModel photoUpload)
         {
             byte[] imageContent = null;
-            if (uploadPhoto.ImageData.IsNull())
+            if (photoUpload.ImageData.IsNull())
             {
                 ModelState.AddModelError("ImageData", "You must select an image to upload.");
             }
-            else if ((imageContent = uploadPhoto.ImageData.InputStream.ToByteArray()).IsNull())
+            else if ((imageContent = photoUpload.ImageData.InputStream.ToImageContent()).IsNull())
             {
                 ModelState.AddModelError("ImageData", "The file you uploaded is not an acceptable type of image.");
             }
-
 
             if (ModelState.IsValid)
             {
                 var photo = new Photo
                 {
                     Content = imageContent,
-                    ContentLength = uploadPhoto.ImageData.ContentLength,
-                    ContentType = uploadPhoto.ImageData.ContentType,
-                    PhotoName = uploadPhoto.PhotoName,
-                    Description = uploadPhoto.Description,
+                    ContentLength = photoUpload.ImageData.ContentLength,
+                    ContentType = photoUpload.ImageData.ContentType,
+                    PhotoName = photoUpload.PhotoName,
+                    Description = photoUpload.Description,
                     UploadedBy = User?.Member,
                     Uploaded = DateTime.UtcNow,
-                    LastModifiedBy = User?.Member,
-                    LastModified = DateTime.UtcNow
+                    PhotoCollectionKey = photoUpload.PhotoCollectionKey,
+                    IsInGallery = photoUpload.IsInGallery,
+
                 };
                 _photoRepository.Create(photo);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(uploadPhoto);
+            return View(photoUpload);
         }
 
         // GET: Photos/Edit/5
@@ -105,12 +114,16 @@ namespace KYHBPA.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            Photo photo = await _photoRepository.FindByIdAsync(id.Value);
             if (photo.IsNull())
             {
                 return HttpNotFound();
             }
-            return View(photo);
+            var model = AutoMapper.Mapper.Map(photo, new PhotoEditViewModel());
+            model.PhotoKeys =
+                (await _photoRepository.FindAvailableCollectionKeysAsync()).Select(o =>
+                    new SelectListItem() { Value = o, Text = o });
+            return View(model);
         }
 
         // POST: Photos/Edit/5
@@ -118,42 +131,38 @@ namespace KYHBPA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Photo photo)
+        public async Task<ActionResult> Edit(PhotoEditViewModel photoEditViewModel)
         {
-            Photo p = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == photo.Id);
-            if (p.IsNull())
+            if (photoEditViewModel.IsNull())
                 return RedirectToAction(nameof(Index));
-            photo.Content = p.Content;
-            photo.ContentLength = p.ContentLength;
-            photo.ContentType = p.ContentType;
-            photo.Event = p.Event;
-            photo.UploadedBy = p.UploadedBy;
-            photo.Uploaded = p.Uploaded;
             if (ModelState.IsValid)
             {
+                Photo photo = await _photoRepository.FindByIdAsync(photoEditViewModel.Id);
+                photo = AutoMapper.Mapper.Map(photoEditViewModel, photo);
                 photo.LastModifiedBy = User?.Member;
                 photo.LastModified = DateTime.UtcNow;
-                Db.Photos.AddOrUpdate((o) => o.Id, photo);
-                await Db.SaveChangesAsync();
+                await _photoRepository.UpdateAsync(photo);
                 return RedirectToAction(nameof(Index));
             }
-            return View(photo);
+            return View(photoEditViewModel);
         }
 
         // GET: Photos/Delete/5
         [HttpGet]
         public async Task<ActionResult> Delete(Guid? id)
         {
-            if (id.IsNull())
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photo photo = await Db.Photos.Include(o => o.UploadedBy).Include(o => o.Event).SingleOrDefaultAsync(o => o.Id == id);
+            Photo photo = _photoRepository.FindById(id.Value);
             if (photo.IsNull())
             {
                 return HttpNotFound();
             }
-            return View(photo);
+            var model = AutoMapper.Mapper.Map(photo, new PhotoDetailedViewModel());
+
+            return View(model);
         }
 
         // POST: Photos/Delete/5
@@ -161,16 +170,11 @@ namespace KYHBPA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid? id)
         {
-            Photo photo = Db.Photos.FirstOrDefault(o => o.Id == id);
-            if (ModelState.IsValid)
+            if (id.HasValue)
             {
+                Photo photo = Db.Photos.FirstOrDefault(o => o.Id == id);
                 photo.DeletedBy = User?.Member;
-                photo.Deleted = DateTime.UtcNow;
-                Db.Entry(photo).State = EntityState.Modified;
-                await Db.SaveChangesAsync();
-
-                Db.Photos.Remove(photo);
-                await Db.SaveChangesAsync();
+                _photoRepository.Delete(photo);
             }
             return RedirectToAction(nameof(Index));
         }

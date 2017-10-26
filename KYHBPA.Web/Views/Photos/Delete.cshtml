@@ -1,4 +1,4 @@
-﻿@model KYHBPA.Photo
+﻿@model KYHBPA.Models.PhotoDetailedViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayName("Image")
         </dt>
 
         <dd class="smallImageWrapper">
@@ -35,21 +35,21 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.UploadedBy.FullName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.UploadedBy.FullName)
-        </dd>
+        </dd>*@
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Event.Name)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Event.Name)
-        </dd>
+        </dd>*@
 
     </dl>
 

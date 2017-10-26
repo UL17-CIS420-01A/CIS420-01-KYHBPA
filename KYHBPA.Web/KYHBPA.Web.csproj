@@ -261,7 +261,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Domain\PhotoCollection.cs" />
+    <Compile Include="Domain\Collections\PhotoCollection.cs" />
+    <Compile Include="Domain\Enums\States.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -288,17 +289,18 @@
     <Compile Include="Domain\Entity\AspNetUserClaim.cs" />
     <Compile Include="Domain\Entity\AspNetUserLogin.cs" />
     <Compile Include="Domain\Entity\AspNetUserRole.cs" />
-    <Compile Include="Extension\Base64StringExtensions.cs" />
-    <Compile Include="Extension\CommonFunctions.cs" />
-    <Compile Include="Extension\DateTimeExtensions.cs" />
-    <Compile Include="Extension\EnumExtension.cs" />
-    <Compile Include="Extension\GuidExtensions.cs" />
-    <Compile Include="Extension\IEnumerableExtensions.cs" />
-    <Compile Include="Extension\ImageExtensions.cs" />
-    <Compile Include="Extension\MemoryStreamExtensions.cs" />
-    <Compile Include="Extension\NullableStringExtensions.cs" />
-    <Compile Include="Extension\ObjectExtensions.cs" />
-    <Compile Include="Extension\SecureStringExtensions.cs" />
+    <Compile Include="Infrastructure\EntityMappers\AspNetRoleMapper.cs" />
+    <Compile Include="Infrastructure\Extension\Base64StringExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\CommonFunctions.cs" />
+    <Compile Include="Infrastructure\Extension\DateTimeExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\EnumExtension.cs" />
+    <Compile Include="Infrastructure\Extension\GuidExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\IEnumerableExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\ImageExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\MemoryStreamExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\NullableStringExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\ObjectExtensions.cs" />
+    <Compile Include="Infrastructure\Extension\SecureStringExtensions.cs" />
     <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
     <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
     <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
@@ -329,6 +331,21 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Seed\HomeIndexCarousel0.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Seed\HomeIndexCarousel1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Seed\HomeIndexEvents.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Seed\HomeIndexLegislation.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Seed\HomeIndexNews.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bootstrap-superhero.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -646,12 +663,9 @@
     <Content Include="Views\Surveys\Details.cshtml" />
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
+    <Content Include="Views\Photos\_DetailsDL.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Attributes\" />
-    <Folder Include="Views\Calendar\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

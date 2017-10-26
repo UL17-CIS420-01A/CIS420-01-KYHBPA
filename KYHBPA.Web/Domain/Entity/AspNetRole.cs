@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Metadata.Edm;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KYHBPA.Entity
@@ -15,18 +16,17 @@ namespace KYHBPA.Entity
     using System;
     using System.Collections.Generic;
 
+    //[Table("Roles", Schema = "Identity")]
     public partial class AspNetRole : IdentityRole<Guid, AspNetUserRole>
     {
         private readonly ICollection<AspNetUserRole> _users;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetRole()
         {
             this._users = new HashSet<AspNetUserRole>();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage",
-            "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [InverseProperty("Role")]
         public override ICollection<AspNetUserRole> Users
         {
             get { return _users; }

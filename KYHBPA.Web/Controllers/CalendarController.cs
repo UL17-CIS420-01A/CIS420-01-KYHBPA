@@ -136,12 +136,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Xml.Linq;
 using KYHBPA.Models;
 using DHTMLX.Common;
 using DHTMLX.Scheduler;
 using DHTMLX.Scheduler.Data;
-using KYHBPA;
 using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Controllers
@@ -151,7 +149,7 @@ namespace KYHBPA.Controllers
         //Refer to this link in order to set up the Calendar.
         //http://scheduler-net.com/docs/simple-.net-mvc-application-with-scheduler.html#step_2_add_the_scheduler_reference
 
-        
+
 
         public ActionResult Index()
         {
@@ -171,7 +169,7 @@ namespace KYHBPA.Controllers
             //}
 
             //return RedirectToAction("Index", "Home");
-           
+
         }
 
         public JsonResult Data()

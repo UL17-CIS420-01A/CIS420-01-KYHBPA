@@ -1,17 +1,12 @@
-﻿using KYHBPA.Entity;
-using static AutoMapper.Mapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using KYHBPA.Entity;
 
-namespace KYHBPA.Data.Repository
+namespace KYHBPA.Repository.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using KYHBPA.Data.Infrastructure;
-    using Microsoft.AspNet.Identity.EntityFramework;
-
     public class UserRepository : BaseRepository<ApplicationUser, Guid>, IUserRepository
     {
         public UserRepository(EntityDbContext context) : base(context)
@@ -27,25 +22,17 @@ namespace KYHBPA.Data.Repository
             .Include(o => o.Member)
             .SingleOrDefault(o => o.Id == id);
 
-        //if (result.IsNull())
-        //    return null;
-        //result.Member = Context.Members.Single(o => o.Id == result.Member_Id);
         public ApplicationUser FindByUsername(string userName) => Context.Users.AsNoTracking()
             .Include(o => o.Member)
             .SingleOrDefault(o => o.UserName == userName.ToString());
 
-        public List<ApplicationUser> FindUsers() => Context.Users.AsNoTracking()
+        public List<ApplicationUser> FindUsers() => 
+            Context.Users.AsNoTracking()
             .Include(o => o.Member).ToList();
 
-        public bool? IsInRole(Guid role, Guid id) => FindById(id)?.Roles.Any(r => r.RoleId == role);
+        public bool? IsInRole(Guid roleId, Guid userId) => 
+            FindById(userId)?.Roles.Any(r => r.RoleId == roleId);
 
-        public bool? IsInRole(AspNetUserRole role, Guid id) => FindById(id)?.Roles.Any(r => r.RoleId == role.RoleId);
-
-        //private ApplicationUser FindApplicationUserByAspNetUser(ApplicationUser ApplicationUser)
-        //{
-        //    ApplicationUser applicationUser = Map(ApplicationUser, new ApplicationUser());
-        //    applicationUser.Member = Map(Context.Members.Single(o => ApplicationUser.Member_Id == o.Id), new Member());
-        //    return applicationUser;
-        //}
+        public bool? IsInRole(AspNetUserRole role, Guid userId) => FindById(userId)?.Roles.Any(r => r.RoleId == role.RoleId);
     }
 }

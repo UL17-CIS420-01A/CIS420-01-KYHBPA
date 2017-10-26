@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using KYHBPA.Data.Repository;
+using KYHBPA.Repository;
 using Microsoft.Practices.Unity;
 
 namespace KYHBPA.Controllers
@@ -18,11 +18,11 @@ namespace KYHBPA.Controllers
         public ActionResult Index()
         {
 
-            var carouselImageIds = Db.Photos.Take(5).Select(c => c.Id).ToList();
+            var carouselImageIds = _photoRepository.FindPhotoGalleryIds().ToList();
 
-            var newsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o=>o.Id).FirstOrDefault();
-            var eventsImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o => o.Id).FirstOrDefault();
-            var legislationImageId = Db.Photos.OrderBy(o => o.Uploaded).Select(o => o.Id).FirstOrDefault();
+            var newsImageId = _photoRepository.FindPhotoIdByKey("News");
+            var eventsImageId = _photoRepository.FindPhotoIdByKey("Events");
+            var legislationImageId = _photoRepository.FindPhotoIdByKey("Legislation");
 
             var viewModel = new HomepageViewModel()
             {

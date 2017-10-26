@@ -39,8 +39,11 @@ namespace KYHBPA.ActionResults
 
                 response.OutputStream.Write(buffer, 0, read);
             }
-            response.Flush();
-            response.Close();
+            if (response.IsClientConnected)
+            {
+                response.Flush();
+                response.Close();
+            }
         }
     }
 }

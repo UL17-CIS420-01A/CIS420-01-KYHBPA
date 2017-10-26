@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using KYHBPA.Entity;
+using KYHBPA.EntityMappers;
 
 namespace KYHBPA
 {
@@ -8,8 +9,8 @@ namespace KYHBPA
 
         private EntityDbContext() : base("DefaultConnection")
         {
-            this.Configuration.LazyLoadingEnabled = true;
-            this.Configuration.ProxyCreationEnabled = true;
+            var logger = new MyLogger();
+            Database.Log = s => logger.Log("EntityDbContext", s);
         }
 
         public override int SaveChanges()
@@ -20,23 +21,34 @@ namespace KYHBPA
         public static EntityDbContext Create()
         {
             var result = new EntityDbContext();
-            var logger = new MyLogger();
-            result.Database.Log = s => logger.Log("EntityDbContext", s);
             return result;
         }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AspNetRoleMapper());
 
-            modelBuilder.Entity<ApplicationUser>()
-                .ToTable("Users");
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .ToTable("Users");
+            //modelBuilder.Entity<AspNetUserRole>()
+            //    .ToTable("UserRoles");
+            //modelBuilder.Entity<AspNetUserClaim>()
+            //    .ToTable("UserClaims");
             modelBuilder.Entity<AspNetUserRole>()
-                .ToTable("UserRoles");
-            modelBuilder.Entity<AspNetUserClaim>()
-                .ToTable("UserClaims");
+                .HasRequired(c => c.Role)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            modelBuilder.Entity<AspNetUserRole>()
+                .HasRequired(c => c.User)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            //modelBuilder.Entity<AspNetRole>()
+            //    .HasOptional(s => s.Users)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(true);
             modelBuilder.Entity<AspNetUserLogin>()
-                .HasKey((obj) => new { obj.LoginProvider, obj.ProviderKey, obj.UserId })
-                .ToTable("UserLogins");
+                .HasKey((obj) => new {obj.LoginProvider, obj.ProviderKey, obj.UserId});
+                //.ToTable("UserLogins");
             base.OnModelCreating(modelBuilder);
         }
 

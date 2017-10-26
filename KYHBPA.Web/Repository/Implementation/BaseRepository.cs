@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using KYHBPA.Data.Infrastructure;
 
-namespace KYHBPA.Data.Repository
+namespace KYHBPA.Repository.Implementation
 {
     public class BaseRepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
     {
@@ -48,12 +47,19 @@ namespace KYHBPA.Data.Repository
             Context.Set<TEntity>().Remove(entity);
             Context.SaveChanges();
         }
-        public virtual void Update(TEntity entity)
+        public virtual int Update(TEntity entity)
         {
             if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
             Context.Set<TEntity>().Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            Context.SaveChanges();
+            return Context.SaveChanges();
+        }
+        public virtual async Task<int> UpdateAsync(TEntity entity)
+        {
+            if (entity.IsNull()) throw new ArgumentNullException(nameof(entity));
+            Context.Set<TEntity>().Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
+            return await Context.SaveChangesAsync();
         }
     }
 }

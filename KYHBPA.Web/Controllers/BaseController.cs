@@ -3,10 +3,11 @@ using System.IO;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using KYHBPA.Data.Infrastructure;
-using KYHBPA.Data.Repository;
 using KYHBPA.ActionResults;
+using KYHBPA.Repository;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Practices.Unity;
 using static System.Drawing.Image;
@@ -24,7 +25,7 @@ namespace KYHBPA.Controllers
         protected IIdentity CurrentIdentity => CurrentPrincipal?.Identity;
 
         private ApplicationUser _user;
-        protected new ApplicationUser User
+        public new ApplicationUser User
         {
             get
             {
@@ -51,8 +52,6 @@ namespace KYHBPA.Controllers
             base.Dispose(disposing);
         }
 
-
-
         public ImageResult ImageNotAvailable
         {
             get
@@ -76,6 +75,8 @@ namespace KYHBPA.Controllers
             }
         }
 
+        //Cache for one day(server and client, vary by id)
+        [OutputCache(CacheProfile = "RenderImage", VaryByParam = "id", Duration = 86400, Location = OutputCacheLocation.ServerAndClient, NoStore = false)]
         [HttpGet]
         public async Task<ActionResult> RenderImage(Guid? id)
         {

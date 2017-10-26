@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
-namespace KYHBPA.Data.Repository
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace KYHBPA.Repository
 {
     public interface IRepository<TEntity, in TKey> where TEntity : class
     {
@@ -7,6 +9,9 @@ namespace KYHBPA.Data.Repository
         void Delete(TEntity entity);
         Task<TEntity> FindByIdAsync(TKey id);
         TEntity FindById(TKey id);
-        void Update(TEntity entity);
+        ICollection<TEntity> FindEntities();
+        int Update(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity);
+
     }
 }
