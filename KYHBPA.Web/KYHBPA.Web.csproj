@@ -262,6 +262,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Domain\PhotoCollection.cs" />
+    <Compile Include="Helpers\ActionLinkExtensions.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -312,14 +313,24 @@
     </Compile>
     <Compile Include="Infrastructure\MyLogger.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\EventFeedbackViewModels.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\PhotosViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostTagMap.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\ViewModels\BlogListViewModel.cs" />
+    <Compile Include="Models\ViewModels\BlogPostDetailsViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryListViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateBlogPostViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateCommentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BlogRepository.cs" />
     <Compile Include="Repository\Implementation\PhotoRepository.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
     <Compile Include="Repository\Implementation\UserRepository.cs" />
@@ -640,12 +651,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Blog\CreateComment.cshtml" />
+    <Content Include="Views\Blog\Details.cshtml" />
+    <Content Include="Views\Blog\Edit.cshtml" />
+    <Content Include="Views\Blog\List.cshtml" />
+    <Content Include="Views\Blog\Manage.cshtml" />
     <None Include="Views\Home\News.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
     <Content Include="Views\Surveys\Delete.cshtml" />
     <Content Include="Views\Surveys\Details.cshtml" />
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
+    <Content Include="Views\Shared\_PagerPartial.cshtml" />
+    <Content Include="Views\Shared\_PostTemplatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,12 +1,13 @@
 ﻿using System.Data.Entity;
 using KYHBPA.Entity;
+using KYHBPA.Models;
 
 namespace KYHBPA
 {
     public class EntityDbContext : DbContext
     {
 
-        private EntityDbContext() : base("DefaultConnection")
+        public EntityDbContext() : base("DefaultConnection")
         {
             this.Configuration.LazyLoadingEnabled = true;
             this.Configuration.ProxyCreationEnabled = true;
@@ -57,5 +58,9 @@ namespace KYHBPA
         public virtual DbSet<PollQuestion> PollQuestions { get; set; }
         public virtual DbSet<PollResponse> PollResponses { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
     }
 }
