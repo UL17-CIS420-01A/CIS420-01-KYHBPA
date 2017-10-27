@@ -9,11 +9,6 @@ namespace KYHBPA.Controllers
 {
     public class UploadController : Controller
     {
-        // GET: Upload
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult UploadFile()
@@ -26,7 +21,7 @@ namespace KYHBPA.Controllers
         {
             try
             {
-                if (File.ContentLength > 0)
+                if (file.ContentLength > 0)
                 {
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/Content/Files"), _FileName);
