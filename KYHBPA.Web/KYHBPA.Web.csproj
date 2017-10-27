@@ -261,6 +261,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Domain\PhotoCollection.cs" />
     <Compile Include="Helpers\ActionLinkExtensions.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
@@ -669,7 +670,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Attributes\" />
+    <Folder Include="Content\Files\" />
     <Folder Include="Views\Calendar\" />
+    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
