@@ -29,7 +29,7 @@ namespace KYHBPA.Controllers
                 if (File.ContentLength > 0)
                 {
                     string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Content/Files"), _FileName);
                     file.SaveAs(_path);
                 }
                 ViewBag.Message = "Success";
