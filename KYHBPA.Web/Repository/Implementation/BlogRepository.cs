@@ -1,19 +1,16 @@
-﻿using KYHBPA.Models;
-using KYHBPA.Models.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using KYHBPA.Models;
 
-namespace KYHBPA.Repository
+namespace KYHBPA.Repository.Implementation
 {
     public class BlogRepository
     {
-        private EntityDbContext _db = new EntityDbContext();
+        private EntityDbContext _context = new EntityDbContext();
 
         public IList<Post> Posts(int pageNo, int pageSize)
         {
-            var posts = _db.Posts
+            var posts = _context.Posts
                                   .Where(p => p.Published != false)
                                   .OrderByDescending(p => p.PostedOn)
                                   .Skip(pageNo * pageSize)
@@ -23,7 +20,7 @@ namespace KYHBPA.Repository
 
             var postIds = posts.Select(p => p.Id).ToList();
 
-            return _db.Posts
+            return _context.Posts
                   .Where(p => postIds.Contains(p.Id))
                   .OrderByDescending(p => p.PostedOn)
                   //.FetchMany(p => p.Tags)
@@ -32,7 +29,7 @@ namespace KYHBPA.Repository
 
         public int TotalPosts()
         {
-            return _db.Posts.Where(p => p.Published != false).Count();
+            return _context.Posts.Where(p => p.Published != false).Count();
         }
     }
 }

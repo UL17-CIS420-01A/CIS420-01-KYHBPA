@@ -15,7 +15,7 @@ using KYHBPA.Models;
 namespace KYHBPA.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -391,7 +391,7 @@ namespace KYHBPA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if (CurrentIdentity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
             }

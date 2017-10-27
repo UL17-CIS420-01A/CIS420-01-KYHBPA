@@ -261,10 +261,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Domain\Collections\PhotoCollection.cs" />
-    <Compile Include="Domain\Enums\Roles.cs" />
-    <Compile Include="Domain\Enums\States.cs" />
-    <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -274,6 +270,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Domain\ApplicationUser.cs" />
     <Compile Include="Domain\Document.cs" />
     <Compile Include="Domain\Employee.cs" />
@@ -286,12 +283,24 @@
     <Compile Include="Domain\PollQuestion.cs" />
     <Compile Include="Domain\PollResponse.cs" />
     <Compile Include="Domain\Survey.cs" />
+    <Compile Include="Domain\Collections\PhotoCollection.cs" />
     <Compile Include="Domain\Entity\Role.cs" />
     <Compile Include="Domain\Entity\UserClaim.cs" />
     <Compile Include="Domain\Entity\UserLogin.cs" />
     <Compile Include="Domain\Entity\UserRole.cs" />
+    <Compile Include="Domain\Enums\Roles.cs" />
+    <Compile Include="Domain\Enums\States.cs" />
+    <Compile Include="Infrastructure\EntityDbContext.cs" />
+    <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
+    <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
+    <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
+    <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
+    <Compile Include="Infrastructure\Attributes\MinimumFileSizeValidator.cs" />
+    <Compile Include="Infrastructure\Attributes\ValidFileTypeValidator.cs" />
     <Compile Include="Infrastructure\EntityMappers\UserRoleMapper.cs" />
     <Compile Include="Infrastructure\EntityMappers\RoleMapper.cs" />
+    <Compile Include="Infrastructure\MyLogger.cs" />
     <Compile Include="Infrastructure\Extension\ActionLinkExtensions.cs" />
     <Compile Include="Infrastructure\Extension\Base64StringExtensions.cs" />
     <Compile Include="Infrastructure\Extension\CommonFunctions.cs" />
@@ -304,44 +313,35 @@
     <Compile Include="Infrastructure\Extension\NullableStringExtensions.cs" />
     <Compile Include="Infrastructure\Extension\ObjectExtensions.cs" />
     <Compile Include="Infrastructure\Extension\SecureStringExtensions.cs" />
-    <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
-    <Compile Include="Infrastructure\Attributes\FileUploadValidator.cs" />
-    <Compile Include="Infrastructure\Attributes\MaximumFileSizeValidator.cs" />
-    <Compile Include="Infrastructure\Attributes\MinimumFileSizeValidator.cs" />
-    <Compile Include="Infrastructure\Attributes\ValidFileTypeValidator.cs" />
-    <Compile Include="Infrastructure\EntityDbContext.cs" />
-    <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
     <Compile Include="Infrastructure\Filters\CustomActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\MyLogger.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BlogViewModel.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Domain\Category.cs" />
+    <Compile Include="Domain\Comment.cs" />
     <Compile Include="Models\EventFeedbackViewModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\PhotosViewModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Post.cs" />
+    <Compile Include="Domain\Post.cs" />
     <Compile Include="Models\PostTagMap.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
-    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Domain\Tag.cs" />
     <Compile Include="Models\ViewModels\BlogListViewModel.cs" />
     <Compile Include="Models\ViewModels\BlogPostDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryListViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateBlogPostViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateCommentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BlogRepository.cs" />
-    <Compile Include="Repository\Implementation\PhotoRepository.cs" />
-    <Compile Include="Repository\Implementation\BaseRepository.cs" />
-    <Compile Include="Repository\Implementation\UserRepository.cs" />
+    <Compile Include="Repository\Implementation\BlogRepository.cs" />
     <Compile Include="Repository\IPhotoRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\Implementation\PhotoRepository.cs" />
+    <Compile Include="Repository\Implementation\BaseRepository.cs" />
+    <Compile Include="Repository\Implementation\UserRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -686,9 +686,10 @@
     <Content Include="Views\Photos\_DetailsDL.cshtml" />
     <Content Include="Views\Shared\_PagerPartial.cshtml" />
     <Content Include="Views\Shared\_PostTemplatePartial.cshtml" />
+    <Content Include="Views\Upload\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Calendar\" />
+    <Folder Include="Content\Files\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

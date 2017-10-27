@@ -1,6 +1,6 @@
 ﻿using KYHBPA.Models;
 using KYHBPA.Models.ViewModels;
-using KYHBPA.Repository;
+using KYHBPA.Repository.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace KYHBPA.Controllers
 {
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private EntityDbContext _db = new EntityDbContext();
         private BlogRepository _blogRepository = new BlogRepository();
