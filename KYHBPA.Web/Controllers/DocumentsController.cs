@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace KYHBPA.Controllers
 {
-    public class UploadController : BaseController
+    public class DocumentsController : BaseController
     {
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace KYHBPA.Controllers
                 if (file.ContentLength > 0)
                 {
                     string fileName = Path.GetFileName(file.FileName);
-                    string path = Path.Combine(Server.MapPath("~/Content/Files"), fileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/Documents"), fileName);
                     file.SaveAs(path);
                 }
                 ViewBag.Message = "Success";

@@ -270,7 +270,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Domain\ApplicationUser.cs" />
     <Compile Include="Domain\Document.cs" />
     <Compile Include="Domain\Employee.cs" />
@@ -686,10 +686,10 @@
     <Content Include="Views\Photos\_DetailsDL.cshtml" />
     <Content Include="Views\Shared\_PagerPartial.cshtml" />
     <Content Include="Views\Shared\_PostTemplatePartial.cshtml" />
-    <Content Include="Views\Upload\UploadFile.cshtml" />
+    <Content Include="Views\Documents\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Files\" />
+    <Folder Include="Content\Documents\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
