@@ -666,13 +666,13 @@
     <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\Shared\_PagerPartial.cshtml" />
     <Content Include="Views\Shared\_PostTemplatePartial.cshtml" />
+    <Content Include="Views\Upload\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Attributes\" />
     <Folder Include="Content\Files\" />
     <Folder Include="Views\Calendar\" />
-    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
