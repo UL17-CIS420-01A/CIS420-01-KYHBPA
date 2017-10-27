@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -15,13 +16,21 @@ namespace KYHBPA.Entity
     using System;
     using System.Collections.Generic;
 
-    [Table("UserClaims", Schema = "Identity")]
-    public partial class AspNetUserClaim : IdentityUserClaim<Guid>
-    {        
+    [Table("UserLogins", Schema = "Identity")]
+    public partial class UserLogin : IdentityUserLogin<Guid>
+    {
+        [Key, Required]
+        [Column(Order = 0)]
+        public override string LoginProvider { get; set; }
+        [Key, Required]
+        [Column(Order = 1)]
+        public override string ProviderKey { get; set; }
+        [Key, Required]
+        [Column(Order = 2)]
         [ForeignKey(nameof(User))]
         public override Guid UserId { get; set; }
 
-        //[InverseProperty("Claims")]
+        //[InverseProperty("Logins")]
         public virtual ApplicationUser User { get; set; }
     }
 }

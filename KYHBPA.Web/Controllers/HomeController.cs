@@ -18,18 +18,16 @@ namespace KYHBPA.Controllers
         public ActionResult Index()
         {
 
-            var carouselImageIds = _photoRepository.FindPhotoGalleryIds().ToList();
+            var carouselImageIds = _photoRepository.FindPhotoIdsByKey("Carousel").ToList();
 
             var newsImageId = _photoRepository.FindPhotoIdByKey("News");
             var eventsImageId = _photoRepository.FindPhotoIdByKey("Events");
-            var legislationImageId = _photoRepository.FindPhotoIdByKey("Legislation");
 
             var viewModel = new HomepageViewModel()
             {
                 CarouselIds = carouselImageIds,
                 NewsImageId = newsImageId,
                 EventsImageId = eventsImageId,
-                LegislationImageId = legislationImageId
             };
 
             return View(viewModel);

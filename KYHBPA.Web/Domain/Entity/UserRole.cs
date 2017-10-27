@@ -8,9 +8,9 @@ namespace KYHBPA.Entity
     using System.Collections.Generic;
 
     [Table("UserRoles", Schema = "Identity")]
-    public partial class AspNetUserRole : IdentityUserRole<Guid>
+    public partial class UserRole : IdentityUserRole<Guid>
     {
-        public AspNetUserRole()
+        public UserRole()
         {
             //this.User = new HashSet<ApplicationUser>();
             //this.Role = new HashSet<AspNetRole>();
@@ -30,6 +30,6 @@ namespace KYHBPA.Entity
         public ApplicationUser User { get; set; }
 
         [InverseProperty("Users")]
-        public AspNetRole Role { get; set; }
+        public Role Role { get; set; }
     }
 }

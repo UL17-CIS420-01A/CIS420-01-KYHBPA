@@ -2,7 +2,7 @@
 
 namespace KYHBPA
 {
-    public enum State
+    public enum States
     {
         [Description("Alabama")]
         AL,

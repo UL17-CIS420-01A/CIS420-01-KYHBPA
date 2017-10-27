@@ -4,9 +4,9 @@ using KYHBPA.Entity;
 
 namespace KYHBPA.EntityMappers
 {
-    public class AspNetRoleMapper : EntityTypeConfiguration<AspNetRole>
+    public class RoleMapper : EntityTypeConfiguration<Role>
     {
-        public AspNetRoleMapper()
+        public RoleMapper()
         {
             ToTable("Roles", "Identity");
 

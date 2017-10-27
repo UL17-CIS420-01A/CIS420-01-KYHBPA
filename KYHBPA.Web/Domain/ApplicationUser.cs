@@ -12,7 +12,7 @@ namespace KYHBPA
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     [Table("Users", Schema = "Identity")]
-    public class ApplicationUser : IdentityUser<Guid, AspNetUserLogin, AspNetUserRole, AspNetUserClaim>
+    public class ApplicationUser : IdentityUser<Guid, UserLogin, UserRole, UserClaim>
     {
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, Guid> manager)

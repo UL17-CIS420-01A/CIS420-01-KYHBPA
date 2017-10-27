@@ -262,6 +262,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Domain\Collections\PhotoCollection.cs" />
+    <Compile Include="Domain\Enums\Roles.cs" />
     <Compile Include="Domain\Enums\States.cs" />
     <Compile Include="Infrastructure\Attributes\IsTrueAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -285,11 +286,13 @@
     <Compile Include="Domain\PollQuestion.cs" />
     <Compile Include="Domain\PollResponse.cs" />
     <Compile Include="Domain\Survey.cs" />
-    <Compile Include="Domain\Entity\AspNetRole.cs" />
-    <Compile Include="Domain\Entity\AspNetUserClaim.cs" />
-    <Compile Include="Domain\Entity\AspNetUserLogin.cs" />
-    <Compile Include="Domain\Entity\AspNetUserRole.cs" />
-    <Compile Include="Infrastructure\EntityMappers\AspNetRoleMapper.cs" />
+    <Compile Include="Domain\Entity\Role.cs" />
+    <Compile Include="Domain\Entity\UserClaim.cs" />
+    <Compile Include="Domain\Entity\UserLogin.cs" />
+    <Compile Include="Domain\Entity\UserRole.cs" />
+    <Compile Include="Infrastructure\EntityMappers\UserRoleMapper.cs" />
+    <Compile Include="Infrastructure\EntityMappers\RoleMapper.cs" />
+    <Compile Include="Infrastructure\Extension\ActionLinkExtensions.cs" />
     <Compile Include="Infrastructure\Extension\Base64StringExtensions.cs" />
     <Compile Include="Infrastructure\Extension\CommonFunctions.cs" />
     <Compile Include="Infrastructure\Extension\DateTimeExtensions.cs" />
@@ -315,13 +318,24 @@
     <Compile Include="Infrastructure\MyLogger.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\EventFeedbackViewModels.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\PhotosViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostTagMap.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\ViewModels\BlogListViewModel.cs" />
+    <Compile Include="Models\ViewModels\BlogPostDetailsViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryListViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateBlogPostViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateCommentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BlogRepository.cs" />
     <Compile Include="Repository\Implementation\PhotoRepository.cs" />
     <Compile Include="Repository\Implementation\BaseRepository.cs" />
     <Compile Include="Repository\Implementation\UserRepository.cs" />
@@ -657,6 +671,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Blog\CreateComment.cshtml" />
+    <Content Include="Views\Blog\Details.cshtml" />
+    <Content Include="Views\Blog\Edit.cshtml" />
+    <Content Include="Views\Blog\List.cshtml" />
+    <Content Include="Views\Blog\Manage.cshtml" />
     <None Include="Views\Home\News.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
     <Content Include="Views\Surveys\Delete.cshtml" />
@@ -664,8 +684,12 @@
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\Photos\_DetailsDL.cshtml" />
+    <Content Include="Views\Shared\_PagerPartial.cshtml" />
+    <Content Include="Views\Shared\_PostTemplatePartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Calendar\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

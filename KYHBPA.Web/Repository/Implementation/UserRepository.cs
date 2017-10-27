@@ -33,6 +33,6 @@ namespace KYHBPA.Repository.Implementation
         public bool? IsInRole(Guid roleId, Guid userId) => 
             FindById(userId)?.Roles.Any(r => r.RoleId == roleId);
 
-        public bool? IsInRole(AspNetUserRole role, Guid userId) => FindById(userId)?.Roles.Any(r => r.RoleId == role.RoleId);
+        public bool? IsInRole(UserRole role, Guid userId) => FindById(userId)?.Roles.Any(r => r.RoleId == role.RoleId);
     }
 }

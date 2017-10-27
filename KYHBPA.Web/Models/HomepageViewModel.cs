@@ -11,6 +11,5 @@ namespace KYHBPA.Models
         public List<Guid> CarouselIds { get; set; }
         public Guid EventsImageId { get; set; }
         public Guid NewsImageId { get; set; }
-        public Guid LegislationImageId { get; set; }
     }
 }

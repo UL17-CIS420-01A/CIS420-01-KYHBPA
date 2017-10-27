@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Metadata.Edm;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace KYHBPA.Entity
@@ -16,21 +16,20 @@ namespace KYHBPA.Entity
     using System;
     using System.Collections.Generic;
 
-    [Table("UserLogins", Schema = "Identity")]
-    public partial class AspNetUserLogin : IdentityUserLogin<Guid>
+    //[Table("Roles", Schema = "Identity")]
+    public partial class Role : IdentityRole<Guid, UserRole>
     {
-        [Key, Required]
-        [Column(Order = 0)]
-        public override string LoginProvider { get; set; }
-        [Key, Required]
-        [Column(Order = 1)]
-        public override string ProviderKey { get; set; }
-        [Key, Required]
-        [Column(Order = 2)]
-        [ForeignKey(nameof(User))]
-        public override Guid UserId { get; set; }
+        private readonly ICollection<UserRole> _users;
 
-        //[InverseProperty("Logins")]
-        public virtual ApplicationUser User { get; set; }
+        public Role()
+        {
+            this._users = new HashSet<UserRole>();
+        }
+
+        [InverseProperty("Role")]
+        public override ICollection<UserRole> Users
+        {
+            get { return _users; }
+        }
     }
 }

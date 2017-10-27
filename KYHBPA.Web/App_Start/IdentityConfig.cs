@@ -109,7 +109,7 @@ namespace KYHBPA
     }
 
     public class ApplicationUserStore :
-        UserStore<ApplicationUser, AspNetRole, Guid, AspNetUserLogin, AspNetUserRole, AspNetUserClaim>,
+        UserStore<ApplicationUser, Role, Guid, UserLogin, UserRole, UserClaim>,
         IUserStore<ApplicationUser, Guid>,
         IDisposable
     {

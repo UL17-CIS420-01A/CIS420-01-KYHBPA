@@ -11,6 +11,6 @@ namespace KYHBPA.Repository
         ApplicationUser FindByUsername(string userName);
         List<ApplicationUser> FindUsers();
         bool? IsInRole(Guid roleId, Guid userId);
-        bool? IsInRole(AspNetUserRole role, Guid userId);
+        bool? IsInRole(UserRole role, Guid userId);
     }
 }

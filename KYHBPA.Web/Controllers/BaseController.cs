@@ -76,7 +76,7 @@ namespace KYHBPA.Controllers
         }
 
         //Cache for one day(server and client, vary by id)
-        [OutputCache(CacheProfile = "RenderImage", VaryByParam = "id", Duration = 86400, Location = OutputCacheLocation.ServerAndClient, NoStore = false)]
+        //[OutputCache(CacheProfile = "RenderImage", VaryByParam = "id", Duration = 86400, Location = OutputCacheLocation.ServerAndClient, NoStore = false)]
         [HttpGet]
         public async Task<ActionResult> RenderImage(Guid? id)
         {

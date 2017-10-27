@@ -1,5 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Reflection;
+using Google.Apis.Util;
 using KYHBPA.Entity;
+using KYHBPA.Models;
 using KYHBPA.EntityMappers;
 
 namespace KYHBPA
@@ -7,7 +14,7 @@ namespace KYHBPA
     public class EntityDbContext : DbContext
     {
 
-        private EntityDbContext() : base("DefaultConnection")
+        public EntityDbContext() : base("DefaultConnection")
         {
             var logger = new MyLogger();
             Database.Log = s => logger.Log("EntityDbContext", s);
@@ -26,29 +33,17 @@ namespace KYHBPA
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new AspNetRoleMapper());
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //        System.Diagnostics.Debugger.Launch();
+
+            modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
 
             //modelBuilder.Entity<ApplicationUser>()
             //    .ToTable("Users");
-            //modelBuilder.Entity<AspNetUserRole>()
-            //    .ToTable("UserRoles");
             //modelBuilder.Entity<AspNetUserClaim>()
             //    .ToTable("UserClaims");
-            modelBuilder.Entity<AspNetUserRole>()
-                .HasRequired(c => c.Role)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-            modelBuilder.Entity<AspNetUserRole>()
-                .HasRequired(c => c.User)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-            //modelBuilder.Entity<AspNetRole>()
-            //    .HasOptional(s => s.Users)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(true);
-            modelBuilder.Entity<AspNetUserLogin>()
+            modelBuilder.Entity<UserLogin>()
                 .HasKey((obj) => new {obj.LoginProvider, obj.ProviderKey, obj.UserId});
-                //.ToTable("UserLogins");
             base.OnModelCreating(modelBuilder);
         }
 
@@ -69,5 +64,9 @@ namespace KYHBPA
         public virtual DbSet<PollQuestion> PollQuestions { get; set; }
         public virtual DbSet<PollResponse> PollResponses { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
     }
 }

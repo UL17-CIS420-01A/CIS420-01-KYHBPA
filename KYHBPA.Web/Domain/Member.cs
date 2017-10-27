@@ -50,9 +50,9 @@ namespace KYHBPA
         public string City { get; set; }
 
         [Required(ErrorMessage = "State Required")]
-        [EnumDataType(enumType: typeof(State), ErrorMessage = "State is not valid")]
+        [EnumDataType(enumType: typeof(States), ErrorMessage = "State is not valid")]
         [Display(Name = "State")]
-        public State State { get; set; }
+        public States States { get; set; }
 
         [Required(ErrorMessage = "Zip Code Required")]
         [Display(Name = "Zip Code")]
