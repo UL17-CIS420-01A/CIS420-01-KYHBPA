@@ -30,7 +30,7 @@
         @Html.DisplayFor(model => model.IsInGallery)
     </dd>
 
-    @if (!(Model.PhotoCollectionKey.IsNullOrWhiteSpace()))
+    @if (!Model.PhotoCollectionKey.IsNullOrWhiteSpace())
     {
         <dt>
             @Html.DisplayNameFor(model => model.PhotoCollectionKey)

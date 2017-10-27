@@ -12,6 +12,7 @@ namespace KYHBPA
         {
             Mapper.Initialize(cfg =>
             {
+                cfg.CreateMissingTypeMaps = true;
                 //cfg.CreateMap<User, ApplicationUser>()
                 //    .ForMember(model => model.Member,
                 //        opt => opt.MapFrom(vm => vm.Member))

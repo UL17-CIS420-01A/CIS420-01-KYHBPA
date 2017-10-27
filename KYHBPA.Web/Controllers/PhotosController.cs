@@ -50,7 +50,21 @@ namespace KYHBPA.Controllers
             {
                 return HttpNotFound();
             }
-
+            //var model = new PhotoDetailedViewModel()
+            //{
+            //    Id = photo.Id,
+            //    IsDeleted = photo.IsDeleted,
+            //    LastModified = photo.LastModified,
+            //    Uploaded = photo.Uploaded,
+            //    DeletedBy = photo.DeletedBy,
+            //    LastModifiedBy = photo.LastModifiedBy,
+            //    Deleted = photo.Deleted,
+            //    IsInGallery = photo.IsInGallery,
+            //    Description = photo.Description,
+            //    PhotoCollectionKey = photo.PhotoCollectionKey,
+            //    PhotoName = photo.PhotoName,
+            //    UploadedBy = photo.UploadedBy,
+            //};
             var model = AutoMapper.Mapper.Map(photo, new PhotoDetailedViewModel());
 
             return View(model);
@@ -62,9 +76,9 @@ namespace KYHBPA.Controllers
         {
             var viewModel = new PhotoUploadViewModel()
             {
-                PhotoKeys = (await _photoRepository.FindAvailableCollectionKeysAsync()).Select(o => new SelectListItem() { Value = o, Text = o })
+                PhotoKeys = new[] { new SelectListItem() { Value = null, Text = "None", Selected = true } }.Concat((await _photoRepository.FindAvailableCollectionKeysAsync()).Select(o => new SelectListItem() { Value = o, Text = o })),
             };
-            return View(new PhotoUploadViewModel());
+            return View(viewModel);
         }
 
         // POST: Photos/Create
@@ -120,9 +134,9 @@ namespace KYHBPA.Controllers
                 return HttpNotFound();
             }
             var model = AutoMapper.Mapper.Map(photo, new PhotoEditViewModel());
-            model.PhotoKeys =
+            model.PhotoKeys = new[] { new SelectListItem() { Value = null, Text = "None", Selected = photo.PhotoCollectionKey.IsNullOrWhiteSpace() } }.Concat(
                 (await _photoRepository.FindAvailableCollectionKeysAsync()).Select(o =>
-                    new SelectListItem() { Value = o, Text = o });
+                    new SelectListItem() { Value = o, Text = o, Selected = (photo.PhotoCollectionKey == o) }));
             return View(model);
         }
 
