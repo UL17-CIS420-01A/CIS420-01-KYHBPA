@@ -9,33 +9,32 @@ namespace KYHBPA.Controllers
 {
     public class DocumentsController : BaseController
     {
-
-        [HttpGet]
-        public ActionResult UploadFile()
+        // GET: Documents
+        public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file)
+        public ActionResult ListDocuments()
         {
-            try
-            {
-                if (file.ContentLength > 0)
-                {
-                    string fileName = Path.GetFileName(file.FileName);
-                    string path = Path.Combine(Server.MapPath("~/Content/Documents"), fileName);
-                    file.SaveAs(path);
-                }
-                ViewBag.Message = "Success";
-                return View();
-            }
-            catch
-            {
-                ViewBag.Message = "Failure";
-                return View();
-            }
+            List<DocumentModel> documents = new List<DocumentModel>();
+
+            return View(documents);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        public ActionResult Delete()
+        {
+            return View();
+        }
     }
 }
