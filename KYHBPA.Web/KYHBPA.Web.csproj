@@ -265,6 +265,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\DocumentSupportController.cs" />
     <Compile Include="Controllers\EventFeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -691,6 +692,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Documents\" />
+    <Folder Include="Views\DocumentSupport\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
