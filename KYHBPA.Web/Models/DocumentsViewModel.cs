@@ -11,12 +11,6 @@ namespace KYHBPA.Models
     public class DocumentsViewModel
     {        
         public int ID { get; set; }
-        public string Extension { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "File Name")]
-        public string FileName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
