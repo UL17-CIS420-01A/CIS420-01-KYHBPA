@@ -264,7 +264,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\EventFeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -667,7 +667,7 @@
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Legislation.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
