@@ -264,6 +264,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\EventFeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -677,6 +678,10 @@
     <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Views\Blog\List.cshtml" />
     <Content Include="Views\Blog\Manage.cshtml" />
+    <Content Include="Views\Documents\Upload.cshtml" />
+    <Content Include="Views\Documents\Edit.cshtml" />
+    <Content Include="Views\Documents\Delete.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
     <None Include="Views\Home\News.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
     <Content Include="Views\Surveys\Delete.cshtml" />
