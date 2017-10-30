@@ -270,7 +270,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
-    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Domain\ApplicationUser.cs" />
     <Compile Include="Domain\Document.cs" />
     <Compile Include="Domain\Employee.cs" />
@@ -334,7 +333,6 @@
     <Compile Include="Models\ViewModels\CategoryListViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateBlogPostViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateCommentViewModel.cs" />
-    <Compile Include="Models\DocumentsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Implementation\BlogRepository.cs" />
     <Compile Include="Repository\IPhotoRepository.cs" />
@@ -678,11 +676,6 @@
     <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Views\Blog\List.cshtml" />
     <Content Include="Views\Blog\Manage.cshtml" />
-    <Content Include="Views\Documents\Index.cshtml" />
-    <Content Include="Views\Documents\ListDocuments.cshtml" />
-    <Content Include="Views\Documents\Create.cshtml" />
-    <Content Include="Views\Documents\Edit.cshtml" />
-    <Content Include="Views\Documents\Delete.cshtml" />
     <None Include="Views\Home\News.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
     <Content Include="Views\Surveys\Delete.cshtml" />
