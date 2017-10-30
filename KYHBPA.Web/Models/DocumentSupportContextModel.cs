@@ -6,10 +6,10 @@ using System.Web;
 
 namespace KYHBPA.Models
 {
-    public class DocumentSupportContextModel : DbContext
+   /* public class DocumentSupportContextModel : DbContext
         : base("name=DefaultConnection")
     {
     }
     public DbSet<DocumentSupportViewModel> Supports { get; set; }
-    public DbSet<DocumentFileDetailViewModel> FileDetails { get; set; }
+    public DbSet<DocumentFileDetailViewModel> FileDetails { get; set; }*/
 }
