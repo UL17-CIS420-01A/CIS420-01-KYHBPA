@@ -144,7 +144,7 @@ using KYHBPA.Data.Infrastructure;
 
 namespace KYHBPA.Controllers
 {
-    public class EventController : BaseController
+    public class EventsController : BaseController
     {
         //Refer to this link in order to set up the Calendar.
         //http://scheduler-net.com/docs/simple-.net-mvc-application-with-scheduler.html#step_2_add_the_scheduler_reference
