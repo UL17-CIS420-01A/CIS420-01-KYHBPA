@@ -22,8 +22,12 @@ textarea {
     width: 200px;
     height: 200px;
 }
+
 .smallImage {
-    min-width: 60px; max-width: 200px; min-height: 60px; max-height: 200px;
+    min-width: 60px;
+    max-width: 200px;
+    min-height: 60px;
+    max-height: 200px;
 }
 
 .fa {
@@ -43,4 +47,20 @@ textarea {
 .fa-twitter {
     background: #55ACEE;
     color: white;
+}
+
+.smcx-embed {
+    width: 480px !important;
+    height: 300px !important;
+}
+
+.jumbotron h1, .jumbotron .h1 {
+    text-align: center;
+    font-size: 50px;
+    font-weight: lighter;
+}
+
+.widgetShadow {
+    box-shadow: 0 30px 0 #4e5d6c;
+    display: inline-block;
 }

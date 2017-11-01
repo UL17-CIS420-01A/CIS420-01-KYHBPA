@@ -52,7 +52,7 @@ namespace KYHBPA
         [Required(ErrorMessage = "State Required")]
         [EnumDataType(enumType: typeof(States), ErrorMessage = "State is not valid")]
         [Display(Name = "State")]
-        public States States { get; set; }
+        public States State { get; set; }
 
         [Required(ErrorMessage = "Zip Code Required")]
         [Display(Name = "Zip Code")]

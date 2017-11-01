@@ -8,95 +8,79 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-<div id="fb-root"></div>
-@*Facebook sdk (news feed)
-    <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10';
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>*@
-    <div class="navbar">
-        <div align="right"> <a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!"></a></div>
-        3729 South 4th Street <br />
-        Louisville, KY 40214
-    </div>
-<div class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Kentucky HBPA", "Index", "Home", new
-            {
-                area = ""
-            }, new
-            {
-                @class = "navbar-brand"
-            })
-        </div>
+<body style="padding:0">
+    <div id="fb-root"></div>
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                        About <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu navbar-inverse">
-                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
-                        <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
-                        <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                        News <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu navbar-inverse">
-                        <li>@Html.ActionLink("News", "Index", "News")</li>
-                        <li>@Html.ActionLink("Events", "Index", "Events")</li>
-                        <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
-                        <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
-                    </ul>
-                </li>
-                @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
-                <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
-                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
-            </ul>
-            @Html.Partial("_LoginPartial")
+    <div class="navbar" style="margin:0">
+        <div class="col-md-8" style="padding:0" align="left"> <img style="height: 150px;" src="http://www.equilottery.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-01-at-11.30.21-PM.png" /></div>
+        <div class="col-md-4" style="padding:0" align="right"> <a href="https://www.paypal.com/us/home"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate Now!"></a></div>
+    </div>
+    <div class="navbar navbar-inverse" style="margin:0">
+        <div class="container">
+            <div class="navbar-header">
+                <div align="left"><a href="/"><img src="https://i.imgur.com/ZzlrrsR.png" /></a></div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            About <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu navbar-inverse">
+                            <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                            <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
+                            <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            News <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu navbar-inverse">
+                            <li>@Html.ActionLink("News", "News", "Home")</li>
+                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                            <li>@Html.ActionLink("Legislation", "Legislation", "Home")</li>
+                        </ul>
+                    </li>
+                    @*<li>@Html.ActionLink("Surveys", "Index", "Surveys")</li>*@ @*Move to Home as a widget (Partial view if you can...)*@
+                    <li>@Html.ActionLink("Gallery", "Index", "Photos")</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>
     </div>
-</div>
-<div class="container body-content" style="background-position: center bottom">
-    <div>@RenderBody()</div>
-    @*Facebook news feed
-        <div class="container" style="background-position: right center">
-            <div class="fb-page" data-href="https://www.facebook.com/pg/KYhbpa" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/pg/KYhbpa" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/pg/KYhbpa">Kentucky HBPA</a></blockquote></div>
-        </div>*@
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Kentucky Horsemen’s Benevolent and Protective Association, Inc. </p>
-        <p>
-        Connect with us on Social Media
-        <div> 
-            <a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"></a>
-            <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a> 
-        </div>
-        </p> 
-        <p>
-            Contact us <br />
-            <a href="mailto:kentuckyhbpa@gmail.com">kentuckyhbpa@gmail.com</a><br />
-            (502) 363-1077
-        </p>
-    </footer>
-</div>
+    <div class="container body-content" style="background-position: center bottom">
+        <div>@RenderBody()</div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+        <hr />
+        <footer>
+            <p>
+                Connect with us on Social Media
+                <div>
+                    <a href="https://www.facebook.com/KYhbpa/" class="fa fa-facebook"></a>
+                    <a href="https://twitter.com/kyhbpa?lang=en" class="fa fa-twitter"></a>
+                </div>
+            </p>
+            <p>
+                Contact us <br />
+                <a href="mailto:kentuckyhbpa@gmail.com">kentuckyhbpa@gmail.com</a><br />
+                (502) 363-1077
+            </p>
+            <p>&copy; @DateTime.Now.Year - Kentucky Horsemen’s Benevolent and Protective Association, Inc. </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

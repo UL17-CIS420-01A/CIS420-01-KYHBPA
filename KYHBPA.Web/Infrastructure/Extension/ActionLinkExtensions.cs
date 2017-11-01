@@ -9,7 +9,7 @@ namespace KYHBPA.Helpers
     {
         public static MvcHtmlString PostLink(this HtmlHelper helper, Post post)
         {
-            return helper.ActionLink(post.Title, "Post", "Blog",
+            return helper.ActionLink(post.Title, "Post", "Blog", // TODO: Post is not an Action on BlogController?
                 new
                 {
                     year = post.PostedOn.Year,
@@ -37,7 +37,7 @@ namespace KYHBPA.Helpers
 
         public static MvcHtmlString TagLink(this HtmlHelper helper, Tag tag)
         {
-            return helper.ActionLink(tag.Name, "Tag", "Blog", new { tag = tag.UrlSlug },
+            return helper.ActionLink(tag.Name, "Tag", "Blog", new { tag = tag.UrlSlug }, // TODO: Tag is not an Action on BlogController?
                 new
                 {
                     title = String.Format("See all posts in {0}", tag.Name)
