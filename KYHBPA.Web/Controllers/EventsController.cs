@@ -157,6 +157,7 @@ namespace KYHBPA.Controllers
             var scheduler = new DHXScheduler(this); //initializes dhtmlxScheduler
             scheduler.LoadData = true;// allows loading data
             scheduler.EnableDataprocessor = true;// enables DataProcessor in order to enable implementation CRUD operations
+            scheduler.Skin = DHXScheduler.Skins.Flat;
 
             return View(scheduler);
             //}
