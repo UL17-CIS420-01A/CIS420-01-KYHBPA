@@ -290,6 +290,7 @@
     <Compile Include="Domain\Entity\UserRole.cs" />
     <Compile Include="Domain\Enums\Roles.cs" />
     <Compile Include="Domain\Enums\States.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Infrastructure\EntityDbContext.cs" />
     <Compile Include="Infrastructure\EntityDbContextFactory.cs" />
     <Compile Include="Infrastructure\ActionResults\ImageResult.cs" />
