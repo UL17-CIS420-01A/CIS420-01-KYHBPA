@@ -122,6 +122,7 @@ namespace KYHBPA.Controllers
 
         // GET: Photos/Edit/5
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Edit(Guid? id)
         {
             if (!id.HasValue)
@@ -145,6 +146,7 @@ namespace KYHBPA.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Edit(PhotoEditViewModel photoEditViewModel)
         {
             if (photoEditViewModel.IsNull())
@@ -163,6 +165,7 @@ namespace KYHBPA.Controllers
 
         // GET: Photos/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Delete(Guid? id)
         {
             if (!id.HasValue)
@@ -182,6 +185,7 @@ namespace KYHBPA.Controllers
         // POST: Photos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> DeleteConfirmed(Guid? id)
         {
             if (id.HasValue)

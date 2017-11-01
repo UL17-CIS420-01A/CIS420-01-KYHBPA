@@ -6,12 +6,21 @@
 }
 
 
-<script src="~/Scripts/jquery-3.2.1.js"></script>
-<script src="~/Scripts/jquery-3.2.1.min.js"></script>
-
+<script async src="~/Scripts/jquery-3.2.1.js"></script>
+<script async src="~/Scripts/jquery-3.2.1.min.js"></script>
+@*Facebook sdk (news feed)*@
+<script async>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <style>
     .container.body-content {
         width: 100%;
+        padding: 0;
     }
 </style>
 
@@ -65,21 +74,48 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Events</h2>
-        <img style="height:100%;width:100%;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.EventsImageId })" />
+    <div class="col-md-4" align="center">
+        @*<h2 style="text-align: center;">Events</h2>*@
+        <div class="widgetShadow">
+            <img style="height: 300px; max-width: 480px; object-fit: cover" src="@Url.Action("RenderImage", new {id = Model.EventsImageId})" />
+        </div>
         <p>Join us on the track!</p>
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
-    <div class="col-md-4">
-        <h2>News</h2>
-        <img style="height:100%;width:100%;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.NewsImageId })" />
-        <p>Read about current issues.</p>
-        <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
+    <div class="col-md-4" align="center">
+        @*<h2 style="text-align: center;">News</h2>*@
+        <div class="widgetShadow">
+            <img style="height:300px;max-width:480px;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.NewsImageId })" />
+        </div>
+            <p>Read about current issues.</p>
+            <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
+        </div>
+    <div class="col-md-4" align="center">
+        @*<h2 style="text-align: center;">Get Involved!</h2>*@
+        <div class="widgetShadow">
+            <script>(function (t, e, s, n) { var o, a, c; t.SMCX = t.SMCX || [], e.getElementById(n) || (o = e.getElementsByTagName(s), a = o[o.length - 1], c = e.createElement(s), c.type = "text/javascript", c.async = !0, c.id = n, c.src = ["https:" === location.protocol ? "https://" : "http://", "widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd_2F0cXQ_2FNVrR_2B04JPeP_2BLsWjwZTF1HGS3iSFUGs9Etx7E.js"].join(""), a.parentNode.insertBefore(c, a)) })(window, document, "script", "smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"></a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Tell us how we're doing!</h2>
-        <script>(function (t, e, s, n) { var o, a, c; t.SMCX = t.SMCX || [], e.getElementById(n) || (o = e.getElementsByTagName(s), a = o[o.length - 1], c = e.createElement(s), c.type = "text/javascript", c.async = !0, c.id = n, c.src = ["https:" === location.protocol ? "https://" : "http://", "widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd_2F0cXQ_2FNVrR_2B04JPeP_2BLsWjwZTF1HGS3iSFUGs9Etx7E.js"].join(""), a.parentNode.insertBefore(c, a)) })(window, document, "script", "smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"></a>        
-    </div>
+</div>
 
+<div class="row" style="margin-top: 2em;">
+    <div class="col-md-4">
+        @*Facebook news feed*@
+        <div class="container" style="width: 340px; height: 500px;">
+            <div class="fb-page" data-href="https://www.facebook.com/pg/KYhbpa" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/pg/KYhbpa" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/pg/KYhbpa">Kentucky HBPA</a></blockquote></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @*Twitter news feed*@
+        <div class="container" style="width: 340px; height: 500px;">
+            <a class="twitter-timeline" data-width="340" data-height="500" href="https://twitter.com/KyHBPA?ref_src=twsrc%5Etfw"></a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @*Instagram news feed*@
+        <div class="container" style="width: 340px; height: 500px;">
+            @* Insert instagram widget script here *@
+        </div>
+    </div>
 </div>

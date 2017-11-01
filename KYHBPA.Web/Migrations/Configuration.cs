@@ -167,7 +167,7 @@ namespace KYHBPA.Migrations
                         PhoneNumber = "5023631077",
                         Address = "3729 S. Fourth St.",
                         City = "Louisville",
-                        States = States.KY,
+                        State = States.KY,
                         ZipCode = "40214-1712",
                         LicenseNumber = "Administrator",
                         IsOwner = false,
