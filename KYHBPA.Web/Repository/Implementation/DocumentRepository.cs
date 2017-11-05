@@ -90,7 +90,7 @@ namespace KYHBPA.Repository.Implementation
         {
             return Context.Set<Document>().Where(o => o.IsDeleted).ToList();
         }
-        public async Task<ICollection<Document>> FindDeletedDocumentssAsync()
+        public async Task<ICollection<Document>> FindDeletedDocumentsAsync()
         {
             return await Task.FromResult(FindDeletedDocuments());
         }
