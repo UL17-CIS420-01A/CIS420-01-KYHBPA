@@ -373,8 +373,11 @@
     <Content Include="client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\Facebook.png" />
     <Content Include="Content\Images\ImageNotAvailable.jpg" />
     <Content Include="Content\Buttons.css" />
+    <Content Include="Content\Images\Instagram.png" />
+    <Content Include="Content\Images\Twitter.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

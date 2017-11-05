@@ -4,7 +4,7 @@
 
 .button {
     background-color: darkorange;
-    border: none;
+    border: solid;
     color: navy;
     font: bold italic;
     padding: 15px 32px;
@@ -20,4 +20,5 @@
 .button:hover {
         background-color: white;
         color: orange;
+        border: solid;
 }
