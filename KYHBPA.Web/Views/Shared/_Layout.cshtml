@@ -15,8 +15,9 @@
     <div class="navbar" style="margin:0">
         <div class="col-md-8" style="padding:0" align="left"> <img style="height: 150px;" src="http://www.equilottery.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-01-at-11.30.21-PM.png" /></div>
         <div class="col-md-4" style="padding:0" align="right">
-            <a href="https://www.facebook.com/KYhbpa/"><img height="55" width="55" src="~/Content/Images/Facebook.png" /></a>
-            <a href="https://twitter.com/KyHBPA?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><img height="55" width="55" src="~/Content/Images/Twitter.png" /></a>
+            <a href="https://www.facebook.com/KYhbpa/"><img class="social" height="55" width="55" src="~/Content/Images/Facebook.png" /></a>
+            <a href="https://twitter.com/KyHBPA?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><img class="social" height="55" width="55" src="~/Content/Images/Twitter.png" /></a>
+            <a href="#"><img class="social" height="55" width="55" src="~/Content/Images/Instagram.png" /></a>
             <a href="https://www.paypal.com/" class="button">Donate Now</a>
             <a href="Account/Login" class="button">Login</a>
         </div>
@@ -42,13 +43,6 @@
                         <ul class="dropdown-menu navbar-inverse">
                             <li>@Html.ActionLink("About Us", "About", "Home")</li>
                             <li>@Html.ActionLink("Board of Directors", "BoardofDirectors", "Home")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                            Membership <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu navbar-inverse">
                             <li>@Html.ActionLink("Membership", "Membership", "Home")</li>
                             <li>@Html.ActionLink("Documents", "Index", "Documents")</li>
                         </ul>
