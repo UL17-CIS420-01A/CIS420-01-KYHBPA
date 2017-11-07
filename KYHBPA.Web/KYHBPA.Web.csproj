@@ -373,6 +373,7 @@
     <Content Include="client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Images\Board of Directors.png" />
     <Content Include="Content\Images\Facebook.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

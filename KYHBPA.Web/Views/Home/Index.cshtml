@@ -41,7 +41,7 @@
         @if (!Model.CarouselIds.Any())
         {
             <div class="item active">
-                <img src="@Url.Action("RenderImage")" style="height: 512px; width: 100%; object-fit: fill;" />
+                <img src="@Url.Action("RenderImage")" style="height: 512px; width: 75%; object-fit: fill;" />
             </div>
         }
         @for (int i = 0; i < Model.CarouselIds.Count(); i++)
@@ -49,13 +49,13 @@
             if (i == 0)
             {
                 <div class="item active">
-                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 100%; object-fit: fill;" />
+                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 75%; object-fit: fill;" />
                 </div>
             }
             if (i != 0)
             {
                 <div class="item">
-                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 100%; object-fit: fill;" />
+                    <img src="@Url.Action("RenderImage", new { id = Model.CarouselIds[i] })" style="height: 512px; width: 75%; object-fit: fill;" />
                 </div>
             }
         }
@@ -83,19 +83,19 @@
         <p>@Html.ActionLink("See more »", "Events", "Home", null, new { Class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4" align="center">
+        @*<h2 style="text-align: center;">Get Involved!</h2>*@
+        <div class="widgetShadow">
+            <script>(function (t, e, s, n) { var o, a, c; t.SMCX = t.SMCX || [], e.getElementById(n) || (o = e.getElementsByTagName(s), a = o[o.length - 1], c = e.createElement(s), c.type = "text/javascript", c.async = !0, c.id = n, c.src = ["https:" === location.protocol ? "https://" : "http://", "widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd_2F0cXQ_2FNVrR_2B04JPeP_2BLsWjwZTF1HGS3iSFUGs9Etx7E.js"].join(""), a.parentNode.insertBefore(c, a)) })(window, document, "script", "smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"></a>
+        </div>
+        <p>Get involved!</p>
+    </div>
+    <div class="col-md-4" align="center">
         @*<h2 style="text-align: center;">News</h2>*@
         <div class="widgetShadow">
             <img style="height:300px;max-width:480px;object-fit:cover" src="@Url.Action("RenderImage", new { id = Model.NewsImageId })" />
         </div>
         <p>Read about current issues.</p>
         <p>@Html.ActionLink("See more »", "News", "Home", null, new { Class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4" align="center">
-        @*<h2 style="text-align: center;">Get Involved!</h2>*@
-        <div class="widgetShadow">
-            <script>(function (t, e, s, n) { var o, a, c; t.SMCX = t.SMCX || [], e.getElementById(n) || (o = e.getElementsByTagName(s), a = o[o.length - 1], c = e.createElement(s), c.type = "text/javascript", c.async = !0, c.id = n, c.src = ["https:" === location.protocol ? "https://" : "http://", "widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd_2F0cXQ_2FNVrR_2B04JPeP_2BLsWjwZTF1HGS3iSFUGs9Etx7E.js"].join(""), a.parentNode.insertBefore(c, a)) })(window, document, "script", "smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"></a>
-        </div>
-        <p>Get involved!</p>
     </div>
 </div>
 
