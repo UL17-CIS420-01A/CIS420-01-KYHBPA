@@ -51,3 +51,13 @@ footer {
     margin-left: auto;
     margin-right: auto;
 }
+#carousel {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.jumbotron {
+    margin-left: 40px;
+    margin-right: 40px;
+}
