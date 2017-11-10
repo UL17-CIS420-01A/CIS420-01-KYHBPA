@@ -27,6 +27,11 @@ namespace KYHBPA.Models
         {
             get; set;
         }
+
+        public Member Member
+        {
+            get; set;
+        }
     }
 
     public class ManageLoginsViewModel
