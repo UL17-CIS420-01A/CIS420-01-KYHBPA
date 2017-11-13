@@ -19,7 +19,6 @@ namespace KYHBPA.Controllers
         {
 
             var carouselImageIds = _photoRepository.FindPhotoIdsByKey("Carousel").ToList();
-
             var newsImageId = _photoRepository.FindPhotoIdByKey("News");
             var eventsImageId = _photoRepository.FindPhotoIdByKey("Events");
 
